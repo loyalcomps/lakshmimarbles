@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="extra_field_account_supplier_form_view">
+            <field name="name">invoice_sale_price_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="barcode"/>
+                    <field name="brand_id"  />
+                    <field name="hsn"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                    <field name="product_mrp" />
+                    <field name="sale_price"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='invoice_line_tax_ids']"
+                       position="after">
+                    <field name="customer_tax_id" widget="many2many_tags"
+                           domain="[('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]"
+                           options="{'no_create': True}"/>
+                </xpath>
+
+            </field>
+
+        </record>
+
+        <record model="ir.ui.view" id="extra_field_account_invoice_form_view">
+            <field name="name">Customer Invoice MRP</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                    <field name="product_mrp" />
+
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

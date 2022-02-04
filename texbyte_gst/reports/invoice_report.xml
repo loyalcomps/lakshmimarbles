@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_GST_invoice_document" 
+              inherit_id="account.report_invoice_document"> 
+        <xpath expr="//div[@name='invoice_address']" position="replace">
+        <!-- need to hide the Invoice Address -->
+            <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
+            </div>
+        </xpath>
+        <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <div class="col-xs-2" t-if="o.date_invoice">
+                <strong>Invoice Date</strong>
+                <p t-field="o.date_invoice"/>
+            </div>
+            <div class="col-xs-2" t-if="o.date_due and o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                <strong>Due Date</strong>
+                <p t-field="o.date_due"/>
+            </div>
+            <div class="col-xs-2" t-if="o.place_of_supply">
+                <strong>Place of Supply</strong>
+                <p t-field="o.place_of_supply"/>
+            </div>
+            <div class="col-xs-2" t-if="o.transport_mode">
+                <strong>Transport Mode</strong>
+                <p t-field="o.transport_mode"/>
+            </div>
+            <div class="col-xs-2" t-if="o.vehicle_no">
+                <strong>Vehicle Number</strong>
+                <p t-field="o.vehicle_no"/>
+            </div>
+            <div class="col-xs-2" t-if="o.type in ('in_invoice','in_refund')">
+                <strong>Reverse Charge Applicable</strong>
+                <t t-if="o.reverse_charge"> <p>Yes</p> </t>
+                <t t-if="not o.reverse_charge"> <p>No</p> </t>
+            </div>
+            <div name="reference" class="col-xs-2" t-if="o.reference and o.type == 'in_invoice'">
+                <strong>Reference</strong>
+                <p t-field="o.reference"/>
+            </div>
+            <!--
+            <div class="col-xs-5" t-if="o.partner_id">
+                <strong>Customer Address</strong>
+                <p><span t-if="o.partner_id.name"><span t-field="o.partner_id.name"/></span>
+                <span t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></span>
+                <span t-if="o.partner_id.city"><span t-field="o.partner_id.city"/></span>
+                <span t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id"/></span>
+                <span t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/></span></p>
+                <span t-if="o.partner_id.vat">GSTIN: <span t-field="o.partner_id.vat"/></span>
+            </div>
+            -->
+        </xpath>      
+        <xpath expr="//table[@class='table table-condensed']//thead//tr//th[1]" position="after"> 
+            <th class="text-left" width="8%">HSN/SAC</th>
+        </xpath>
+        <xpath expr="//tbody[@class='invoice_tbody']//tr//td[1]" position="after">
+            <td><span t-field="l.product_id.hsncode.hsncode"/></td>
+        </xpath>
+        <xpath expr="//div[@class='row']//div[@class='col-xs-4 pull-right']" position="after">
+            <div class="col-xs-7 pull-left">
+                Amount in words: Rupees <span t-field="o.amount_in_words"/>
+            </div>
+            <!-- Print the UoM coversions of larger/smaller units are used -->
+            <div class="col-xs-6 pull-left">
+                <t t-as="invoice_line_uom" t-foreach="set(o.invoice_line_ids.filtered(lambda x: x.uom_id.uom_type !='reference').mapped(lambda y: y.uom_id) )">
+                    <t t-set="val" t-value="invoice_line_uom.name +' = '+ str(1/invoice_line_uom.factor)+ ' ' + o.get_reference_unit(invoice_line_uom)"/>
+                    <br/><span t-esc="val"/>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//p[@t-if='o.comment']" position="replace">
+            <div class="row mt32 mb32">
+                <div name="comment" class="col-xs-6" style="width: 60%;">
+                    <p t-if="o.comment">
+                        <strong>Terms &amp; Conditions:</strong>
+                        <span t-field="o.comment"/>
+                     </p>
+                </div>
+                <div name="signature" class="col-xs-6" style="width: 40%;"> 
+                    <p>
+                        Signature:<br></br>
+                        Authorised Signatory<br></br>
+                        Name:<br></br>
+                        Designation:<br></br>
+                     </p>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="external_layout_header" inherit_id="report.external_layout_header">
+        <xpath expr="//div[@class='header']" position="replace">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+                    </div>
+                    <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+                </div>
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6" name="company_address">
+                        <span t-field="company.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                            style="border-bottom: 1px solid black; display:inline-block;"/>
+                        <t t-if="company.vat"><br/>GSTIN: <span t-field="company.vat"/></t>    
+                    </div>
+                </div> 
+            </div>   
+        </xpath>
+    </template>
+
+    <template id="external_layout_footer" inherit_id="report.external_layout_footer">
+        <xpath expr="//div[@class='footer']" position="replace">
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul t-if="not company.custom_footer" class="list-inline">
+                        <t t-set="company" t-value="company.sudo()"/>
+                        <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+
+                        <li t-if="company.fax and company.phone">&amp;bull;</li>
+                        <li t-if="company.fax">Fax: <span t-field="company.fax"/></li>
+
+                        <li t-if="company.email and company.fax or company.email and company.phone">&amp;bull;</li>
+                        <li t-if="company.email">Email: <span t-field="company.email"/></li>
+
+                        <li t-if="company.website and company.email or company.website and company.fax or company.website and company.phone">&amp;bull;</li>
+                        <li t-if="company.website">Website: <span t-field="company.website"/></li>
+                    </ul>
+
+                    <!-- Moved GSTIN Number to Header> 
+                    <ul t-if="not company.custom_footer" class="list-inline" name="financial_infos">
+                        <li t-if="company.vat">TIN: <span t-field="company.vat"/></li>
+                    </ul> -->
+
+                    <t t-if="company.custom_footer">
+                        <span t-raw="company.rml_footer"/>
+                    </t>
+
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li><span class="page"/></li>
+                        <li>/</li>
+                        <li><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div>
+        </xpath>
+    </template>
+  </data>
+</odoo>

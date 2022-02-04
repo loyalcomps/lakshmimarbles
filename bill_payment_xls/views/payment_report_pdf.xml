@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="payment_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Payment Report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                 <t t-set="amtotal" t-value="0"/>
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Date</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Payment Method</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Payment Journal </th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >CHECK number </th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >BANK Reference</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >CHECK Reference </th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Amount</th>
+
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sl_no']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids['date']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['pname']"/>
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['ajname']"/>
+
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['number']"/>
+
+                                            </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['breference']"/>
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['reference']"/>
+
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['amount']"/>
+                                                 <t t-set="amtotal" t-value="amtotal+ line_ids['amount']"/>
+
+
+                                            </td>
+
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="7" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="amtotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

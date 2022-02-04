@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="gst_cash_box_in_form">
+            <field name="name">gst_cash_box_in</field>
+            <field name="model">cash.box.in</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount']" position="after">
+                    <field name="amt_in_words"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>         

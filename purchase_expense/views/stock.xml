@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="stock_picking_expense_inherit_form_view">
+            <field name="name">Purchase Expense</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="po_extra_features.stock_picking_extra_feature_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group/field[@name='discount_amt']" position="after">
+
+                    <field name="purchase_expense_line_ids" attrs="{'invisible':[('purchase_id','=',False)]}">
+                        <tree editable="bottom" string="Purchase Expense">
+                            <field name="name"/>
+                            <field name="rate"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="exp_to_total" />
+
+                        </tree>
+                    </field>
+
+                </xpath>
+                <field name="amount_tax" position="after">
+                    <field name="expense" attrs="{'invisible':[('purchase_id','=',False)]}"/>
+
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

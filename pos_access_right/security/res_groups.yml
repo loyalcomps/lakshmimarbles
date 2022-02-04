@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+
+- !record {model: res.groups, id: group_discount}:
+    name: Point of Sale - Discount
+    category_id: base.module_category_usability
+
+- !record {model: res.groups, id: group_change_unit_price}:
+    name: Point of Sale - Unit Price Change
+    category_id: base.module_category_usability
+
+- !record {model: res.groups, id: group_cash_discount}:
+    name: Point of Sale - Cash Discount
+    category_id: base.module_category_usability
+
+- !record {model: res.groups, id: group_pos_discount}:
+    name: Point of Sale - POS Discount
+    category_id: base.module_category_usability

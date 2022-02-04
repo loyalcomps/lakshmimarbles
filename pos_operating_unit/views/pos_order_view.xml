@@ -1,0 +1,44 @@
+<odoo>
+  <data>
+    <record id="pos_order_branch_tree" model="ir.ui.view">
+        <field name="name">pos.order.tree</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="operating_unit_id" options="{'no_create': True}" groups="operating_unit.group_multi_operating_unit"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="pos_order_branch_form" model="ir.ui.view">
+        <field name="name">pos.order.form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="operating_unit_id" widget="selection" options="{'no_create': True}" groups="operating_unit.group_multi_operating_unit"/>
+            </field>
+            <xpath expr="//page/field[@name='statement_ids']/tree/field[@name='amount']" position="after">
+                <field name="operating_unit_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pos_order_branch_filter" model="ir.ui.view">
+        <field name="name">pos.order.list.select</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[1]" position="after">
+                <filter string="Branch" domain="[]" groups="operating_unit.group_multi_operating_unit" context="{'group_by':'operating_unit_id'}"/>
+            </xpath>
+            <field name="user_id" position="after">
+                <field name="operating_unit_id" groups="operating_unit.group_multi_operating_unit"/>
+            </field>
+        </field>
+    </record>
+
+
+  </data>
+</odoo>

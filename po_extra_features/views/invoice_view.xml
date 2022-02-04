@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="margin_account_invoice_inherit_form_view">
+            <field name="name">vendor bill sell price calculation</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_invoice_inherit_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_mrp']" position="after">
+
+                    <field name="margin"/>
+                    <field name="margin_per"/>
+                    <field name="margin_discount"/>
+                    <field name="margin_discount_per"/>
+                    <field name="flag_margin" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

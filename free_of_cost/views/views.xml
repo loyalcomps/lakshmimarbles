@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="foc_purchase_order_form">
+            <field name="name">foc.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+
+                    <field name="free_qty"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="foc_account_invoice_inherit_form_view">
+            <field name="name">invoice_sale_price_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="after">
+                    <field name="free_qty"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

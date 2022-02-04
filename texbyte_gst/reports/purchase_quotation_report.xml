@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_GST_purchasequotation_document" 
+              inherit_id="purchase.report_purchasequotation_document"> 
+        <xpath expr="//p[@t-if='o.partner_id.vat']" position="replace">
+                <p t-if="o.partner_id.vat">GSTIN: <span t-field="o.partner_id.vat"/></p>        
+        </xpath>    
+    </template>
+  </data>
+</odoo>

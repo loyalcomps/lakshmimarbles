@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+   <record model="ir.ui.view" id="purchase_invoice_inherit_form_view">
+            <field name="name">invoice_sale_price_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="reference" position="after">
+                    <field name="inclusive_value" string="Inclusive"/>
+                </field>
+
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='invoice_line_tax_ids']"
+                       position="after">
+
+
+                    <field name="inclusive_value" invisible="1"/>
+
+                </xpath>
+            </field>
+   </record>
+
+
+      <record model="ir.ui.view" id="purchase_order_inherit_form_view">
+            <field name="name">purchase_order_tree</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+
+                <field name="partner_ref" position="after">
+                    <field name="inclusive_value" string="Inclusive"/>
+                </field>
+            </field>
+      </record>
+
+
+  </data>
+</odoo>

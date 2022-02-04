@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- Purchase Order Line view-->
+    <record model="ir.ui.view" id="book_purchase_order_line_form_view">
+      <field name="name">purchase.order.form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <!-- <xpath expr='//page[@name="general_information"]' position="after"> -->
+        <!-- <notebook> -->
+        <!-- <page name="invoicing" position="after"> -->
+        <!-- <tree name="purchase_order_lines_tree" position="inside"> -->
+        <!--    <xpath expr='//field[@name="price_unit"]' position="before">
+                <field name="main_currency" class="oe_read_only"/>
+            </xpath>
+            <xpath expr='//field[@name="tax_id"]' invisible="1"/>
+         -->
+        <!-- </tree> -->
+        <xpath expr="//sheet" position="attributes">
+            <!-- <attribute name="class">oe_form_sheet_width_large</attribute> -->
+            <attribute name="min-width">"98%"</attribute>
+        </xpath>
+        <xpath expr="//field[@name='partner_id']" position="replace">
+            <field name="partner_id" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}"
+                domain="[('supplier','=',True)]" options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="purchase_type" attrs="{'readonly':[('state', '!=', 'draft')]}"/> 
+            <field name="place_of_supply" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}" options="{'no_create_edit': True, 'no_create':True}"/>
+            <field name="reverse_charge"/> 
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+            <field name="product_id" attrs="{'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))]}"
+                context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
+                options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="replace">
+            <field name="product_uom" groups="product.group_uom" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}"
+                options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="replace">
+            <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]"
+                context="{'default_type_tax_use': 'purchase'}" options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+            <attribute name="invisible">True</attribute>
+        </xpath>
+      </field>
+    </record>
+    
+    <!-- Purchase Filter -->
+    <record id="gst_purchase_order_search_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.list.select</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='invoiced']" position="after">
+                <filter string="Purchase Type - Cash" domain="[[u'purchase_type', u'in', (u'cash',u'Cash')]]" />
+                <filter string="Purchase Type - Credit" domain="[[u'purchase_type', u'in', (u'credit',u'Credit')]]" />
+                <filter string="Purchase Type" domain="[]" context="{'group_by':'purchase_type'}"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Purchase Order Tree View-->
+    <record model="ir.ui.view" id="book_purchase_order_tree_view">
+        <field name="name">purchase.order.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="purchase_type" string="Purchase Type"/>
+            </xpath>
+        </field>  
+    </record> 
+
+  </data>
+</odoo>

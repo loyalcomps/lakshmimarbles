@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+
+
+       <template id="assets" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_salesperson/static/src/js/sale.js"></script>
+                <!--<script type="text/javascript" src="/pos_salesperson/static/src/js/order.js"></script>-->
+                <!--<script type="text/javascript" src="/pos_salesperson/static/src/js/reprint.js"></script>-->
+
+
+            </xpath>
+
+        </template>
+
+      <record model="ir.ui.view" id="view_pos_salesperson_form">
+          <field name="model">pos.order</field>
+          <field name="name">pos.order.salerperson</field>
+          <field name="view_type">form</field>
+          <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+          <field name="arch" type="xml">
+              <!--<field name="partner_id" position="after">-->
+                  <!--<field name="salesperson_name"/>-->
+              <!--</field>-->
+              <xpath expr="//sheet/group/field[@name='partner_id']" position="after">
+              <field name="salesperson_name"/>
+              </xpath>
+          </field>
+      </record>
+
+
+  </data>
+</odoo>

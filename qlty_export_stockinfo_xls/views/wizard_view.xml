@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='qlty_wizard_form'>
+            <field name="name">qlty.wizard.stock.history.form</field>
+            <field name="model">qlty.wizard.stock.history</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    <group string="Warehouse">
+                        <field name="warehouse" widget="many2many_tags"/>
+                    </group>
+                    <!--<notebook>-->
+                        <!--<page string="Category">-->
+                            <!--<field name="category">-->
+                                <!--<tree>-->
+                                    <!--<field name="name"/>-->
+                                <!--</tree>-->
+                            <!--</field>-->
+                        <!--</page>-->
+                    <!--</notebook>-->
+                    <notebook>
+                        <page string="Category">
+                            <field name="category_id">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Supplier">
+                            <field name="supplier_id" domain="[('supplier', '=', True)]">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Product with Stock Info" class="oe_highlight"
+                                context="{'xls_export':1}" icon="fa-download"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='qlty_wizard_act'>
+            <field name="name">Export product stock in Excel</field>
+            <field name="res_model">qlty.wizard.stock.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="qlty_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+                id="qlty_stock_xlsx"
+                model="product.product"
+                string=" "
+                report_type="xlsx"
+                name="qlty_export_stockinfo_xls.qlty_stock_report_xls.xlsx"
+                file="qlty_export_stockinfo_xls.qlty_stock_report_xls.xlsx"
+                attachment_use="False"
+        />
+        <menuitem name="Current stock in Excel" parent="stock.menu_warehouse_report" id="qlty_export_excel"
+                  action="qlty_wizard_act" sequence="3"/>
+    </data>
+</odoo>

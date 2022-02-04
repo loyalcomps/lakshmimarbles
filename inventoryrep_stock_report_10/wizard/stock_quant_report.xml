@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wizard_valuation_stock_inventory" model="ir.ui.view">
+        <field name="name">Inventory at Date</field>
+        <field name="model">wizard.valuation.stock.inventory</field>
+        <field name="arch" type="xml">
+        <form string="Choose your date">
+                <p class="oe_gray">
+                        Retrieve the curent Stock valuation based on your Location.
+                </p>
+                <group>
+                        <group>
+                                <field name="location_id"/>
+                                <field name="product_sub_categ_id"/>
+                        </group>
+                </group>
+                <footer>
+                        <button name="print_pdf_stock_inventory" 
+                                string="Print Stock Inventory" 
+                                type="object" 
+                                class="btn-primary"
+                                context="{'product_sub_categ_id': product_sub_categ_id}"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+        </form>
+        </field>
+        </record>
+
+        <record id="action_wizard_stock_inventory" model="ir.actions.act_window">
+        <field name="name">Stock Inventory</field>
+        <field name="res_model">wizard.valuation.stock.inventory</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_wizard_valuation_stock_inventory"/>
+        <field name="target">new</field>
+        </record>
+        
+        <menuitem
+            id= "stock_quant_pdf_report"
+            parent="stock.menu_stock_root"
+            name= "Stock Report"
+            groups= "stock.group_stock_user"
+        />            
+        <menuitem 
+                id="menu_action_wizard_stock_inventory" 
+                action="action_wizard_stock_inventory" 
+                parent="stock_quant_pdf_report" 
+                sequence="1"
+                groups= "stock.group_stock_user"
+        />
+    </data>
+</odoo>

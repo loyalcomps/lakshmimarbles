@@ -1,0 +1,13 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : <https://store.webkul.com/license.html/> */
+
+.partial-payment-remark{
+    width: 94%;height: 37px;
+    display: none;
+    resize:none;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: center;
+    padding-top: 6% !important;
+}

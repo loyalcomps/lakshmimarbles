@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="qlty_brand_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Brand Wise Report </strong>
+                            </p>
+
+                             <b style="font-size:16px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/>
+
+                            <p style="text-align:left;font-size:16px;">
+                                <strong style="text-align:left;">Category Name:-<span t-esc="category_name"/></strong>
+                                </p><br/>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <t t-set="sqtytotal" t-value="0"/>
+                    <t t-set="saletotal" t-value="0"/>
+                    <t t-set="quantitypurtotal" t-value="0"/>
+                    <t t-set="purtotaltotal" t-value="0"/>
+                    <!--<t t-set="onhandtotal" t-value="0"/>-->
+
+                    <t t-set="brandsqtytotal" t-value="0"/>
+                    <t t-set="brandsaletotal" t-value="0"/>
+                    <t t-set="brandquantitypurtotal" t-value="0"/>
+                    <t t-set="brandpurtotaltotal" t-value="0"/>
+                     <t t-set="ss" t-value="1" />
+
+
+
+
+
+                                  <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                    <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Category Name</th>-->
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Brand</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Quantity</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Amount </th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Quantity</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Amount </th>
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Profit </th>-->
+
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_brand" t-as="line_ids1" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids1['sl_no']"/>-->
+                                            <!--</td>-->
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="ss"/>
+                                                <t t-set="ss" t-value="ss+1"/>
+                                            </td>
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;">-->
+                                                <!--<span t-esc="line_ids1['pcname']"/>-->
+                                            <!--</td>-->
+                                             <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids1['bname']"/>
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids1['sqty']"/>
+                                                 <t t-set="brandsqtytotal" t-value="brandsqtytotal + line_ids1['sqty']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids1['totalsale']"/>
+                                                <t t-set="brandsaletotal" t-value="brandsaletotal + line_ids1['totalsale']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids1['quantitypur']"/>
+                                                <t t-set="brandquantitypurtotal" t-value="brandquantitypurtotal + line_ids1['quantitypur']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids1['purtotal']"/>
+                                                <t t-set="brandpurtotaltotal" t-value="brandpurtotaltotal+ line_ids1['purtotal']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="brandsqtytotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="brandsaletotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="brandquantitypurtotal" /></b>
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="brandpurtotaltotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                    <!--</t>-->
+
+
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

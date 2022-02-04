@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <report
+                id="report_deliveryslip"
+                model="stock.picking"
+                string="Ammas Delivery print"
+                name="gst_tax_module.report_deliveryslip_ammas"
+                file="gst_tax_module.report_deliveryslip_ammas"
+                report_type="qweb-pdf"/>
+
+            <template id="report_deliveryslip_ammas">
+                <t t-call="report.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                        <!--<t t-call="report.external_layout">-->
+                        <div class="page">
+
+                        <div class="row">
+
+                            <div class="col-xs-12" style="text-align: center;font-size:20px;font-family:Calibri !important;">
+                                <br /><br />
+                                <b >DELIVERY NOTE</b>
+                            </div>
+                        </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <![CDATA[&nbsp;]]>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <center>
+                            <table class="table table-bordered" style="width:97%">
+                                <tr>
+                                <td rowspan="4" class="text-center" style="border: 1px solid black;text-align: left;">
+                                <b ><sapn t-field="doc.company_id.partner_id.name"/></b><br />
+                                <sapn t-field="doc.company_id.partner_id.street"/><br />
+                                <sapn t-field="doc.company_id.partner_id.street2"/>-PIN-<sapn t-field="doc.company_id.partner_id.zip"/><br />
+                                <sapn t-field="doc.company_id.partner_id.city"/><sapn t-field="doc.company_id.partner_id.fax"/><br />
+                                Mob :<sapn t-field="doc.company_id.partner_id.phone"/><br />
+                                GSTIN/UIN : <sapn t-field="doc.company_id.partner_id.gst_in"/><br />
+                                E-mail: <sapn t-field="doc.company_id.partner_id.email"/><br />
+                                </td>
+                                <td  class="text-left" style="border: 1px solid black;text-align: left;">
+                                    Delivery Note No.<span t-field="doc.name"/>
+                                </td>
+                                <td class="text-left" style="border: 1px solid black;text-align: left;">
+                                    Dated <span t-field="doc.min_date" t-field-options='{"format": "dd/MMM/yyyy"}'/>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" style="border: 1px solid black;" >
+
+                                    </td>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                        Mode/Terms of Payment
+                                    </td>
+
+                                </tr>
+                                 <tr>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                        Supplier's Ref.
+                                    </td>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                        Other Reference(s)
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                        Buyer's Order No.
+                                    </td>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                         Dated
+                                    </td>
+                                </tr>
+                                <tr>
+                                <td rowspan="3" class="text-left" style="border: 1px solid black;">
+                                    Buyer<br />
+                                    <b><sapn t-field="doc.location_dest_id.partner_id.name"/></b><br />
+                                      <sapn t-field="doc.location_dest_id.partner_id.street"/><br />
+                                    <sapn t-field="doc.location_dest_id.partner_id.street2"/>-PIN-<sapn t-field="doc.company_id.partner_id.zip"/><br />
+                                    <sapn t-field="doc.location_dest_id.partner_id.city"/><sapn t-field="doc.company_id.partner_id.fax"/><br />
+                                    Mob :<sapn t-field="doc.location_dest_id.partner_id.phone"/><br />
+                                    GSTIN/UIN : <sapn t-field="doc.location_dest_id.partner_id.gst_in"/><br />
+                                    State Name :<sapn t-field="doc.location_dest_id.partner_id.state_id.name"/> <sapn t-field="doc.location_dest_id.partner_id.state_code"/><br />
+
+
+
+                                </td>
+                                <td  class="text-left" style="border: 1px solid black;">
+                                    Despatch Document No
+                                </td>
+                                <td class="text-left" style="border: 1px solid black;">
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                        Despatched through
+                                    </td>
+                                    <td class="text-left" style="border: 1px solid black;" >
+                                        Destination
+                                    </td>
+
+                                </tr>
+                                 <tr>
+                                    <td colspan="2" class="text-left" style="border: 1px solid black;" >
+                                        Terms Of Delivery
+                                    </td>
+                                </tr>
+
+                            </table>
+                            </center>
+                        </div>
+
+                   <div class="row">
+                    <center>
+                        <table class="table table-bordered" style="width:97%">
+                            <thead>
+                                <tr style="background-color:#2d405f;color:white;">
+                                    <th style="border: 1px solid black;">
+                                        <center>Sl No</center>
+                                    </th>
+                                    <th style="border: 1px solid black;">
+                                        <center>Discription Of Goods</center>
+                                    </th>
+                                    <th style="border: 1px solid black;">
+                                        <center>HSN/SAC</center>
+                                    </th>
+
+                                    <th style="border: 1px solid black;">
+                                        <center>GST Rate</center>
+                                    </th>
+
+                                     <th style="border: 1px solid black;">
+                                        <center>Quantity</center>
+                                    </th>
+
+                                     <th style="border: 1px solid black;">
+                                        <center>Rate</center>
+                                    </th>
+
+                                     <th style="border: 1px solid black;">
+                                        <center>Per</center>
+                                    </th>
+                                     <th style="border: 1px solid black;">
+                                        <center>Disc %</center>
+                                    </th>
+                                     <th style="border: 1px solid black;">
+                                        <center>Amount</center>
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody class="purchase_tbody">
+                                <t t-set="i" t-value="1" />
+                                <t t-set="f" t-value="0"/>
+                                <t t-foreach="doc.pack_operation_product_ids" t-as="l">
+                                    <tr t-if="l.product_id">
+                                        <td class="text-center" style="border: 1px solid black;">
+                                           <span t-esc="i"/>
+                                           <t t-set="i" t-value="i+1"/>
+                                           <!--<span t-field="l.sequence_number"/>-->
+                                        </td>
+                                        <td style="border: 1px solid black;" >
+                                            <span t-field="l.product_id"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" >
+                                            <span t-field="l.product_id.hsn"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" >
+                                            <t t-foreach="l.product_id.taxes_id" t-as="c">
+                                                <span t-field="c.name"/>
+                                            </t>
+                                        </td>
+                                        <td style="border: 1px solid black;" >
+                                            <span t-field="l.qty_done"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" >
+                                            <span t-field="l.product_id.lst_price"/>
+                                        </td>
+                                        <td class="text-center" style="border: 1px solid black;">
+                                            <span t-field="l.product_uom_id"/>
+                                        </td>
+                                        <td class="text-center" style="border: 1px solid black;">
+                                            <!--<span t-field="l.product_uom_id"/>-->
+                                        </td>
+                                        <td class="text-center" style="border: 1px solid black;">
+                                            <span t-esc="l.qty_done * l.product_id.lst_price"/>
+                                            <t t-set="f" t-value="f +(l.qty_done * l.product_id.lst_price)"/>
+                                            <!--f=l.qty_done * l.product_id.lst_price-->
+                                        </td>
+                                    </tr>
+                                </t>
+
+
+                                <tr>
+                                     <td colspan="8" style="text-align:center;border: 1px solid black" >
+                                         <b><i>Total</i></b>
+                                     </td>
+                                    <td style="text-align:right;border: 1px solid black">
+                                        <span t-esc="f"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                     <td colspan="8" style="text-align:left;border: 1px solid black" >
+                                         <span t-esc="doc._get_amount(f)"/> <![CDATA[&nbsp;]]>Only
+                                     </td>
+                                     <td  style="text-align:right;border: 1px solid black" >
+                                         <b><i>E.&amp;O.E</i></b>
+                                     </td>
+
+                                </tr>
+
+                                 <tr>
+                                     <td colspan="4" style="text-align:left;border: 1px solid black" >
+                                         <b><i>Recd.in Good Condition</i></b>
+                                     </td>
+
+                                     <td colspan="5" class="text-right" style="border: 1px solid black;" >
+                                         <b> For AMMAS FOODS</b>
+                                         <br />
+                                         <br />
+                                         authorised Signatory
+                                     </td>
+                                 </tr>
+                            </tbody>
+                        </table>
+
+                    </center>
+                    </div>
+
+                            </div>
+                        </t>
+                </t>
+            </template>
+    </data>
+</openerp>

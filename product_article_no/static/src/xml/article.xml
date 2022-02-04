@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ProductCategoriesWidget">
+        <t t-jquery=".breadcrumbs" t-operation="prepend">
+            <!--<header class="rightpane-header">-->
+                    <!--<div class="tag-selector" style="right:15%">-->
+                        <!--<div class="wk_tags">-->
+            <!--<div class="searchboxart" align="right">-->
+                            <input placeholder="Product Article" id="pdtArt" class="articlesearch"/>
+            <span class="article-clear"></span>
+            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+            <!--</header>-->
+        </t>
+        <!--<t t-jquery=".searchbox" t-operation="append">-->
+            <!--&lt;!&ndash;<button class="article_search">&ndash;&gt;-->
+                                    <!--<i class='article_search fa fa-file-text-o'></i>-->
+                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</t>-->
+    </t>
+      <!--<t t-extend="ProductCategoriesWidget">-->
+        <!--&lt;!&ndash;<t t-jquery=".rightpane" t-operation="prepend">&ndash;&gt;-->
+            <!--<header class="rightpane-header">-->
+                <!--<div class="tag-selector">-->
+                    <!--<div class="wk_tags">-->
+                        <!--<input type="text" placeholder="Product Article" class="searchbox-product-article"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</header>-->
+        <!--&lt;!&ndash;</t>&ndash;&gt;-->
+    <!--</t>-->
+
+    <!--<t t-extend="SynchNotificationWidget">-->
+        <!--<t t-jquery=".oe_status .js_synch" t-operation="prepend">-->
+            <!--&lt;!&ndash;<header class="rightpane-header">&ndash;&gt;-->
+                <!--<div class="tag-selector2">-->
+
+                    <!--<div class="wk_tags2">-->
+
+
+                                <!--<input type="text" placeholder="Multi Barcode" class="searchbox-multi-barcode2"/>-->
+
+                                <!--<button class="wk_tag2">Search</button>-->
+
+
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--&lt;!&ndash;</header>&ndash;&gt;-->
+
+        <!--</t>-->
+    <!--</t>-->
+
+</templates>

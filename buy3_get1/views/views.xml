@@ -1,0 +1,103 @@
+<odoo>
+    <data>
+        <odoo>
+            <data>
+
+                <record id="pos_promotion_form" model="ir.ui.view">
+                    <field name="name">pos.promotion.form</field>
+                    <field name="model">pos.promotion</field>
+                    <field name="arch" type="xml">
+                        <form string="Promotion">
+                            <sheet>
+                                <div class="oe_title">
+                                    <label for="name" class="oe_edit_only"/>
+                                    <h1>
+                                        <field name="name" class="oe_inline"/>
+                                    </h1>
+                                </div>
+                                <group>
+                                    <group>
+                                        <field name="type"/>
+                                        <field name="product_id" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="active"/>
+                                    </group>
+                                </group>
+
+
+
+                                <group string="Free items (buy product x+y+z ... will free products a+b+c ...)"
+                                       attrs="{'invisible': [('type', '!=', '5_pack_free_gift')], 'required': [('type', '=', '5_pack_free_gift')]}">
+                                    <separator string="Products need apply" colspan="4"/>
+                                    <field name="gift_condition_ids" nolabel="1">
+                                        <tree string="Gifts Condition" editable="1">
+                                            <field name="product_id"/>
+                                            <field name="minimum_quantity"/>
+                                        </tree>
+                                    </field>
+                                    <separator string="Free items" colspan="4"/>
+                                    <field name="gift_free_ids" nolabel="1">
+                                        <tree string="Gifts Condition" editable="1">
+                                            <field name="product_id"/>
+                                            <field name="quantity_free"/>
+                                        </tree>
+                                    </field>
+                                </group>
+
+
+                                <group>
+                                    <separator string="POS Config" colspan="4"/>
+                                    <field name="config_ids" nolabel="1"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+
+                <record id="pos_promotion_tree" model="ir.ui.view">
+                    <field name="name">pos.promotion.tree</field>
+                    <field name="model">pos.promotion</field>
+                    <field name="arch" type="xml">
+                        <tree string="Promotions">
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </tree>
+                    </field>
+                </record>
+
+                <record id="pos_promotion_search" model="ir.ui.view">
+                    <field name="name">pos.promotion.filter</field>
+                    <field name="model">pos.promotion</field>
+                    <field name="arch" type="xml">
+                        <search string="Promotion Search">
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="product_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </search>
+                    </field>
+                </record>
+
+                <record model="ir.actions.act_window" id="action_pos_promotion">
+                    <field name="name">Promotions</field>
+                    <field name="res_model">pos.promotion</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+                <menuitem id="menu_action_pos_promotion"
+                          parent="point_of_sale.menu_point_config_product"
+                          action="action_pos_promotion"
+                />
+
+            </data>
+        </odoo>
+
+    </data>
+</odoo>

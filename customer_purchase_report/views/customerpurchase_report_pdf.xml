@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="customerpurchase_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                             <b style="font-size:18px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/><br/>
+
+                            <p style="font-size:18px;">
+                                <strong>Date wise Customer Purchase report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                 <t t-set="salepostotal" t-value="0"/>
+                <t t-set="qtytotal" t-value="0"/>
+                                        <t t-set="counttotal1" t-value="0"/>
+
+                                     <t t-set="sn" t-value="1"/>
+
+        <t t-if="not counter_only">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Customer</th>
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Phone</th>
+                                    <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Mobile</th>-->
+
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Last Purchase Date</th>
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >No.Of Purchases</th>
+
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Quantity</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Amount</th>
+
+
+                                </thead>
+
+
+
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="sn"/>
+                                                <t t-set="sn" t-value="sn+1"/>
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_ids['ppname']"/>
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['phone']"/>
+                                            </td>
+                                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids['mobile']"/>-->
+                                            <!--</td>-->
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['purchasedate']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['count']"/>
+                                                <!--<t t-set="counttotal" t-value="counttotal + line_ids['count']" />-->
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['purchaseqty']"/>
+                                                <t t-set="qtytotal" t-value="qtytotal + line_ids['purchaseqty']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['purchasetotal']"/>
+                                                <t t-set="salepostotal" t-value="salepostotal + line_ids['purchasetotal']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="5" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="counttotal" /></b>-->
+                            <!--</td>-->
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="qtytotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="salepostotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+        </t>
+                    <br></br>
+                    <br></br>
+
+                     <t t-set="salepostotal1" t-value="0"/>
+                <t t-set="qtytotal1" t-value="0"/>
+                    <t t-set="counttotal1" t-value="0"/>
+                                     <t t-set="s" t-value="1"/>
+
+
+            <t t-if="counter_only">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Customer</th>
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Phone</th>
+                                    <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Mobile</th>-->
+
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Last Purchase Date</th>
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >No.Of Purchases</th>
+
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Quantity</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Amount</th>
+
+
+                                </thead>
+
+
+
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_purchase" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="s"/>
+                                                <t t-set="s" t-value="s+1"/>
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_ids['ppname']"/>
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['phone']"/>
+                                            </td>
+                                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids['mobile']"/>-->
+                                            <!--</td>-->
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['purchasedate']"/>
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['count']"/>
+                                                <!--<t t-set="counttotal1" t-value="counttotal1 + line_ids['count']" />-->
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['purchaseqty']"/>
+                                                <t t-set="qtytotal1" t-value="qtytotal1 + line_ids['purchaseqty']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['purchasetotal']"/>
+                                                <t t-set="salepostotal1" t-value="salepostotal1 + line_ids['purchasetotal']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="5" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="counttotal1" /></b>-->
+                            <!--</td>-->
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="qtytotal1" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="salepostotal1" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+            </t>
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

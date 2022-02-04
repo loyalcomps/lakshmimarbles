@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_pos_receipt"
+            string="Receipt"
+            model="pos.order"
+            report_type="qweb-pdf"
+            name="qlty_pos_reprint.report_receipt"
+            file="qlty_pos_reprint.report_receipt"
+
+        />
+        <template id="report_receipt">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <img t-if="res_company.logo"
+                                     t-att-src="'data:image/png;base64,%s' % res_company.logo"
+                                     style="height:104px;width:150px;"/>
+                                <h2 t-esc="o.user_id.company_id.name"/>
+                                <!-- <div t-field="o.partner_id"
+                                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true, "phone_icons": true}'/> -->
+                                User: 
+                                <span t-field="o.user_id"/>
+                                <br/>
+                                Date: 
+                                <span t-field="o.date_order"/>
+                                <br/>
+                                Invoice No:
+                                <span t-field="o.name"/>
+                                <br/>
+                                <t t-if="o.partner_id">
+                                Customer:
+                                    <span t-field="o.partner_id"/>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="row"></div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr >
+                                    <th >Description</th>
+                              <!--       <th class="text-center">Quantity</th> -->
+                                    <th class="text-center" >MRP</th>
+                                    <th class="text-center" >NRP</th>
+                                    <th class="text-center" >Qty</th>
+                                    <th class="text-center" >Tax %</th>
+                                    <th class="text-center" >Tax</th>
+                                    <th class="text-right" >Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.lines" t-as="line" >
+                                    <td >
+                                        <span t-field="line.product_id"/>
+                                    </td>
+                                    <td >
+                                        <span t-field="line.product_id.product_mrp"/>
+                                    </td>
+                                    <td >
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td class="text-right" >
+                                        <t t-if="o.state != 'cancel' and o.statement_ids">
+                                            <span t-field="line.qty"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-right" >
+                                        <t t-foreach="line.tax_ids" t-as="tax">
+                                            <span t-esc="tax.name"/>
+                                        </t>
+                                        
+                                    </td>
+                                    <td >
+                                        <span t-esc="line.price_subtotal_incl - line.price_subtotal"/>
+                                    </td>
+                                    <td class="text-right" >
+                                        <t t-if="o.state != 'cancel' and o.statement_ids">
+                                            <span t-esc="line.price_subtotal_incl"/>
+                                        </t>
+                                        <!-- <t t-if="line.discount != 0.0">
+                                            <span t-esc="line.discount"/>%
+                                        
+                                        </t> -->
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="row">
+                            <div class="col-xs-6 pull-right">
+                                <table class="table table-condensed">
+                                    <tr class="border-black">
+                                        <td>
+                                            <strong>Taxes</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong t-esc="o.amount_tax"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong t-esc="o.amount_total"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!--<table class="table table-condensed">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                        <!--<th>Payment Mode</th>-->
+                        <!--<th>Amount</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr t-foreach="get_journal_amt(o)" t-as="d">-->
+                        <!--<td>-->
+                        <!--<span t-esc="d['name']"/>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--<span t-esc="d['amt']"/>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                        <!--</table>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

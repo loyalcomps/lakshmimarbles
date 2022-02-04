@@ -1,0 +1,57 @@
+<odoo>
+  <data>
+    <record id="inherited_account_config_view" model="ir.ui.view">
+      <field name="name">account config settings inherited</field>
+      <field name="model">account.config.settings</field>
+      <field name="inherit_id" ref="account.view_account_config_settings"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='accounting']" position="after">
+
+          <group string="Purchase Freight Expense " name="freight_vendor">
+            <label for="id" string="Purchase Freight"/>
+            <div name="freight_conf">
+
+              <div>
+                <label for="freight_account" />
+                <field name="freight_account_purchase" class="oe_inline" />
+              </div>
+            </div>
+          </group>
+          <group string="Purchase Union Charge " name="union_vendor">
+            <label for="id" string="Purchase Union Charge"/>
+            <div name="union_conf">
+
+              <div>
+                <label for="union_account" />
+                <field name="union_account" class="oe_inline" />
+              </div>
+            </div>
+          </group>
+
+          <group string="Purchase Packing " name="packing_vendor">
+            <label for="id" string="Purchase Packing"/>
+            <div name="packing_conf">
+
+              <div>
+                <label for="packing_account" />
+                <field name="packing_account" class="oe_inline" />
+              </div>
+            </div>
+          </group>
+
+          <group string="Purchase Other Charges " name="other_vendor">
+            <label for="id" string="Purchase Other Charges"/>
+            <div name="other_conf">
+
+              <div>
+                <label for="other_account" />
+                <field name="other_account" class="oe_inline" />
+              </div>
+            </div>
+          </group>
+
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

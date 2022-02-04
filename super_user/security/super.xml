@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+    <record model="res.groups" id="group_super_user">
+        <field name="name">Super User</field>
+        <field name="category_id" ref="base.module_category_usability"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+
+    </data>
+</odoo>

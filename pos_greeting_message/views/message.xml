@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+      <record id="pos_greeting_message" model="ir.ui.view">
+            <field name="name">message</field>
+             <field name="model">pos.config</field>
+        <field name="inherit_id" ref="pos_greeting_message.pos_config_greetings"/>
+            <field name="arch" type="xml">
+                <field name='greetings_bool' position="attributes">
+
+                    <!--<button name="action_invoice_open" type="object" states="draft,proforma2"-->
+                            <!--string="Validate" class="oe_highlight" groups="super_user.group_super_user"/>-->
+
+                    <attribute name="groups">pos_greeting_message.group_message_user</attribute>
+                </field>
+            </field>
+      </record>
+  </data>
+</odoo>

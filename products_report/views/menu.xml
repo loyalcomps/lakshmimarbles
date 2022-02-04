@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="admin_reports" name="Reports" sequence="100" groups="base.group_system"/>
+
+        <menuitem id="admin_reports_compare" name="Products Compare" parent="admin_reports" sequence="10"/>
+
+        <menuitem name="Checking" parent="sales_team.menu_base_partner" id="menu_product_mrp_sale_wizard_parent"
+                  sequence="6"/>
+
+
+    </data>
+</odoo>

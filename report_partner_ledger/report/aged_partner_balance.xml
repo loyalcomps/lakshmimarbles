@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_partner_ledger.report_aged_partner_balance_qweb">
+        <t t-call="report.html_container">
+            <h2>hello</h2>
+            <!--<t t-foreach="docs" t-as="o">-->
+                <!-- Saved flag fields into variables, used to define columns display -->
+                <!--<t t-set="show_move_line_details" t-value="o.show_move_line_details"/>-->
+
+                <!--<t t-call="report_partner_ledger.internal_layout">-->
+                    <!-- Defines global variables used by internal layout -->
+                    <!--<t t-set="title">Aged Partner Balance</t>-->
+                    <!--<t t-set="company_name" t-value="o.company_id.name"/>-->
+
+                    <!--<div class="page">-->
+                        <!-- Display filters -->
+                        <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_filters"/>-->
+
+                        <!--<t t-foreach="o.account_ids" t-as="account">-->
+                            <!--<div class="page_break">-->
+                                <!--&lt;!&ndash; Display account header &ndash;&gt;-->
+                                <!--<div class="act_as_table list_table" style="margin-top: 10px;"/>-->
+                                <!--<div class="act_as_caption account_title" style="width: 1141px !important;">-->
+                                    <!--<span t-field="account.code"/> - <span t-field="account.name"/>-->
+                                <!--</div>-->
+
+                                <!--&lt;!&ndash; Display account lines &ndash;&gt;-->
+                                <!--<t t-if="not show_move_line_details">-->
+                                    <!--<div class="act_as_table data_table" style="width: 1140px !important;">-->
+                                        <!--&lt;!&ndash; Display account header &ndash;&gt;-->
+                                        <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_lines_header"/>-->
+
+                                        <!--<t t-foreach="account.partner_ids" t-as="partner">-->
+
+                                            <!--&lt;!&ndash; Display one line per partner &ndash;&gt;-->
+                                            <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_lines"/>-->
+                                        <!--</t>-->
+                                    <!--</div>-->
+
+                                    <!--&lt;!&ndash; Display account footer &ndash;&gt;-->
+                                    <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_account_ending_cumul"/>-->
+                                <!--</t>-->
+
+                                <!--&lt;!&ndash; Display account move lines &ndash;&gt;-->
+                                <!--<t t-if="show_move_line_details">-->
+
+                                    <!--&lt;!&ndash; Display account partners &ndash;&gt;-->
+                                    <!--<t t-foreach="account.partner_ids" t-as="partner">-->
+                                        <!--<div class="page_break">-->
+                                            <!--&lt;!&ndash; Display partner header &ndash;&gt;-->
+                                            <!--<div class="act_as_caption account_title">-->
+                                                <!--<span t-field="partner.name"/>-->
+                                            <!--</div>-->
+
+                                            <!--&lt;!&ndash; Display partner move lines &ndash;&gt;-->
+                                            <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_move_lines"/>-->
+
+                                            <!--&lt;!&ndash; Display partner footer &ndash;&gt;-->
+                                            <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_partner_ending_cumul">-->
+                                                <!--<t t-set="partner_cumul_line" t-value="partner.line_ids"/>-->
+                                            <!--</t>-->
+                                        <!--</div>-->
+                                    <!--</t>-->
+
+                                    <!--&lt;!&ndash; Display account footer &ndash;&gt;-->
+                                    <!--<t t-call="report_partner_ledger.report_aged_partner_balance_qweb_account_ending_cumul"/>-->
+                                <!--</t>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</div>-->
+                <!--</t>-->
+            <!--</t>-->
+        </t>
+    </template>
+
+    <!--<template id="report_partner_ledger.report_aged_partner_balance_qweb_filters">-->
+        <!--<div class="act_as_table data_table" style="width: 1140px !important;">-->
+            <!--<div class="act_as_row labels">-->
+                <!--<div class="act_as_cell">Date at filter</div>-->
+                <!--<div class="act_as_cell">Target moves filter</div>-->
+            <!--</div>-->
+            <!--<div class="act_as_row">-->
+                <!--<div class="act_as_cell">-->
+                    <!--<span t-field="o.date_at"/>-->
+                <!--</div>-->
+                <!--<div class="act_as_cell">-->
+                    <!--<t t-if="o.only_posted_moves">All posted entries</t>-->
+                    <!--<t t-if="not o.only_posted_moves">All entries</t>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</template>-->
+
+    <!--<template id="report_partner_ledger.report_aged_partner_balance_qweb_lines_header">-->
+        <!--&lt;!&ndash; Display table headers for lines &ndash;&gt;-->
+        <!--<div class="act_as_thead">-->
+            <!--<div class="act_as_row labels">-->
+                <!--&lt;!&ndash;## partner&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 370px;">Partner</div>-->
+                <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Residual</div>-->
+                <!--&lt;!&ndash;## current&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Current</div>-->
+                <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Age ≤ 30 d.</div>-->
+                <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Age ≤ 60 d.</div>-->
+                <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Age ≤ 90 d.</div>-->
+                <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Age ≤ 120 d.</div>-->
+                <!--&lt;!&ndash;## older&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 110px;">Older</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</template>-->
+
+    <!--<template id="report_partner_ledger.report_aged_partner_balance_qweb_lines">-->
+        <!--&lt;!&ndash; Display each lines &ndash;&gt;-->
+        <!--<t t-foreach="partner.line_ids" t-as="line">-->
+            <!--&lt;!&ndash; # lines &ndash;&gt;-->
+            <!--<div class="act_as_row lines">-->
+                <!--&lt;!&ndash;## partner&ndash;&gt;-->
+                <!--<div class="act_as_cell left"><span t-field="line.partner"/></div>-->
+                <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.amount_residual"/></div>-->
+                <!--&lt;!&ndash;## current&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.current"/></div>-->
+                <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.age_30_days"/></div>-->
+                <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.age_60_days"/></div>-->
+                <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.age_90_days"/></div>-->
+                <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.age_120_days"/></div>-->
+                <!--&lt;!&ndash;## older&ndash;&gt;-->
+                <!--<div class="act_as_cell amount"><span t-field="line.older"/></div>-->
+            <!--</div>-->
+        <!--</t>-->
+    <!--</template>-->
+
+    <!--<template id="report_partner_ledger.report_aged_partner_balance_qweb_move_lines">-->
+        <!--<div class="act_as_table data_table" style="width: 1140px !important;">-->
+            <!--&lt;!&ndash; Display table headers for move lines &ndash;&gt;-->
+            <!--<div class="act_as_thead">-->
+                <!--<div class="act_as_row labels">-->
+                    <!--&lt;!&ndash;## date&ndash;&gt;-->
+                    <!--<div class="act_as_cell first_column" style="width: 60px;">Date</div>-->
+                    <!--&lt;!&ndash;## move&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 100px;">Entry</div>-->
+                    <!--&lt;!&ndash;## journal&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 40px;">Journal</div>-->
+                    <!--&lt;!&ndash;## account code&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 50px;">Account</div>-->
+                    <!--&lt;!&ndash;## partner&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 120px;">Partner</div>-->
+                    <!--&lt;!&ndash;## ref - label&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 220px;">Ref - Label</div>-->
+                    <!--&lt;!&ndash;## date_due&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 60px;">Due date</div>-->
+                    <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Residual</div>-->
+                    <!--&lt;!&ndash;## current&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Current</div>-->
+                    <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Age ≤ 30 d.</div>-->
+                    <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Age ≤ 60 d.</div>-->
+                    <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Age ≤ 90 d.</div>-->
+                    <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Age ≤ 120 d.</div>-->
+                    <!--&lt;!&ndash;## older&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 70px;">Older</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; Display each move lines &ndash;&gt;-->
+            <!--<t t-foreach="partner.move_line_ids" t-as="line">-->
+                <!--&lt;!&ndash; # lines or centralized lines &ndash;&gt;-->
+                <!--<div class="act_as_row lines">-->
+                    <!--&lt;!&ndash;## date&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.date"/></div>-->
+                    <!--&lt;!&ndash;## move&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.entry"/></div>-->
+                    <!--&lt;!&ndash;## journal&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.journal"/></div>-->
+                    <!--&lt;!&ndash;## account code&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.account"/></div>-->
+                    <!--&lt;!&ndash;## partner&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.partner"/></div>-->
+                    <!--&lt;!&ndash;## ref - label&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.label"/></div>-->
+                    <!--&lt;!&ndash;## date_due&ndash;&gt;-->
+                    <!--<div class="act_as_cell left"><span t-field="line.date_due"/></div>-->
+                    <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.amount_residual"/></div>-->
+                    <!--&lt;!&ndash;## current&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.current"/></div>-->
+                    <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.age_30_days"/></div>-->
+                    <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.age_60_days"/></div>-->
+                    <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.age_90_days"/></div>-->
+                    <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.age_120_days"/></div>-->
+                    <!--&lt;!&ndash;## older&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount"><span t-field="line.older"/></div>-->
+                <!--</div>-->
+            <!--</t>-->
+        <!--</div>-->
+    <!--</template>-->
+
+    <!--<template id="report_partner_ledger.report_aged_partner_balance_qweb_partner_ending_cumul">-->
+        <!--&lt;!&ndash; Display ending balance line for partner &ndash;&gt;-->
+        <!--<div class="act_as_table list_table" style="width: 1141px !important;">-->
+            <!--<div class="act_as_row labels" style="font-weight: bold;">-->
+                <!--&lt;!&ndash;## date&ndash;&gt;-->
+                <!--<div class="act_as_cell right" style="width: 590px;">Partner cumul aged balance</div>-->
+                <!--&lt;!&ndash;## date_due&ndash;&gt;-->
+                <!--<div class="act_as_cell" style="width: 60px;"/>-->
+                <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.amount_residual"/></div>-->
+                <!--&lt;!&ndash;## current&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.current"/></div>-->
+                <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.age_30_days"/></div>-->
+                <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.age_60_days"/></div>-->
+                <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.age_90_days"/></div>-->
+                <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.age_120_days"/></div>-->
+                <!--&lt;!&ndash;## older&ndash;&gt;-->
+                <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="partner_cumul_line.older"/></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</template>-->
+
+    <!--<template id="report_partner_ledger.report_aged_partner_balance_qweb_account_ending_cumul">-->
+        <!--&lt;!&ndash; Display ending balance line for account &ndash;&gt;-->
+        <!--<div class="act_as_table list_table" style="width: 1141px !important;">-->
+            <!--<div class="act_as_row labels" style="font-weight: bold;">-->
+                <!--<t t-if="not show_move_line_details">-->
+                    <!--&lt;!&ndash;## total&ndash;&gt;-->
+                    <!--<div class="act_as_cell right" style="width: 370px;">Total</div>-->
+                    <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_amount_residual"/></div>-->
+                    <!--&lt;!&ndash;## current&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_current"/></div>-->
+                    <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_age_30_days"/></div>-->
+                    <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_age_60_days"/></div>-->
+                    <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_age_90_days"/></div>-->
+                    <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_age_120_days"/></div>-->
+                    <!--&lt;!&ndash;## older&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.cumul_older"/></div>-->
+                <!--</t>-->
+                <!--<t t-if="show_move_line_details">-->
+                    <!--&lt;!&ndash;## total&ndash;&gt;-->
+                    <!--<div class="act_as_cell right" style="width: 590px;">Total</div>-->
+                    <!--&lt;!&ndash;## date_due&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 60px;"/>-->
+                    <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_amount_residual"/></div>-->
+                    <!--&lt;!&ndash;## current&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_current"/></div>-->
+                    <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_age_30_days"/></div>-->
+                    <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_age_60_days"/></div>-->
+                    <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_age_90_days"/></div>-->
+                    <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_age_120_days"/></div>-->
+                    <!--&lt;!&ndash;## older&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.cumul_older"/></div>-->
+                <!--</t>-->
+            <!--</div>-->
+            <!--<div class="act_as_row" style="font-weight: bold; font-style: italic;">-->
+                <!--<t t-if="not show_move_line_details">-->
+                    <!--&lt;!&ndash;## total&ndash;&gt;-->
+                    <!--<div class="act_as_cell right" style="width: 370px;">Percents</div>-->
+                    <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"></div>-->
+                    <!--&lt;!&ndash;## current&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.percent_current"/>%</div>-->
+                    <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.percent_age_30_days"/>%</div>-->
+                    <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.percent_age_60_days"/>%</div>-->
+                    <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.percent_age_90_days"/>%</div>-->
+                    <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.percent_age_120_days"/>%</div>-->
+                    <!--&lt;!&ndash;## older&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 110px;"><span t-field="account.percent_older"/>%</div>-->
+                <!--</t>-->
+                <!--<t t-if="show_move_line_details">-->
+                    <!--&lt;!&ndash;## total&ndash;&gt;-->
+                    <!--<div class="act_as_cell right" style="width: 590px;">Percents</div>-->
+                    <!--&lt;!&ndash;## date_due&ndash;&gt;-->
+                    <!--<div class="act_as_cell" style="width: 60px;"/>-->
+                    <!--&lt;!&ndash;## amount_residual&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"></div>-->
+                    <!--&lt;!&ndash;## current&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.percent_current"/>%</div>-->
+                    <!--&lt;!&ndash;## age_30_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.percent_age_30_days"/>%</div>-->
+                    <!--&lt;!&ndash;## age_60_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.percent_age_60_days"/>%</div>-->
+                    <!--&lt;!&ndash;## age_90_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.percent_age_90_days"/>%</div>-->
+                    <!--&lt;!&ndash;## age_120_days&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.percent_age_120_days"/>%</div>-->
+                    <!--&lt;!&ndash;## older&ndash;&gt;-->
+                    <!--<div class="act_as_cell amount" style="width: 70px;"><span t-field="account.percent_older"/>%</div>-->
+                <!--</t>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</template>-->
+
+</odoo>

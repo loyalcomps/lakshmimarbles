@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_GST_purchaseorder_document" 
+              inherit_id="purchase.report_purchaseorder_document"> 
+        <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <div t-if="o.name" class="col-xs-3">
+                <strong>Our Order Reference:</strong>
+                <p t-field="o.name"/>
+            </div>
+            <div t-if="o.partner_ref" class="col-xs-3">
+                <strong>Your Order Reference</strong>
+                <p t-field="o.partner_ref"/>
+            </div>
+            <div t-if="o.date_order" class="col-xs-3">
+                <strong>Order Date:</strong>
+                <p t-field="o.date_order"/>
+            </div>
+            <div class="col-xs-2" t-if="o.place_of_supply">
+                <strong>Place of Supply</strong>
+                <p t-field="o.place_of_supply"/>
+            </div>
+        </xpath>
+        <xpath expr="//p[@t-if='o.partner_id.vat']" position="replace">
+                <p t-if="o.partner_id.vat">GSTIN: <span t-field="o.partner_id.vat"/></p>        
+        </xpath>    
+    </template>
+  </data>
+</odoo>

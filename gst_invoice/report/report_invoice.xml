@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>
+        <template id="wk_report_account_invoice_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@class='col-xs-6']//table[@class='table table-condensed']//thead//tr//th[1]" position="before">
+                <th>HSN</th>
+            </xpath>
+            <xpath expr="//div[@class='col-xs-6']//table[@class='table table-condensed']//tbody//tr//td[1]" position="before">
+                <td><span t-field="t.hsn_code"/></td>
+            </xpath>
+        </template>
+  </data>
+</odoo>

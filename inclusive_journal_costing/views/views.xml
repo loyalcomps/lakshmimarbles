@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="inclusive_journal_costing.list">
+      <field name="name">inclusive_journal_costing list</field>
+      <field name="model">inclusive_journal_costing.inclusive_journal_costing</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="inclusive_journal_costing.action_window">
+      <field name="name">inclusive_journal_costing window</field>
+      <field name="res_model">inclusive_journal_costing.inclusive_journal_costing</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="inclusive_journal_costing.action_server">
+      <field name="name">inclusive_journal_costing server</field>
+      <field name="model_id" ref="model_inclusive_journal_costing_inclusive_journal_costing"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="inclusive_journal_costing" id="inclusive_journal_costing.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="inclusive_journal_costing.menu_1" parent="inclusive_journal_costing.menu_root"/>
+    <menuitem name="Menu 2" id="inclusive_journal_costing.menu_2" parent="inclusive_journal_costing.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="inclusive_journal_costing.menu_1_list" parent="inclusive_journal_costing.menu_1"
+              action="inclusive_journal_costing.action_window"/>
+    <menuitem name="Server to list" id="inclusive_journal_costing" parent="inclusive_journal_costing.menu_2"
+              action="inclusive_journal_costing.action_server"/>
+    -->
+  </data>
+</odoo>

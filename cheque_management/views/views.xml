@@ -1,0 +1,142 @@
+<odoo>
+    <data>
+        <!--tree view Cheque Management-->
+        <record id="view_cheque_supplier_payment_tree" model="ir.ui.view">
+            <field name="name">cheque.supplier.payment.tree</field>
+            <field name="model">cheque.payment</field>
+            <field name="arch" type="xml">
+                <tree edit="false">
+                    <!--decoration-info="state=='draft'" decoration-muted="state=='reconciled'"-->
+                    <field name="payment_date"/>
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="partner_id" string="Vendor"/>
+                    <field name="check_number"/>
+                    <field name="amount" sum="Amount"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state"/>
+                    <field name="currency_id" invisible="1"/>
+
+                </tree>
+            </field>
+        </record>
+        <!--end of cheque management tree view-->
+        <!--cheque management form view-->
+        <record id="view_cheque_payment_form" model="ir.ui.view">
+            <field name="name">cheque.payment.form</field>
+            <field name="model">cheque.payment</field>
+            <field name="arch" type="xml">
+                <form string="Cheque Payment" version="7">
+                    <header>
+                        <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
+                        <button name="send_for_approval" class="oe_highlight" states="printed" string="Send For Approval" type="object"/>
+                        <button name="approve_cheque" class="oe_highlight" states="sent_approval" string="Approve" type="object" groups="cheque_management.cheque_approve_manager"/>
+                        <button name="send_for_signature" class="oe_highlight" states="approved" string="Send For Signature" type="object"/>
+                        <button name="ready_to_release" class="oe_highlight" states="sent_signature" string="Ready to Release" type="object"/>
+                        <button name="release_cheque" class="oe_highlight" states="ready_release" string="Release" type="object" groups="cheque_management.cheque_release_manager"/>
+
+                        <button name="cancel_cheque" class="oe_highlight" states="printed,sent_approval,approved,
+                            sent_signature,ready_release" string="Cancel Cheque" type="object" groups="cheque_management.cheque_cancel_manager"/>
+
+                        <button name="avoid_cheque" class="oe_highlight" states="draft" string="Avoid Cheque" type="object"/>
+                        <button name="set_to_draft" class="oe_highlight" states="avoid" string="Set to Draft" type="object"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,printed,sent_approval,approved,
+                            sent_signature,ready_release,release,cancel,avoid"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_journal_entries"
+                                    string="Journal Items" type="object"
+                                    groups="account.group_account_manager"
+                                    attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                            <field name="move_line_ids" invisible="1"/>
+                            <!--<button class="oe_stat_button" name="button_invoices"-->
+                                    <!--string="Invoices" type="object"-->
+                                    <!--attrs="{'invisible':[('has_invoices','=',False)]}" icon="fa-bars"/>-->
+                            <!--<field name="has_invoices" invisible="1"/>-->
+                        </div>
+                        <field name="id" invisible="1"/>
+                        <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="payment_type" widget="radio" attrs="{'readonly': [('state', '!=', 'draft')],'required': [('state', 'not in', ('draft','avoid'))]}" invisible="1"/>
+
+                                <field name="partner_id"  attrs="{'required': [('state', 'not in', ('draft','avoid'))],  'readonly': [('state', '!=', 'draft')]}" context="{'default_is_company': True, 'default_supplier': payment_type == 'outbound', 'default_customer': payment_type == 'inbound'}"/>
+                                <field name="journal_id" widget="selection" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('type','=','bank')]"/>
+                                <!--<field name="destination_journal_id" widget="selection" attrs="{'required': [('payment_type', '=', 'transfer')], 'invisible': [('payment_type', '!=', 'transfer')], 'readonly': [('state', '!=', 'draft')]}"/>-->
+
+                                <field name="payment_method_id" string="Payment Method " widget="radio" attrs="{ 'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="check_number" attrs="{'invisible': [ ('check_number', '=', 0)]}"/>
+                                <field name="payment_method_code" invisible="1"/>
+                                <field name="check_manual_sequencing" invisible="1"/>
+
+                                <field name="amount" attrs="{'readonly': [('state', '!=', 'draft')],'required': [('state', 'not in', ('draft','avoid'))]}"/>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                            </group>
+                            <group>
+                                <field name="payment_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="communication" attrs="{'invisible': [('state', '!=', 'draft'), ('communication', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="cheque_payable_account_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="bank_reference" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="cheque_reference" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="reason" attrs="{'invisible': [ ('state', '!=', 'cancel')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                                <field name="invoice_ids"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- end of cheque management form view-->
+        <!--cheque management search view-->
+         <record id="view_cheque_payment_search" model="ir.ui.view">
+            <field name="name">cheque.payment.select</field>
+            <field name="model">cheque.payment</field>
+            <field name="arch" type="xml">
+                <search string="Search Cheque">
+                    <field name="check_number" string="Cheque Number" filter_domain="[('check_number','ilike',self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="check_number" string="Cheque Number" context="{'group_by':'check_number'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_invoice_tree" model="ir.actions.act_window">
+            <field name="name">Cheque</field>
+            <field name="res_model">cheque.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" ref="view_cheque_supplier_payment_tree"/>
+            <!--<field name="context">{'type':'out_invoice'}</field>-->
+            <field name="search_view_id" ref="view_cheque_payment_search"/>
+        </record>
+        <!-- end of cheque management search view-->
+        <record id="action_cheque_payments_payable" model="ir.actions.act_window">
+            <field name="name">Cheque Management</field>
+            <field name="res_model">cheque.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'default_payment_type': 'outbound',}</field>
+            <field name="view_id" ref="view_cheque_supplier_payment_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Click to cheque a payment
+                </p><p>
+                  Payments are used to cheque liquidity movements (send, collect or transfer money).
+                  You can then process those payments by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_cheque_payments_payable" id="menu_action_cheque_payments_payable" parent="account.menu_finance_payables" sequence="19" groups="account.group_account_user"/>
+
+    </data>
+</odoo>

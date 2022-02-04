@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inventory_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Stock Report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                 <t t-set="quantitytotal" t-value="0"/>
+                <t t-set="valuationtotal" t-value="0"/>
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product Name</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Stock</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Inventory Valuation </th>
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sl']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids['name']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['quantity']"/>
+                                                <t t-set="quantitytotal" t-value="quantitytotal + line_ids['quantity']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['valuation']"/>
+                                                <t t-set="valuationtotal" t-value="valuationtotal + line_ids['valuation']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="quantitytotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="valuationtotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

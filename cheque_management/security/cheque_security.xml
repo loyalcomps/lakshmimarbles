@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record model="ir.rule" id="cheque_payment_comp_rule">
+            <field name="name">Cheque payment company rule</field>
+            <field name="model_id" ref="model_cheque_payment"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+            </field>
+        </record>
+
+        <!-- Cheque Management Category-->
+
+        <record model="ir.module.category" id="cheque_management_category">
+            <field name="name">Cheque Management</field>
+            <field name="description">User access level for this module</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <!-- cheque Management groups-->
+        <!-- cheque approve-->
+
+        <record id="cheque_approve_manager" model="res.groups">
+            <field name="name">Cheque Approval</field>
+            <field name="category_id" ref="cheque_management.cheque_management_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('cheque_management.cheque_approve_manager'))]"/>
+        </record>
+
+
+        <!-- cheque release-->
+
+        <record id="cheque_release_manager" model="res.groups">
+            <field name="name">Cheque Release</field>
+            <field name="category_id" ref="cheque_management.cheque_management_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('cheque_management.cheque_release_manager'))]"/>
+        </record>
+
+        <!-- cheque cancel-->
+
+        <record id="cheque_cancel_manager" model="res.groups">
+            <field name="name">Cheque Cancel</field>
+            <field name="category_id" ref="cheque_management.cheque_management_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('cheque_management.cheque_cancel_manager'))]"/>
+        </record>
+
+
+    </data>
+</odoo>

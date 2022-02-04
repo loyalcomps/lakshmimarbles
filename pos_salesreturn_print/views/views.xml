@@ -1,0 +1,563 @@
+<odoo>
+  <data>
+    <template id="pos_salesreturn_print_main">
+        <!--<t t-call="pos_salesreturn_print.external_layout_pos_id">-->
+
+        <div class="page">
+            <div class="row">
+                <div class="col-xs-4" style="text-align: left">
+                    <img t-if="res_company.logo"
+                         t-att-src="'data:image/png;base64,%s' % res_company.logo"
+                         style="height:89px;width:116px;"/>
+                </div>
+                <div class="col-xs-4" style="text-align: center;font-size:18px;font-family:Calibri !important;">
+                    <br /><br />
+                    <b >SALES RETURN</b>
+                </div>
+
+                <div class="col-xs-4" style="text-align: right;font-size:11px;;font-family:Calibri !important;">
+                    <b ><sapn t-field="o.company_id.partner_id.name"/></b><br />
+                    <sapn t-field="o.company_id.partner_id.street"/><br />
+                    <sapn t-field="o.company_id.partner_id.street2"/>
+                    <t t-if="o.company_id.partner_id.zip">
+                        -PIN- <sapn t-field="o.company_id.partner_id.zip"/>
+                    </t>
+                    <br />
+                    <sapn t-field="o.company_id.partner_id.city"/><sapn t-field="o.company_id.partner_id.fax"/><br />
+                    <t t-if="o.company_id.phone">
+                        Phone : <sapn t-field="o.company_id.phone"/><br />
+                    </t>
+
+                    GSTIN/UIN : <sapn t-field="o.company_id.company_registry"/><br />
+                    <t t-if="o.company_id.email">
+                        E-mail : <sapn t-field="o.company_id.email"/><br />
+                    </t>
+
+                </div>
+
+            </div>
+            <div style="border-style:double;border-bottom: 1px solid #000000; "></div>
+<br/>
+
+            <div class="row">
+                <div class="col-xs-6" style="text-align: left;font-size:11px;">
+                    <t t-if="o.name">
+                        Invoice No : <b><sapn t-field="o.name"/></b><br/>
+                    </t>
+                    <t t-if="o.date_order">
+                        Date : <b><span t-field="o.date_order" t-field-options='{"format": "dd/MMM/yyyy"}'/></b><br/>
+                    </t>
+                    <span style='font-size:11px;text-align:right;'> Cashier : <b><t t-esc="o.user_id.name" /></b></span><br />
+
+
+                </div>
+
+                <div class="col-xs-6" style="text-align: right;font-size:11px;">
+                    <t t-if="o.partner_id.name">
+                            Customer : <b><sapn t-field="o.partner_id.name"/></b><br/>
+                        <sapn t-field="o.partner_id.street"/><br />
+                            <t t-if="o.partner_id.x_gstin">
+                               GSTIN/UIN : <sapn t-field="o.partner_id.x_gstin"/> <br />
+                            </t>
+                            <t t-if="o.partner_id.zip">
+                                PIN : <sapn t-field="o.partner_id.zip"/><br />
+                            </t>
+                            <t t-if="o.partner_id.phone">
+                            Phone : <sapn t-field="o.partner_id.phone"/><br />
+                    </t>
+                    </t>
+
+                </div>
+
+
+
+            </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col-xs-6" style="text-align: left;font-size:11px;">-->
+                    <!--<div class="col-xs-4" style="text-align: left;font-size:11px;">-->
+                        <!--<sapn>Invoice No</sapn><br/>-->
+                        <!--Date-->
+                    <!--</div>-->
+                    <!--<div class="col-xs-1" style="text-align: right">-->
+                        <!--<sapn>:</sapn><br/>-->
+                        <!--:-->
+                    <!--</div>-->
+
+                    <!--<div class="col-xs-7" style="text-align:left;font-size:11px;">-->
+                        <!--<sapn><b><sapn t-field="o.name"/></b></sapn><br/>-->
+                        <!--<b> <span t-field="o.date_order" t-field-options='{"format": "dd/MMM/yyyy"}'/></b>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-xs-6" style="text-align: right;font-size:11px;">-->
+                    <!--<div class="col-xs-12" style="text-align:right;font-size:11px;">-->
+                        <!--<t t-if="o.partner_id.name">-->
+                            <!--Customer :-->
+                        <!--<b><sapn t-field="o.partner_id.name"/></b><br/>-->
+                        <!--<sapn t-field="o.partner_id.street"/><br />-->
+                            <!--<t t-if="o.partner_id.x_gstin">-->
+                               <!--GSTIN/UIN : <sapn t-field="o.partner_id.x_gstin"/> <br />-->
+                            <!--</t>-->
+                            <!--<t t-if="o.partner_id.zip">-->
+                                <!--PIN :<sapn t-field="doc.partner_id.zip"/><br />-->
+                            <!--</t>-->
+                            <!--<t t-if="o.partner_id.phone">-->
+                            <!--Phone :<sapn t-field="o.partner_id.phone"/><br />-->
+                    <!--</t>-->
+                        <!--</t>-->
+                        <!--<span style='font-size:11px;text-align:right;'> Cashier:<t t-esc="o.user_id.name" /></span><br />-->
+
+
+                    <!--</div>-->
+                <!--</div>-->
+
+
+
+            <!--</div>-->
+            <br/>
+            <div class="row">
+
+                    <table class="table table-bordered" width= "100%" style="border:1px solid black;font-size:11px;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">Sl No</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">Particular</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">HSN code</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">Qty</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">Unit Price</th>
+
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">Discount(%)</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2" >Taxable Value</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2" >Tax</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" colspan="2">CGST</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" colspan="2">SGST</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" colspan="2">IGST</th>
+                                <th class="text-center" style="border: 1px solid black;" rowspan="2">Total</th>
+
+
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" >%</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" >Amt</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" >%</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" >Amt</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" >%</th>
+                                <th class="text-center" style="border: 1px solid black;height:3px;" >Amt</th>
+
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <t t-set="i" t-value="1" />
+                            <t t-foreach="o.lines" t-as="l">
+
+                                <tr>
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <span t-esc="i"/>
+                                        <t t-set="i" t-value="i+1"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black;" >
+                                        <span t-field="l.product_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center" >
+                                        <span t-field="l.product_id.hsn"/>
+                                    </td>
+                                    <td class="text-center" style="border: 1px solid black;">
+
+                                        <span t-field="l.qty"/>
+
+                                    </td>
+
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="l.price_unit" />
+                                    </td>
+
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="l.discount"/>
+                                    </td>
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="l.price_subtotal" />
+
+                                    </td>
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <t t-foreach="l.tax_ids" t-as="tax">
+
+                                            <span t-field="tax.name"/>
+
+                                        </t>
+                                    </td>
+                                    <t t-if="not o.fiscal_position_id">
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <t t-foreach="l.tax_ids" t-as="tax">
+                                                <span t-esc="round(tax.amount/2)"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span t-esc="(l.price_subtotal_incl-l.price_subtotal)/2" />
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <t t-foreach="l.tax_ids" t-as="tax">
+                                                <span t-esc="round(tax.amount/2)"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span t-esc="round(l.price_subtotal_incl-l.price_subtotal)/2" />
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span>0.0</span>
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span>0.0</span>
+
+                                        </td>
+                                    </t>
+                                    <t t-if="o.fiscal_position_id">
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span>0.0</span>
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span>0.0</span>
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span>0.0</span>
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span>0.0</span>
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <t t-foreach="l.tax_ids" t-as="tax">
+                                                <span t-esc="tax.amount"/>
+                                            </t>
+
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid black;">
+                                            <span t-esc="round(l.price_subtotal_incl-l.price_subtotal)" />
+
+                                        </td>
+                                    </t>
+
+
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-esc="l.price_subtotal_incl" />
+
+                                    </td>
+
+                                </tr>
+                            </t>
+
+                            <tr>
+                                <td colspan="14" style="text-align:right;border: 1px solid black" >
+                                    <b><i>Total Invoice Value :-</i></b>
+                                </td>
+
+                                <td class="text-right" style="border: 1px solid black;" >
+                                    <span t-field="o.amount_total"  />
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+            </div>
+            <div  style="text-align: right">
+                <strong ><p> For <b><sapn t-field="o.company_id.name"/></b></p></strong>
+                <strong >Authorised Signatory</strong>
+            </div  >
+
+
+
+                    <!--<div class="row" style="font-size:11px">-->
+                        <!--<div class="col-xs-12"><br/><br/><br/>-->
+                            <!--<table class="table table-bordered" style="border:1px solid black;border-collapse:collapse;border-width:2px;">-->
+                            <!--<tr>-->
+                                    <!--<td colspan="16" style="border:1px solid black;border-bottom:0;border-collapse:collapse;border-width:2px;">-->
+                                        <!--<center><h3>Sales Return</h3></center>-->
+
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td colspan="7" >-->
+                                    <!--<div class="col-xs-6">-->
+                                        <!--<b> GSTIN Number </b><br/>-->
+                                        <!--<b>Tax Is Payable On Reverse Charge: (Yes/No)</b><br/>-->
+                                        <!--<b>Invoice No</b><br/>-->
+                                        <!--<b>Invoice Date</b>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="col-xs-6">-->
+                                        <!--<b>:<![CDATA[&nbsp;]]><t t-esc="o.company_id.company_registry"/> </b><br/>-->
+                                        <!--<b>:<![CDATA[&nbsp;]]></b><br/><br></br>-->
+                                        <!--<b>:<![CDATA[&nbsp;]]><t t-esc="o.number"/></b><br/>-->
+                                        <!--<b>:<![CDATA[&nbsp;]]><span t-field="o.date_invoice" t-field-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/></b>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+
+                                <!--<td colspan="9">-->
+                                    <!--<div class="col-xs-6">-->
+                                        <!--<b>Transportation Mode</b><br/>-->
+                                        <!--<small>(Apply for Supply of Goods only)</small><br/>-->
+                                        <!--<b>Vehicle No </b><br/>-->
+                                        <!--<b>Date of Supply</b><br/>-->
+                                        <!--<b>Place OF Supply </b><br/>-->
+
+
+                                    <!--</div>-->
+
+                                    <!--<div class="col-xs-6">-->
+                                        <!--<b>:&#160;</b><br/><br></br>-->
+                                        <!--<b>:&#160;</b><br/>-->
+                                        <!--<b>:&#160;</b><br/>-->
+                                        <!--<b>:&#160;</b><br/>-->
+                                        <!--<b></b><br/>-->
+
+                                    <!--</div>-->
+                                <!--</td>-->
+
+
+
+                            <!--</tr>-->
+                                <!--<td colspan="16" style="border-right:2px solid black;">-->
+                                        <!--<left>-->
+                                            <!--<b>Customer</b>-->
+                                        <!--</left>-->
+                                    <!--</td>-->
+                            <!--<tr>-->
+
+                                <!--<td colspan="16">-->
+                                            <!--<div class="col-xs-3">-->
+                                                <!--<b> Name </b><br/>-->
+                                                <!--<b> Address</b><br/>-->
+                                                <!--<b> State</b><br/>-->
+
+                                                <!--<b> GSTIN Number</b><br/>-->
+
+                                            <!--</div>-->
+                                            <!--<div class="col-xs-1">-->
+                                                <!--<b>: </b><br/>-->
+                                                <!--<b>:</b><br/>-->
+                                                <!--<b>:</b><br/>-->
+
+                                                <!--<b> :</b><br/>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-xs-8">-->
+                                                <!--<b><t t-esc="o.partner_id.name"/></b><br/>-->
+                                                <!--<b><t t-esc="o.partner_id.street"/></b><br/>-->
+
+                                                <!--<b><t t-esc="o.partner_id.state_id.name"/></b><br/>-->
+                                                <!--<b><t t-esc="o.partner_id.x_gstin"/></b><br/>-->
+
+                                            <!--</div>-->
+
+                                <!--</td>-->
+
+
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td width="2%" rowspan="2"><b>Sl No</b></td>-->
+                                <!--<td width="20%" rowspan="2"><b> Name of Product/Service</b></td>-->
+                                <!--<td width="10%" rowspan="2"><b>HSN Code</b></td>-->
+                                <!--<td width="3%" rowspan="2"><b>UOM</b></td>-->
+                                <!--<td width="3%" rowspan="2"><b>Qty</b></td>-->
+                                <!--<td width="3%" rowspan="2"><b>Rate</b></td>-->
+                                <!--<td width="5%" rowspan="2"><b>Discount</b></td>-->
+                                <!--<td width="4%" rowspan="2"><b>Tax</b></td>-->
+                                <!--<td width="5%" rowspan="2"><b>Taxable values</b></td>-->
+                                <!--<td width="10%" colspan="2" align="center"><b>CGST</b></td>-->
+                                <!--<td width="10%" colspan="2" align="center"><b>SGST</b></td>-->
+                                <!--<td width="10%" align="center" colspan="2" ><b>IGST</b></td>-->
+                                <!--<td width="10" style="border-right:1px solid black;border-collapse:collapse;border-width:2px;border-left:0;border-top:0;border-bottom:0;">-->
+                                    <!--<b>Total</b></td>-->
+
+                            <!--</tr>-->
+                            <!--<tr>-->
+
+                                <!--<td width="5%" align="center"><b>Rate</b></td>-->
+                                <!--<td width="5%" align="center"><b>Amount</b></td>-->
+                                <!--<td width="5%" align="center"><b>Rate</b></td>-->
+                                <!--<td width="5%" align="center"><b>Amount</b></td>-->
+                                <!--<td width="5%" align="center"><b>Rate</b></td>-->
+                                <!--<td width="5%" align="center"><b>Amount</b></td>-->
+                                <!--<td width="10%" align="center" style="border-right:1px solid black;border-collapse:collapse;border-width:2px;border-left:0;border-top:0;border-bottom:0;"></td>-->
+                            <!--</tr>-->
+
+
+
+                                        <!--<t t-set="i" t-value="1"/>-->
+                                        <!--<t t-set="cgst" t-value="0.00"/>-->
+                                        <!--<t t-set="sgst" t-value="0.00"/>-->
+                                        <!--<t t-set="igst" t-value="0.00"/>-->
+
+
+
+                                <!--<tr t-foreach="o.invoice_line_ids" t-as="l">-->
+                                    <!--<td> <t t-esc="l_index+1"/></td>-->
+                                    <!--<td><t t-esc="l.product_id.name"/></td>-->
+                                    <!--<td><t t-esc="l.product_id.hsn"/></td>-->
+                                    <!--<td><t t-esc="l.uom_id.name"/></td>-->
+                                    <!--<td><span t-field="l.quantity"/></td>-->
+                                    <!--<td><span t-field="l.price_unit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>-->
+                                    <!--<td></td>-->
+                                    <!--<td><t t-esc="l.invoice_line_tax_ids.name"/></td>-->
+                                    <!--<td><span t-field="l.price_subtotal_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>-</td>-->
+
+                                    <!--<t t-if=" not l.invoice_line_tax_ids">-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                    <!--</t>-->
+
+                                    <!--<t t-foreach="l.invoice_line_tax_ids" t-as="m">-->
+                                        <!--<t t-if="m.igst==False">-->
+
+                                        <!--<t t-foreach="m.children_tax_ids" t-as="c">-->
+                                            <!--<td class="text-center" >-->
+                                                <!--<span t-esc="'%.2f'%(c.amount)"/>-->
+                                            <!--</td>-->
+                                            <!--<td class="text-right" >-->
+                                                <!--<span t-esc="'%.2f'%((l.price_subtotal * c.amount)/(100))"/>-->
+                                                <!--<t t-set="sgst" t-value="sgst+(l.price_subtotal * c.amount)/(100)"/>-->
+                                            <!--</td>-->
+                                        <!--</t>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" >-->
+                                            <!--0.00-->
+                                        <!--</td>-->
+                                    <!--</t>-->
+
+
+                                        <!--<t t-if="m.igst==True">-->
+
+                                    <!--<td class="text-center" >-->
+                                        <!--0.00-->
+                                    <!--</td>-->
+                                    <!--<td class="text-center" >-->
+                                        <!--0.00-->
+                                    <!--</td>-->
+                                    <!--<td class="text-center" >-->
+                                        <!--0.00-->
+                                    <!--</td>-->
+                                    <!--<td class="text-center" >-->
+                                        <!--0.00-->
+                                    <!--</td>-->
+                                    <!--<td class="text-center" >-->
+                                        <!--<span t-esc="'%.2f'%(m.amount)"/>-->
+                                    <!--</td>-->
+                                    <!--<td class="text-right" >-->
+                                        <!--<span t-esc="'%.2f'%((l.price_subtotal * m.amount)/(100))"/>-->
+                                        <!--<t t-set="igst" t-value="igst+(l.price_subtotal * m.amount)/(100)"/>-->
+                                    <!--</td>-->
+                                    <!--</t>-->
+                                    <!--</t>-->
+
+
+
+                                    <!--<td style="border-right:1px solid black;border-collapse:collapse;border-width:1px;border-left:0;border-bottom:0;border-right-width:2px;">-->
+                                        <!--<span t-field="l.price_subtotal_taxinc" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>-->
+                                <!--</tr>-->
+
+
+                                 <!--<tr>-->
+                                <!--<td></td>-->
+                                <!--<td colspan="3" align="center">Total</td>-->
+                                <!--<td></td>-->
+                                <!--<td align="right"></td>-->
+                                <!--<td align="right"></td>-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                                <!--<td colspan="2"></td>-->
+                                <!--<td colspan="2"></td>-->
+                                <!--<td colspan="2"></td>-->
+                                <!--<td style="border-right:1px solid black;border-collapse:collapse;border-width:1px;border-left:0;border-bottom:0;border-right-width:2px;">-->
+                                    <!--<t t-esc="'%.2f'%(o.amount_total)"/></td>-->
+                            <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td colspan="7" align="left" height="50">Total invoice Amount in words<br/>-->
+                                        <!--<b><span t-esc="o._get_amount(o.amount_total)"/> <![CDATA[&nbsp;]]>Only</b>-->
+                                    <!--</td>-->
+                                    <!--<td colspan="5" align="left">Total Amount before Tax</td>-->
+                                    <!--<td align="right" colspan="4" style="border-top:0;border-right:1px solid black;border-collapse:collapse;border-width:1px;border-right-width:2px;"><t t-esc="'%.2f'%(o.amount_untaxed)"/></td>-->
+                                <!--</tr>-->
+                                <!--<tr style="text-align:left;">-->
+                                    <!--<td rowspan="5" colspan="4" align="center"><br></br>-->
+                                    <!--<span style="text-align:left;"></span><br></br>-->
+                                    <!--<span style="text-align:left;"></span>-->
+                                    <!--<span></span></td>-->
+                                    <!--<td rowspan="5" colspan="3" align="center"></td>-->
+
+
+
+                                    <!--<td colspan="5" align="left">Add CGST</td>-->
+                                    <!--<td colspan="4" align="right" style="border-right:1px solid black;border-collapse:collapse;border-width:2px;border-left:0;border-top:0;border-bottom-width:1px;">-->
+                                      <!--<span t-esc="'%.2f'%(sgst/2)"/> </td>-->
+                                <!--</tr>-->
+
+                            <!--<tr>-->
+                                <!--<td colspan="5" align="left">Add SGST</td>-->
+                                <!--<td colspan="4" align="right" style="border-right:1px solid black;border-collapse:collapse;border-width:2px;border-left:0;border-bottom-width:1px;border-top-width:1px;">-->
+                                    <!--<span t-esc="'%.2f'%(sgst/2)"/></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td colspan="5" align="left">Add IGST</td>-->
+                                <!--<td colspan="4" align="right" style="border-right:1px solid black;border-collapse:collapse;border-width:2px;border-left:0;border-top:0;border-bottom-width:1px;">-->
+                                    <!--<span t-esc="'%.2f'%(igst)"/></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td colspan="5" align="left">Tax Amount GST</td>-->
+                                <!--<td colspan="4" align="right" style="border-right:1px solid black;border-collapse:collapse;border-width:2px;border-left:0;border-bottom:0;border-top:0;">-->
+                                    <!--<t t-esc="'%.2f'%(o.amount_tax)"/></td>-->
+                            <!--</tr>-->
+                            <!--<tr style="border-left:0;border-top:0;border-bottom:0;">-->
+                                <!--<td colspan="8">Total Amount After Tax:</td><td colspan="1" align="left"><b><t t-esc="'%.2f'%(o.amount_total)"/></b><b style-align="right"></b></td>-->
+                            <!--</tr>-->
+                                <!--<tr style="border-left:0;border-top:0;border-bottom:0;">-->
+                                    <!--<td colspan="7"></td>-->
+                                    <!--<td colspan="9" align="left"></td>-->
+
+                            <!--</tr>-->
+
+
+
+                        <!--</table>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+            <!--</t>-->
+
+        </template>
+        <template id="sales_return_receipt">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pos_salesreturn_print.pos_salesreturn_print_main" t-lang="o.name"/>
+                </t>
+            </t>
+        </template>
+  </data>
+</odoo>

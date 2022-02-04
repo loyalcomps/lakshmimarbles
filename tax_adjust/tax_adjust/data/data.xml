@@ -1,0 +1,89 @@
+<odoo>
+    <data noupdate="1">
+        <record id="wk_sgst_purchase_cess_14" model="account.tax">
+            <field name="name">Purchase SGST 14%</field>
+            <field name="description">SGST 14%</field>
+            <field name="type_tax_use">none</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">14</field>
+            <field name="cess_adjust_amount">2.8751</field>
+
+        </record>
+
+        <record id="wk_cgst_purchase_cess_14" model="account.tax">
+            <field name="name">Purchase CGST 14%</field>
+            <field name="description">CGST 14%</field>
+            <field name="type_tax_use">none</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">14</field>
+            <field name="cess_adjust_amount">2.8751</field>
+        </record>
+
+        <record id="wk_purchase_cess_12" model="account.tax">
+            <field name="name">Purchase Cess 12%</field>
+            <field name="description">Cess 12%</field>
+            <field name="type_tax_use">none</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">12</field>
+            <field name="cess_adjust_amount">3.333</field>
+        </record>
+
+        <record id="wk_sgst_purchase_cess_28" model="account.tax">
+            <field name="name">GST 28% + Cess 12%</field>
+            <field name="description">GST 28%</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount_type">group</field>
+            <field name="amount">0</field>
+            <field name="children_tax_ids"
+                   eval="[(6, 0, [ref('wk_sgst_purchase_cess_14'),ref('wk_cgst_purchase_cess_14'),ref('wk_purchase_cess_12')])]"/>
+        </record>
+
+
+        <!--Sale cess-->
+
+        <record id="wk_sgst_sale_cess_14" model="account.tax">
+            <field name="name">Sale SGST 14%</field>
+            <field name="description">SGST 14%</field>
+            <field name="type_tax_use">none</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">14</field>
+            <field name="cess_adjust_amount">2.8751</field>
+            <field name="price_include">True</field>
+            <field name="include_base_amount">True</field>
+        </record>
+
+        <record id="wk_cgst_sale_cess_14" model="account.tax">
+            <field name="name">Sale CGST 14%</field>
+            <field name="description">CGST 14%</field>
+            <field name="type_tax_use">none</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">14</field>
+            <field name="cess_adjust_amount">2.8751</field>
+            <field name="price_include">True</field>
+            <field name="include_base_amount">True</field>
+        </record>
+
+        <record id="wk_sale_cess_12" model="account.tax">
+            <field name="name">Sale Cess 12% </field>
+            <field name="description">Cess 12%</field>
+            <field name="type_tax_use">none</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">12</field>
+            <field name="cess_adjust_amount">3.333</field>
+            <field name="price_include">True</field>
+            <field name="include_base_amount">True</field>
+        </record>
+
+        <record id="wk_sgst_sale_cess_28" model="account.tax">
+            <field name="name">GST 28% + Cess 12%</field>
+            <field name="description">GST 28%</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount_type">group</field>
+            <field name="amount">0</field>
+            <field name="children_tax_ids"
+                   eval="[(6, 0, [ref('wk_sgst_sale_cess_14'),ref('wk_cgst_sale_cess_14'),ref('wk_sale_cess_12'),])]"/>
+        </record>
+
+
+    </data>
+</odoo>

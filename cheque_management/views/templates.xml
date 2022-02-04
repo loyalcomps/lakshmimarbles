@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="wizard_cancelmessage_form_for_cheque" model="ir.ui.view">
+            <field name="name">Cheque Cancellation</field>
+            <field name="model">cheque.confirm.cancel.window</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Message" version="7.0">
+                    <separator string="Message" colspan="6"/>
+                    <field name="text" colspan="4" nolabel="1" readonly="1"  widget="html"/>
+                    <newline/>
+                    <separator colspan="6"/>
+                    <field name="reason" />
+                    <footer>
+                        <button name="cancel_cheque" type="object" string="Cancel Cheque" class="oe_highlight"/>
+                        <button special="cancel" string="No"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_cancelmessage_action_for_cheque" model="ir.actions.act_window">
+            <field name="name">Cheque Cancellation</field>
+            <field name="res_model">cheque.confirm.cancel.window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

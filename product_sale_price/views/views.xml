@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+
+    <record id="product_sp_view" model="ir.ui.view">
+            <field name="name">Update Sale Price</field>
+            <field name="model">product.sp</field>
+            <field name="arch" type="xml">
+				<form>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="product_sp_line_ids">
+                                <tree string="Products" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="on_hand"/>
+                                    <field name="landing_cost"/>
+                                    <field name="mrp"/>
+                                     <field name="company_id" invisible="1"/>
+                                    <field name="sell_price"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="change_product_price" type="object" string="Update Price" class="oe_highlight"/>
+                             or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+			</field>
+        </record>
+        <record id="product_sp_line_view" model="ir.ui.view">
+            <field name="name">Update Product SP line</field>
+            <field name="model">product.sp.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="product_id"/>
+                  <field name="uom_id"/>
+                  <field name="on_hand"/>
+                  <field name="landing_cost"/>
+                  <field name="mrp"/>
+
+                  <field name="sell_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_sp_view_action" model="ir.actions.act_window">
+            <field name="name">Update Sale Price</field>
+            <field name="res_model">product.sp</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_sp_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_product_sp" name="Update Sale Price(Vendor)" parent="sales_team.menu_sales" action="product_sp_view_action" sequence="22"/>
+
+
+
+
+  </data>
+</odoo>

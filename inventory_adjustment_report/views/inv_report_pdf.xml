@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="inv_report_pdf">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+
+          <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Inventory Report </strong>
+                            </p>
+
+                             <b style="font-size:16px;"> Date : <t t-esc="date_start"/></b>
+                           <br/>
+                            <br></br>
+
+
+                                      <t t-if='category_id and product_id==False'>
+                     <t t-set="name" t-value="stock_location"/>
+                     <t t-set="parent" t-value="stock_name"/>
+                    <t t-set="stock" t-value="parent+'/'+name"/>
+
+
+                            <p style="text-align:left;font-size:16px;">
+                                <strong style="text-align:left;">Category Name:-<span t-esc="category_name"/></strong>
+                                </p>
+
+
+                    <p style="text-align:left;font-size:16px;">
+                                <strong style="text-align:left;">Location:-<span t-esc="stock"/></strong>
+                                </p><br/>
+                </t>
+
+
+                              <t t-if='category_id and product_id!=False'>
+                     <t t-set="name" t-value="stock_location"/>
+                     <t t-set="parent" t-value="stock_name"/>
+                    <t t-set="stock" t-value="parent+'/'+name"/>
+
+
+                            <p style="text-align:left;font-size:16px;">
+                                <strong style="text-align:left;">Category Name:-<span t-esc="category_name"/></strong>
+                                </p>
+
+
+                    <p style="text-align:left;font-size:16px;">
+                                <strong style="text-align:left;">Location:-<span t-esc="stock"/></strong>
+                                </p><br/>
+                </t>
+
+
+                            <!--<t t-if='cat_only == True'>-->
+                     <!--<t t-set="name" t-value="stock_location"/>-->
+                     <!--<t t-set="parent" t-value="stock_name"/>-->
+                    <!--<t t-set="stock" t-value="parent+'/'+name"/>-->
+                            <!--<br/>-->
+
+
+                    <!--<p style="text-align:left;font-size:16px;">-->
+                                <!--<strong style="text-align:left;">Location:-<span t-esc="stock"/></strong>-->
+                                <!--</p><br/>-->
+                <!--</t>-->
+
+                             <!--<t t-set="name" t-value="stock_location"/>-->
+                     <!--<t t-set="parent" t-value="stock_name"/>-->
+                    <!--<t t-set="stock" t-value="parent+'/'+name"/>-->
+                            <!--<br/>-->
+
+
+                    <!--<p style="text-align:left;font-size:16px;">-->
+                                <!--<strong style="text-align:left;">Location:-<span t-esc="stock"/></strong>-->
+                                <!--</p><br/>-->
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+                 <t t-set="nontotal" t-value="0"/>
+                <t t-set="sss" t-value="1"/>
+                <t t-set="sv" t-value="1"/>
+
+
+                <t t-set="ptotal" t-value="0"/>
+                <t t-set="pstotal" t-value="0"/>
+
+
+
+                <div class="row">
+                <div class="col-xs-12">
+
+
+                        <t t-if='product_id==False and category_id != False'>
+
+                    <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Barcode </th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current System Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Value</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Physical Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Variation</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Negative Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Positive Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valueone" t-as="line_ids" >
+                            <tr >
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >
+                                <span t-esc="sv"/>
+                                <t t-set="sv" t-value="sv+1"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['barcode']"/>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['pname']"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['system_qty']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['current_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['real_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['variation'] "/>
+                            </td>
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['negative_val']"/>
+                            </td>
+
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['positive_val']"/>
+                            </td>
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="'%.2f'%line_ids['pur_total'] "/>-->
+                                <!--<t t-set="ptotal" t-value="ptotal + line_ids['pur_total']" />-->
+                            <!--</td>-->
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['toatl'] "/>
+                                     <t t-set="pstotal" t-value="pstotal + line_ids['toatl']" />
+
+                            </td>
+
+
+
+
+                            </tr>
+                        </t>
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="9" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="pstotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    </t>
+
+
+
+                    <t t-if='product_id != False and category_id != False'>
+
+                    <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Barcode </th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current System Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Value</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Physical Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Variation</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Negative Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Positive Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valuetwo" t-as="line_ids" >
+                            <tr >
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >
+                                <span t-esc="sss"/>
+                                <t t-set="sss" t-value="sss+1"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['barcode']"/>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['pname']"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['system_qty']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['current_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['real_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['variation'] "/>
+                            </td>
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['negative_val']"/>
+                            </td>
+
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['positive_val']"/>
+                            </td>
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="'%.2f'%line_ids['pur_total'] "/>-->
+                                <!--<t t-set="ptotal" t-value="ptotal + line_ids['pur_total']" />-->
+                            <!--</td>-->
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['toatl'] "/>
+                                     <t t-set="ptotal" t-value="ptotal + line_ids['toatl']" />
+
+                            </td>
+
+
+
+
+                            </tr>
+                        </t>
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="9" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="ptotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    </t>
+
+
+                    <t t-if='product_id != False and category_id == False'>
+
+                    <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Barcode </th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current System Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Value</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Physical Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Variation</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Negative Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Positive Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valuefour" t-as="line_ids" >
+                            <tr >
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >
+                                <span t-esc="sss"/>
+                                <t t-set="sss" t-value="sss+1"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['barcode']"/>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['pname']"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['system_qty']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['current_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['real_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['variation'] "/>
+                            </td>
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['negative_val']"/>
+                            </td>
+
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['positive_val']"/>
+                            </td>
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="'%.2f'%line_ids['pur_total'] "/>-->
+                                <!--<t t-set="ptotal" t-value="ptotal + line_ids['pur_total']" />-->
+                            <!--</td>-->
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['toatl'] "/>
+                                     <t t-set="ptotal" t-value="ptotal + line_ids['toatl']" />
+
+                            </td>
+
+
+
+
+                            </tr>
+                        </t>
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="9" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="ptotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    </t>
+
+
+
+
+
+                    <t t-if='product_id == False and category_id == False'>
+
+                    <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Barcode </th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current System Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Value</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Physical Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Variation</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Negative Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Positive Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valuethree" t-as="line_ids" >
+                            <tr >
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >
+                                <span t-esc="sss"/>
+                                <t t-set="sss" t-value="sss+1"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['barcode']"/>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:left;" >
+                                <span t-esc="line_ids['pname']"/>
+                            </td>
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['system_qty']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['current_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['real_value']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['variation'] "/>
+                            </td>
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['negative_val']"/>
+                            </td>
+
+
+                                  <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="line_ids['positive_val']"/>
+                            </td>
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="'%.2f'%line_ids['pur_total'] "/>-->
+                                <!--<t t-set="ptotal" t-value="ptotal + line_ids['pur_total']" />-->
+                            <!--</td>-->
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['toatl'] "/>
+                                     <t t-set="ptotal" t-value="ptotal + line_ids['toatl']" />
+
+                            </td>
+
+
+
+
+                            </tr>
+                        </t>
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="9" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="ptotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    </t>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                </div>
+
+
+
+
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

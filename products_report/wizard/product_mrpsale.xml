@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record model='ir.ui.view' id='product_mrp_sale_wizard_form'>
+            <field name="name">product.mrp.sale.wizard.form</field>
+            <field name="model">product.mrp.sale.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+
+
+
+                    <group>
+                        <div>
+                            <field name="per_amount" class="oe_inline" widget="monetary"/>
+                               <label string="%%"
+                                class="oe_inline"/>
+                        </div>
+
+                    </group>
+
+
+                    <footer>
+                        <button string="Check" name="check_mrp" class="oe_link" type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='product_mrp_sale_wizard_act'>
+            <field name="name">Product MRP and Sale Price Compare</field>
+            <field name="res_model">product.mrp.sale.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_mrp_sale_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem name="Check MRP" parent="menu_product_mrp_sale_wizard_parent" id="menu_product_mrp_sale_wizard" action="product_mrp_sale_wizard_act" sequence="2"/>
+
+
+    </data>
+</odoo>

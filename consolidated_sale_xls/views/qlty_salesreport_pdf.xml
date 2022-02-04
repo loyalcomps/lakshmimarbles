@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="qlty_salesreport_pdf">
+            <t t-call="report.html_container">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+                                <p style="font-size:20px;">
+                                    <strong>
+                                        <span t-esc="res_company.name"/>
+                                    </strong>
+                                </p>
+
+                                <t t-if='counter_only == True'>
+
+
+                                        <p style="font-size:14px;">
+                                            <t t-if="res_company.street">
+                                                <span t-esc="res_company.street"/>
+                                            </t>
+                                            <t t-if="res_company.street2">
+                                                <span t-esc="res_company.street2"/>
+                                            </t>
+                                        </p>
+
+
+                                </t>
+                                <t t-if='counter_only != True'>
+                                    <p style="font-size:14px;">
+                                        <t t-if="res_company.street">
+                                            <span t-esc="res_company.street"/>
+                                        </t>
+                                        <t t-if="res_company.street2">
+                                            <span t-esc="res_company.street2"/>
+                                        </t>
+                                    </p>
+                                </t>
+
+                                <!--<p style="font-size:20px;">-->
+                                <!--<strong>-->
+                                <!--<span t-esc="res_company.name"/>-->
+                                <!--</strong>-->
+                                <!--</p>-->
+
+                                <t t-if='counter_only == True'>
+                                    <p style="font-size:16px;">
+                                        <strong>Detailed Sales Report Session Wise</strong>
+                                    </p>
+                                </t>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+
+                                </div>
+                                <div class="col-xs-3">
+                                    Start Date :
+                                    <span t-esc="date_start"/>
+
+                                </div>
+                                <div class="col-xs-3">
+                                    End Date :
+                                    <span t-esc="date_end"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <t t-set="amounttotal" t-value="0"/>
+                        <t t-set="expensetotal" t-value="0"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+
+
+                                <table class="table table-bordered"
+                                       style="border:1px solid black;font-size:11px;width: 220mm;">
+
+
+                                    <tbody class="table table-bordered">
+
+                                        <tr>
+                                            <t t-if='counter_only == True'>
+                                                <tr>
+                                                    <td class="text-center"
+                                                        style="text-align:center;border: 1px solid black;">Type
+                                                    </td>
+                                                    <td t-foreach="config" t-as="l" class="text-center"
+                                                        style="text-align:center;border: 1px solid black;">
+                                                        <t t-esc="l.name"/>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="text-align:center;border: 1px solid black;">Total
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if='counter_only == False'>
+                                                <tr>
+                                                    <td class="text-center"
+                                                        style="text-align:center;border: 1px solid black;">Type
+                                                    </td>
+                                                    <td class="text-center"
+                                                        style="text-align:center;border: 1px solid black;">Total
+                                                    </td>
+                                                </tr>
+                                            </t>
+
+
+                                        </tr>
+
+
+                                        <t t-if='counter_only == True'>
+
+
+                                            <tr>
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">CASH
+                                                </td>
+                                                <t t-set="totcash" t-value="0"/>
+
+                                                <td t-foreach="valuefour" t-as="l" class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+                                                    <t t-esc="l['cash']"/>
+                                                    <t t-set="totcash" t-value="totcash + (l['cash'])"/>
+                                                </td>
+                                                <!-- <td t-foreach="valueone" t-as="line" class="text-center" style="text-align:center;border: 1px solid black;"><t t-esc="line['cash']"/> </td> -->
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+                                                    <t t-esc="totcash"/>
+                                                </td>
+
+
+                                            </tr>
+
+
+                                            <tr>
+
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+                                                    CARD
+
+                                                </td>
+                                                <t t-set="totcard" t-value="0"/>
+
+                                                <td t-foreach="valuefive" t-as="l" class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+
+                                                    <t t-set="totcard" t-value="totcard + (l['card'])"/>
+                                                    <t t-esc="l['card']"/>
+
+                                                </td>
+
+
+                                                <!-- <td t-foreach="valuetwo" t-as="line" class="text-center" style="text-align:center;border: 1px solid black;"><t t-esc="line['card']"/> </td> -->
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+                                                    <t t-esc="totcard"/>
+                                                </td>
+
+                                            </tr>
+                                            <!--<tr>-->
+
+                                                <!--<td class="text-center"-->
+                                                    <!--style="text-align:center;border: 1px solid black;">-->
+                                                    <!--CREDIT-->
+
+                                                <!--</td>-->
+                                                <!--<t t-set="totcredit" t-value="0"/>-->
+
+                                                <!--<td t-foreach="valuesix" t-as="l" class="text-center"-->
+                                                    <!--style="text-align:center;border: 1px solid black;">-->
+
+                                                    <!--<t t-set="totcredit" t-value="totcredit + (l['credit'])"/>-->
+                                                    <!--<t t-esc="l['credit']"/>-->
+
+                                                <!--</td>-->
+
+
+                                                <!--&lt;!&ndash; <td t-foreach="valuetwo" t-as="line" class="text-center" style="text-align:center;border: 1px solid black;"><t t-esc="line['card']"/> </td> &ndash;&gt;-->
+                                                <!--<td class="text-center"-->
+                                                    <!--style="text-align:center;border: 1px solid black;">-->
+                                                    <!--<t t-esc="totcredit"/>-->
+                                                <!--</td>-->
+
+                                            <!--</tr>-->
+                                            <tr>
+
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+                                                    Total
+
+                                                </td>
+                                                <t t-set="total" t-value="0"/>
+
+                                                <td t-foreach="total_session_wise" t-as="l" class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+
+                                                    <t t-set="total" t-value="total + (l)"/>
+                                                    <t t-esc="l"/>
+
+                                                </td>
+
+
+                                                <!-- <td t-foreach="valuetwo" t-as="line" class="text-center" style="text-align:center;border: 1px solid black;"><t t-esc="line['card']"/> </td> -->
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;">
+                                                    <t t-esc="total"/>
+                                                </td>
+
+                                            </tr>
+
+
+                                        </t>
+
+                                        <t t-if='counter_only == False'>
+
+                                            <tr t-foreach="valueone" t-as="line">
+                                                <td class="text-center" style="border: 1px solid black;font-size:11px;">
+                                                    <b>Cash</b>
+                                                </td>
+                                                <td class="text-center" style="border: 1px solid black;font-size:11px;">
+                                                    <t t-esc="line['cash']"/>
+                                                </td>
+                                            </tr>
+                                            <tr></tr>
+
+                                            <tr t-foreach="valuetwo" t-as="line">
+                                                <td class="text-center" style="border: 1px solid black;font-size:11px;">
+                                                    <b>Card</b>
+                                                </td>
+                                                <td class="text-center" style="border: 1px solid black;font-size:11px;">
+                                                    <t t-esc="line['card']"/>
+                                                </td>
+                                            </tr>
+                                            <tr></tr>
+
+                                            <!--<tr t-foreach="valuethree" t-as="line">-->
+                                            <!--<td class="text-center"-->
+                                            <!--style="border: 1px solid black;font-size:11px;width:30%;">-->
+                                            <!--<b>Credit</b>-->
+                                            <!--</td>-->
+                                            <!--<td class="text-center" style="border: 1px solid black;font-size:11px;">-->
+                                            <!--<t t-esc="line['credit']"/>-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+
+
+                                        </t>
+
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <!--<t t-if='counter_only == True'>-->
+
+                        <!--<div class="row">-->
+                        <!--<div class="col-xs-6">-->
+
+                        <!--<table class="table table-bordered"-->
+                        <!--style="border:1px solid black;font-size:11px;">-->
+
+
+                        <!--<tbody class="table table-bordered">-->
+                        <!--<tr>-->
+                        <!--<td class="text-center"-->
+                        <!--style="text-align:center;border: 1px solid black;">-->
+                        <!--B2B Credit-->
+                        <!--</td>-->
+                        <!--<td t-foreach="valuethree" t-as="l" class="text-center"-->
+                        <!--style="text-align:center;border: 1px solid black;">-->
+                        <!--<t t-esc="l['credit']"/>-->
+                        <!--</td>-->
+                        <!---->
+                        <!--</tr>-->
+
+
+                        <!--</tbody>-->
+                        <!--</table>-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-6"></div>-->
+                        <!--</div>-->
+                        <!--</t>-->
+
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

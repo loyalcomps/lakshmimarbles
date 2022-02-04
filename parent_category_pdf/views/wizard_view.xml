@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='parent_category_wizard_form'>
+            <field name="name">parent.category.pdf.form</field>
+            <field name="model">parent.category.pdf</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                   <group col="4" string="Date">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+
+                     <group>
+                            <field name="cat_only" />
+                     </group>
+
+                    <group>
+                             <field name="stock_location"/>
+                     </group>
+
+
+
+
+
+                    <!--<group attrs="{'invisible': [('cat_only','=',False)]}">-->
+                        <!--<field name="subcategory_id" />-->
+
+
+                    <!--</group>-->
+                    
+                    <group attrs="{'invisible': [('cat_only','=',True)]}">
+                        <!--<field name="stock_location"/>-->
+                        <field name="category_id" />
+
+                        <field name="child_category"/>
+
+                    </group>
+
+
+
+                    <footer>
+                        <button name="export_pdf" string="Export PDF" type="object" default_focus="1"
+                                context="{'xls_export':1}" class="oe_highlight"/>
+                        or
+                        <!--<button name="export_xls" type="object" default_focus="1"-->
+                                <!--string="Export Sale Report" class="oe_highlight"-->
+                                <!--context="{'xls_export':1}" icon="gtk-print"/>-->
+                        <!--or-->
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='parent_category_wizard_act'>
+            <field name="name">Export Category Report In Excel</field>
+            <field name="res_model">parent.category.pdf</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="parent_category_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <!--<report-->
+            <!--id="detailedsale_xlsx"-->
+            <!--model="sale.order"-->
+            <!--string=" "-->
+            <!--report_type="xlsx"-->
+            <!--name="qlty_salesreport_xls.qlty_sale_xls.xlsx"-->
+            <!--file="qlty_salesreport_xls.qlty_sale_xls.xlsx"-->
+            <!--attachment_use="False"-->
+        <!--/>-->
+        <report
+            id="parent_child_category_pdf"
+            model="sale.order"
+            string="category wise Report"
+            report_type="qweb-pdf"
+            name="parent_category_pdf.parent_category_pdf"
+            file="parent_category_pdf.parent_category_pdf"  />
+
+
+
+
+        <menuitem name="Category Wise Report" parent="sales_team.menu_sale_report" id="export_excel" action="parent_category_wizard_act" sequence="4"/>
+    </data>
+</openerp>

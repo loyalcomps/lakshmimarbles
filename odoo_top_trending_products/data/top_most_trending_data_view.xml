@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="top_most_trending_products" model="ir.config_parameter">
+            <field name="key">top.most.trending.product</field>
+            <field name="value">10</field>
+        </record>
+    </data>
+</openerp>

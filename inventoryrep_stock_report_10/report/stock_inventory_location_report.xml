@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <template id="report_stock_inventory_location">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">   
+                <div class="page">
+                    <div class="oe_structure"/>
+                        <h2>Stock Inventory</h2>
+                        <div class="row mt32 mb32">
+                            <div class="col-xs-12">
+                                <span>Location : </span><sapn t-field="o.location_id"/>
+                            </div>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Product</th>
+                                <th>UOM</th>
+                                <th>QTY</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <t t-foreach="o.line_ids" t-as="l">
+                                <tr>
+                                    <td><span t-esc="l.product_categ_id.name"/></td>
+                                    <td><span t-esc="l.product_sub_categ_id.name"/></td>
+                                    <td><span t-esc="l.product_id.name"/></td>
+                                    <td><span t-esc="l.product_uom_id.name"/></td>
+                                    <td><span t-esc="l.qty"/></td>
+                                    <td><span t-esc="l.standard_price"/></td>
+                                    <td><span t-esc="l.amount"/></td>
+                                </tr>
+                            </t>
+                            </tbody>
+                        </table>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </t>
+    </template>
+</odoo>

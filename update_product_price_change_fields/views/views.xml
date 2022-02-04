@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="price_change_fields_multi_barcode_for_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.barcodes</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="pos_multi_barcodes.product_template_pos_multi_barcodes"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/field[@name='barcode_ids']/tree/field[@name='product_mrp']" position="before">
+                    <field name="landing_cost"/>
+                </xpath>
+
+                <xpath expr="//page/field[@name='barcode_ids']/tree/field[@name='product_mrp']" position="after">
+                    <field name="margin"/>
+                    <field name="margin_per"/>
+                    <field name="margin_discount"/>
+                    <field name="margin_discount_per"/>
+                    <field name="flag_margin" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_report_product_barcode_compare,report.product.barcode.compare,model_report_product_barcode_compare,sales_team.group_sale_manager,1,1,1,1
+access_report_product_landing_compare,report.product.landing.compare,model_report_product_landing_compare,sales_team.group_sale_manager,1,1,1,1
+access_report_product_mrp_compare,report.product.mrp.compare,model_report_product_mrp_compare,sales_team.group_sale_manager,1,1,1,1
+access_report_product_notequaltax_compare,report.product.notequaltax.compare,model_report_product_notequaltax_compare,sales_team.group_sale_manager,1,1,1,1
+access_report_product_notinpo_compare,report.product.notinpo.compare,model_report_product_notinpo_compare,sales_team.group_sale_manager,1,1,1,1
+access_report_product_vendortax_compare,report.product.vendortax.compare,model_report_product_vendortax_compare,sales_team.group_sale_manager,1,1,1,1
+access_report_product_sellzero_compare,report.product.sellzero.compare,model_report_product_sellzero_compare,sales_team.group_sale_manager,1,1,1,1

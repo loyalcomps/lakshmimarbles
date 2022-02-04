@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>		
+		<record id="invoice_type_wizard_form" model="ir.ui.view">
+			<field name="name">invoice.type.wizard</field>
+			<field name="model">invoice.type.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Select Invoice Type">
+					<group colspan="4">
+						<field name="invoice_type" required="1" class="oe_inline"/>
+						<field name="export" class="oe_inline" attrs="{'invisible':[('invoice_type','!=','export')]}"/>
+					</group>
+					<footer>
+						<button name="updateAccountInvoiceType" icon="fa-check-square-o" string="Done" type="object"/>
+						<button string="Cancel" class="oe_highlight" special="cancel" icon="fa-ban"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="quant_search_view_top25_product" model="ir.ui.view">
+            <field name="name">stock.quant.filter</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <separator/>
+                    <filter string="Top Trending Sold Products" domain="[('id','!=',False)]" context="{'top_25': True}" />
+                    <separator/>
+                    <filter string="Top Trending Purchased Products" domain="[('id','!=',-1)]" context="{'top_25': True}" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

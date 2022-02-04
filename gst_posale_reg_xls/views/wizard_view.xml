@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='gst_posale_wizard_form'>
+            <field name="name">gst.posale.reg.xls.form</field>
+            <field name="model">gst.posale.reg.xls</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                    <group col="4" string="Dates">
+
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    
+                    <group>
+                        <field name="company_id" />
+
+                    </group>
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Sale" class="oe_highlight"
+                                context="{'xls_export':1}" icon="gtk-print"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='gst_posale_wizard_act'>
+            <field name="name">Export POS Sale in Excel</field>
+            <field name="res_model">gst.posale.reg.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="gst_posale_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+            id="posale_xlsx"
+            model="account.invoice"
+            string=" "
+            report_type="xlsx"
+            name="gst_posale_reg_xls.income_posale_xls.xlsx"
+            file="gst_posale_reg_xls.income_posale_xls.xlsx"
+            attachment_use="False"
+        />
+        <menuitem name="GSTR1 POS Sale" parent="account.menu_finance_reports" id="export_excel" action="gst_posale_wizard_act" sequence="3"/>
+    </data>
+</openerp>

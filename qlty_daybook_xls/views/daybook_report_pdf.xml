@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <!--<style> table,th,td{border: 1px solid black;}</style>-->
+        <template id="daybook_report_pdf">
+            <t t-call="report.html_container">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+
+
+                                <t t-if="res_company.name">
+                                    <strong style="font-size:20px;">
+                                        <span t-esc="res_company.name"/>
+                                    </strong>
+                                    <br/>
+                                </t>
+
+                                <t t-if="res_company.street">
+                                    <strong style="font-size:16px;">
+                                        <span t-esc="res_company.street"/>
+                                    </strong>
+                                    <br/>
+                                </t>
+
+                                <p style="font-size:18px;">
+                                    <strong>Day Book</strong>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+
+                                <p style="font-size:18px;">
+                                    <span t-esc="date_start"/>
+                                    <strong>TO</strong>
+                                    <span t-esc="date_end"/>
+                                    <!--</p>-->
+
+                                    <!--<p style="font-size:18px;">-->
+                                </p>
+                                <br/>
+                                <br/>
+
+                            </div>
+
+
+                        </div>
+
+                        <t t-if="detailed">
+
+                            <h3 style="font-size:12px;">SALE</h3>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size:12px;">Name</th>
+                                                <th style="font-size:12px;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach='valuestwo' t-as='payment'>
+                                                <td style="font-size:12px;">
+
+                                                    <t t-if='payment["debt"] == "t"'>
+                                                        <span>CREDIT</span>
+                                                    </t>
+                                                    <t t-if='payment["debt"] == "f"'>
+                                                        <t t-esc="payment['name']"/>
+                                                    </t>
+                                                </td>
+                                                <td style="font-size:12px;">
+                                                    <t t-esc="payment['total']"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6">
+
+                                    <h3 style="font-size:12px;">SALE GST</h3>
+
+
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size:12px;">
+                                                    TAX
+
+                                                </th>
+                                                <th style="font-size:12px;">
+                                                    Amount
+
+                                                </th>
+                                            </tr>
+
+
+                                        </thead>
+
+                                        <tbody>
+                                            <t t-foreach="valuesfive" t-as="line_tax">
+
+                                                <!--<t t-if='line_ids['type'] == cash'>-->
+                                                <tr>
+
+                                                    <td>
+                                                        <strong style="font-size:12px;">
+                                                            <span t-esc="line_tax['name']"/>
+                                                        </strong>
+                                                    </td>
+                                                    <td>
+                                                        <strong style="font-size:12px;">
+                                                            <span t-esc="line_tax['amount']"/>
+                                                        </strong>
+                                                    </td>
+
+                                                </tr>
+                                            </t>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6">
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-set="amounttotal" t-value="0"/>
+                        <t t-set="expensetotal" t-value="0"/>
+                        <t t-set="balance" t-value="0"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+
+
+                                <table class="table table-condensed">
+                                    <thead style="">
+                                        <tr>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Date
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Voucher No.
+                                            </th>
+
+                                             <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Account.
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Particulars
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Debit
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Credit
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;">
+                                                Balance
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="invoice_tbody"
+                                           style="">
+                                        <tr style="">
+                                            <td>
+
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td style="font-size:12px;">
+                                                <span>Opening Balance</span>
+                                            </td>
+                                            <td style="text-align:right;font-size:12px;">
+                                                <span t-esc="opening_bal"/>
+                                                <t t-set="amounttotal" t-value="amounttotal + opening_bal"/>
+                                                <t t-set="balance" t-value="balance + opening_bal"/>
+                                            </td>
+                                            <td style="text-align:right;font-size:12px;">
+                                                <span>
+                                                    0
+                                                </span>
+                                            </td>
+                                            <td style="text-align:right;font-size:12px;">
+
+                                                <!--<t t-if="amounttotaldr > 0"><t t-esc="amounttotaldr"/>Dr</t>-->
+                                                <!--<t t-if="not amounttotaldr > 0"><t t-esc="-1 * amounttotaldr"/>Cr</t>-->
+                                                <t t-if="balance >= 0"><t t-esc="balance"/>Dr
+                                                </t>
+                                                <t t-if="not balance >= 0"><t t-esc="-1 * balance"/>Cr
+                                                </t>
+                                            </td>
+                                        </tr>
+
+
+                                        <!--<tr class="text-left">-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+                                        <!--<span><b>Sale GST</b> </span>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--</tr>-->
+
+                                        <!--<t t-foreach="valuesfive" t-as="line_tax">-->
+
+                                        <!---->
+                                        <!--<tr style="">-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+                                        <!--<strong><span t-esc="line_tax['name']"/></strong>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+                                        <!--<strong><span t-esc="line_tax['amount']"/></strong>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right;">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right;">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right; ">-->
+
+                                        <!--</td>-->
+                                        <!--</tr>-->
+
+
+                                        <!--</t>-->
+
+                                        <tr class="text-left">
+
+                                        </tr>
+
+
+                                        <t t-foreach="valuesone" t-as="line_ids">
+
+                                            <!--<t t-if='line_ids['type'] == cash'>-->
+                                            <tr style="">
+                                                <td style="text-align:left;width:15%;font-size:12px;">
+                                                    <span t-esc="line_ids['date']"/>
+                                                </td>
+                                                <td style="text-align:left;width:25%;font-size:12px; ">
+                                                    <span t-esc="line_ids['vname']"/>
+                                                </td>
+                                                <td style="text-align:left;width:30%;font-size:12px; ">
+                                                    <span t-esc="line_ids['code']+line_ids['acname']"/>
+                                                </td>
+                                                <td style="width:40%;font-size:12px;">
+                                                    <span t-esc="line_ids['sname']"/>
+                                                    <span t-esc="line_ids['particular']"/>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;">
+                                                    <span t-esc="line_ids['amount'] -line_ids['expense'] "/>
+                                                    <t t-set="amounttotal"
+                                                       t-value="amounttotal + (line_ids['amount'] -line_ids['expense']) "/>
+                                                    <t t-set="balance"
+                                                       t-value="balance + (line_ids['amount'] -line_ids['expense'])"/>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;">
+                                                    <t t-if="line_ids['particular']=='cash'">
+                                                        <span>
+                                                            0
+                                                        </span>
+
+                                                    </t>
+
+                                                    <t t-if="line_ids['particular']=='bank'">
+                                                        <span t-esc="line_ids['amount'] -line_ids['expense'] "/>
+                                                        <t t-set="expensetotal"
+                                                           t-value="expensetotal + (line_ids['amount'] -line_ids['expense']) "/>
+                                                        <t t-set="balance"
+                                                           t-value="balance - (line_ids['amount'] -line_ids['expense'])"/>
+
+                                                    </t>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px; ">
+
+                                                    <t t-if="balance >= 0"><t t-esc="balance"/>Dr
+                                                    </t>
+                                                    <t t-if="not balance >= 0"><t t-esc="-1 * balance"/>Cr
+                                                    </t>
+
+                                                </td>
+                                            </tr>
+
+
+                                        </t>
+
+
+                                        <!--<t t-foreach="valuesthree" t-as="line_ids" >-->
+                                        <!--<tr >-->
+                                        <!--<td style="text-align:center;" >-->
+                                        <!--<span t-esc="line_ids['date']"/>-->
+                                        <!--</td>-->
+                                        <!--<td style="" >-->
+                                        <!--<span t-esc="line_ids['particular']"/>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right;" >-->
+                                        <!--<span t-esc="line_ids['amount']"/>-->
+                                        <!--<t t-set="amounttotal" t-value="amounttotal + line_ids['amount']" />-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right;" >-->
+                                        <!--<span t-esc="line_ids['expense']"/>-->
+                                        <!--<t t-set="expensetotal" t-value="expensetotal + line_ids['expense']" />-->
+                                        <!--</td>-->
+
+                                        <!--</tr>-->
+                                        <!--</t>-->
+
+                                        <t t-foreach="valuesfour" t-as="line_ids">
+                                            <tr>
+                                                <t t-set="amounttotaldr" t-value="0"/>
+                                                <t t-set="expensetotalcr" t-value="0"/>
+                                                <td style="text-align:left;width:15%;font-size:12px;">
+                                                    <span t-esc="line_ids['date']"/>
+                                                </td>
+                                                <td style="text-align:left;width:25%;font-size:12px;">
+                                                    <span t-esc="line_ids['vname']"/>
+                                                </td>
+
+                                                <td style="text-align:left;width:30%;font-size:12px; ">
+                                                    <span t-esc="line_ids['code']+line_ids['acname']"/>
+                                                </td>
+                                                <td style="width:40%;font-size:12px;">
+                                                    <span t-esc="line_ids['particular']"/>
+                                                    <span t-esc="line_ids['sname']"/>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;">
+                                                    <span t-esc="line_ids['amount']"/>
+                                                    <t t-set="amounttotal" t-value="amounttotal + line_ids['amount']"/>
+                                                    <t t-set="amounttotaldr"
+                                                       t-value="amounttotaldr + line_ids['amount']"/>
+                                                    <!--<t t-set="balance" t-value="balance + amounttotal"/>-->
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;">
+                                                    <span t-esc="line_ids['expense']"/>
+                                                    <t t-set="expensetotal"
+                                                       t-value="expensetotal + line_ids['expense']"/>
+                                                    <t t-set="expensetotalcr"
+                                                       t-value="expensetotalcr + line_ids['expense']"/>
+                                                    <!--<t t-set="balance" t-value="balance + expensetotal"/>-->
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;">
+
+                                                    <t t-set="balance"
+                                                       t-value="balance + amounttotaldr - expensetotalcr"/>
+
+                                                    <t t-if="balance >= 0"><t t-esc="balance"/>Dr
+                                                    </t>
+                                                    <t t-if="not balance >= 0"><t t-esc="-1 * balance"/>Cr
+                                                    </t>
+
+                                                </td>
+                                            </tr>
+                                        </t>
+
+
+                                        <tr>
+                                            <!--<td>-->
+
+                                            <!--</td>-->
+                                            <td colspan="3"
+                                                style="text-align:center;font-size:12px;">
+                                                <span style="font-size:12px;">
+                                                    <b style="font-size:12px;">Total</b>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <b style="font-size:12px;">
+                                                    <t t-esc="amounttotal"/>
+                                                </b>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <b style="font-size:12px;">
+                                                    <t t-esc="expensetotal"/>
+                                                </b>
+                                            </td>
+
+                                            <td style="text-align:right;font-size:12px;">
+                                                <t t-set="diff"
+                                                   t-value="amounttotal - expensetotal"/>
+
+                                                <t t-if="diff >= 0"><t t-esc="diff"/>Dr
+                                                </t>
+                                                <t t-if="not diff >= 0"><t t-esc="-1 * diff"/>Cr
+                                                </t>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <!--<td>-->
+
+                                            <!--</td>-->
+                                            <td colspan="3"
+                                                style="text-align:center;">
+                                                <span>
+                                                    <b style="font-size:12px;">Closing Balance</b>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:right;">
+
+                                                <t t-if='amounttotal  &lt; expensetotal'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="amounttotal - expensetotal "/>
+                                                    </b>
+                                                </t>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <t t-if='amounttotal &gt; expensetotal'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="amounttotal - expensetotal "/>
+                                                    </b>
+                                                </t>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+
+                                            <td>
+
+                                            </td>
+
+                                            <td>
+
+                                            </td>
+
+                                            <td style="text-align:right;">
+                                                <t t-if='amounttotal &lt; expensetotal'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="expensetotal "/>
+                                                    </b>
+                                                </t>
+                                                <t t-if=' not amounttotal &lt; expensetotal'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="amounttotal "/>
+                                                    </b>
+                                                </t>
+
+                                            </td>
+
+                                            <td style="text-align:right;font-size:12px;">
+                                                <t t-if='amounttotal &gt; expensetotal'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="amounttotal "/>
+                                                    </b>
+                                                </t>
+                                                <t t-if=' not amounttotal &gt; expensetotal'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="expensetotal "/>
+                                                    </b>
+                                                </t>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                        <!--<tr class="text-left">-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+                                        <!--<span>-->
+                                        <!--<b>Purchase GST</b>-->
+                                        <!--</span>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--</tr>-->
+
+                                        <!--<t t-foreach="valuessix" t-as="line_taxs">-->
+
+                                        <!--&lt;!&ndash;<t t-if='line_ids['type'] == cash'>&ndash;&gt;-->
+                                        <!--<tr style="">-->
+                                        <!--<td style="text-align:center; ">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+                                        <!--<strong>-->
+                                        <!--<span t-esc="line_taxs['name']"/>-->
+                                        <!--</strong>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:left; ">-->
+                                        <!--<strong>-->
+                                        <!--<span t-esc="line_taxs['amount']"/>-->
+                                        <!--</strong>-->
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right;">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right;">-->
+
+                                        <!--</td>-->
+                                        <!--<td style="text-align:right; ">-->
+
+                                        <!--</td>-->
+                                        <!--</tr>-->
+
+
+                                        <!--</t>-->
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <t t-if="detailed">
+                            <div class="row">
+                                <div class="col-xs-6">
+
+                                    <h3 style="font-size:12px;">PURCHASE GST</h3>
+
+
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+
+                                                <th style="font-size:12px;">
+
+                                                    TAX
+
+                                                </th>
+                                                <th style="font-size:12px;">
+                                                    Amount
+
+                                                </th>
+                                            </tr>
+
+
+                                        </thead>
+
+                                        <tbody>
+                                            <t t-foreach="valuessix" t-as="line_tax">
+
+                                                <tr>
+
+                                                    <td style="font-size:12px;">
+                                                        <strong style="font-size:12px;">
+                                                            <span t-esc="line_tax['name']"/>
+                                                        </strong>
+                                                    </td>
+                                                    <td style="font-size:12px;">
+                                                        <strong style="font-size:12px;">
+                                                            <span t-esc="line_tax['amount']"/>
+                                                        </strong>
+                                                    </td>
+
+                                                </tr>
+                                            </t>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6">
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_barcode_scan_purchase_barcode_scan,purchase_barcode_scan.purchase_barcode_scan,model_purchase_barcode_scan_purchase_barcode_scan,,1,0,0,0

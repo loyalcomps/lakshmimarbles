@@ -1,0 +1,12 @@
+.pos .product .combo-tag {
+    position: absolute;
+    top: 51px;
+    left: 2px;
+    vertical-align: top;
+    color: white;
+    line-height: 10px;
+    background: #f30b0b80;
+    padding: 2px 34px;
+    border-radius: 14px;
+	font-weight: bold;
+}

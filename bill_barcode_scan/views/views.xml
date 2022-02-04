@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="barcode_scan_supplier_form_view">
+            <field name="name">Barcode Scan in Vendor Bill</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                       position="before">
+                    <field name="product_tmpl_id" invisible="1"/>
+                    <field name="barcode_scan"/>
+                    <!--<field name="multi_barcode" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create': True}" />-->
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="multi_barcode_scan_supplier_form_view">
+            <field name="name">Multi Barcode Scan in Vendor Bill</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_extended.purchase_invoice_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+                 <field name="brand_id" position="attributes">
+                    <attribute name="required">0</attribute>
+                     <attribute name="invisible">1</attribute>
+
+            </field>
+
+                <field name="barcode" position="before">
+
+                    <field name="multi_barcode" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create': True}" />
+
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,102 @@
+<odoo>
+  <data>
+    <!-- Customer Barcode Settings -->
+    <record model="ir.ui.view" id="customer_barcode_details_view_inherits_tree">
+        <field name="name">Barcode Details Settings</field>
+        <field name="model">customer.barcode.settings</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="barcode_x"/>
+                <field name="barcode_y"/>
+
+                <field name="name_x"/>
+                <field name="name_y"/>
+            </tree>
+
+        </field>
+    </record>
+
+
+
+
+ <record model="ir.ui.view" id="customer_barcode_details_view_inherits">
+      <field name="name">Barcode Details Settings</field>
+      <field name="model">customer.barcode.settings</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                    <group>
+
+                        <group>
+                            <field name="barcode_x"/>
+                            <field name="barcode_y"/>
+                        </group>
+
+                        <group>
+                            <field name="name_x"/>
+                            <field name="name_y"/>
+                        </group>
+
+                    </group>
+
+                    <group>
+
+                        <group>
+                            <field name="phone_x"/>
+                            <field name="phone_y"/>
+                        </group>
+
+                        <group>
+                            <field name="mobile_x"/>
+                            <field name="mobile_y"/>
+                        </group>
+
+                    </group>
+
+                    <group>
+
+                      <group>
+
+                            <field name="fnt8"/>
+                            <field name="fnt9"/>
+                             <field name="fnt10"/>
+                            <field name="fnt12"/>
+
+
+                         </group>
+                         <group>
+                            <field name="bcode_height"/>
+                            <field name="bcode_width"/>
+                        </group>
+
+
+
+                    </group>
+
+
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="customer_settings_barcode_details_view_inherit">
+        <field name="name">Customer Barcode Details settings</field>
+        <field name="res_model">customer.barcode.settings</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">Customer Barcode Size Settings
+                    </p>
+        </field>
+    </record>
+
+
+    <menuitem id="customer_barcode_details_view" name="Customer Barcode Details" action="customer_settings_barcode_details_view_inherit"
+                parent="base.menu_custom"  />
+  </data>
+</odoo>

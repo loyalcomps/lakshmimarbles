@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="qlty_pos_reprint_view">
+            <field name="name">Pos Reprint</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='refund']" position="after">
+                    <button name="%(action_report_pos_receipt)d" string="Reprint" type="action" states="paid,done,invoiced"/>
+                </xpath>
+            </field>
+        </record>
+
+
+  </data>
+</odoo>

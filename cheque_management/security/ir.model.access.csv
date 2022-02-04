@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cheque_payment,cheque.payment,model_cheque_payment,account.group_account_invoice,1,1,1,1
+access_cheque_confirm_cancel_window,cheque.confirm.cancel.window,model_cheque_confirm_cancel_window,account.group_account_invoice,1,1,1,1

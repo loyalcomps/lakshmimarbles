@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="writeoff_report_pdf">
+            <t t-call="report.html_container">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+
+                                <t t-if="res_company.name">
+                                    <strong style="font-size:20px;">
+                                        <span t-esc="res_company.name"/>
+                                    </strong>
+                                    <br/>
+                                </t>
+
+                                <t t-if="res_company.street">
+                                    <strong>
+                                        <span t-esc="res_company.street"/>
+                                    </strong>
+                                    <br/>
+                                </t>
+
+                                <p style="font-size:18px;">
+                                    <strong>Write Off Report</strong>
+                                </p>
+
+                                <b style="font-size:16px;">Date :
+                                    <t t-esc="date_start"/>
+                                </b>
+                                <p style="text-align:left;font-size:16px;">
+                                    <strong style="text-align:left;">Location:-
+                                        <span t-esc="stock_location"/>
+                                    </strong>
+                                </p>
+                                <br/>
+                                <br></br>
+                            </div>
+                        </div>
+
+
+                        <t t-set="nontotal" t-value="0"/>
+                        <t t-set="sss" t-value="1"/>
+                        <t t-set="sv" t-value="1"/>
+
+
+                        <t t-set="pqty" t-value="0"/>
+                        <t t-set="pstotal" t-value="0"/>
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+
+
+                                <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                                    <thead style="border: 1px solid black;border-collapse:collapse;">
+                                        <tr>
+
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Sl
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Barcode
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Product
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Opening Stock Qty
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Opening Stock Value
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Transferred Qty
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Transferred Value
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Closing Stock Qty
+                                            </th>
+                                            <th class="text-left"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                Closing Stock Value
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="invoice_tbody">
+
+
+                                        <t t-foreach="result" t-as="line_ids">
+                                            <tr>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:center; ">
+                                                    <span t-esc="line_ids['sl']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                    <span t-esc="line_ids['barcode']"/>
+                                                </td>
+
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                    <span t-esc="line_ids['product']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="line_ids['opening_stock']"/>
+                                                </td>
+
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="line_ids['current_system_stock']"/>
+                                                </td>
+
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="line_ids['transferred_qty']"/>
+                                                </td>
+
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="line_ids['transferred_value'] "/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="line_ids['closing_stock']"/>
+                                                    <t t-set="pstotal" t-value="pstotal+line_ids['closing_stock']"/>
+                                                </td>
+
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="line_ids['current_value']"/>
+                                                    <t t-set="pqty" t-value="pqty+line_ids['current_value']"/>
+                                                </td>
+
+
+
+
+                                            </tr>
+                                        </t>
+
+
+                                        <tr>
+                                            <!--<td>-->
+
+                                            <!--</td>-->
+                                            <td colspan="7"
+                                                style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                                <span>
+                                                    <b>Total</b>
+                                                </span>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b>
+                                                    <t t-esc="pstotal"/>
+                                                </b>
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b>
+                                                    <t t-esc="pqty"/>
+                                                </b>
+                                            </td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

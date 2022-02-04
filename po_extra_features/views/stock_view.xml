@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="stock_picking_extra_feature_view_form">
+            <field name="name">Stock Picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref ="internal_transfer_extended.internal_transfer_extended_view_picking_form"></field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet/notebook/page/field[@name='pack_operation_product_ids']" position="after">
+                    <group>
+                        <group>
+                            <field name="purchase_id" invisible="1"/>
+                            <field name="discount_type" attrs="{'invisible':[('purchase_id','=',False)]}"/>
+                            <field name="discount" attrs="{'invisible':[('purchase_id','=',False)]}"/>
+                            <field name="discount_amt" />
+
+                        </group>
+                        <group>
+                            <field name="round_off_value" attrs="{'invisible':[('purchase_id','=',False)]}"/>
+                            <field name="round_off_operation" attrs="{'invisible':[('purchase_id','=',False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//group/field[@name='amount_discount']" position="after">
+
+                    <field name="rounded_total"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

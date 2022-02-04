@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_product_mrpsell_compare_search" model="ir.ui.view">
+        <field name="name">report.product.mrpsell.compare.search</field>
+        <field name="model">report.product.mrpsell.compare</field>
+        <field name="arch"  type="xml">
+            <search string="Product MRP Sale Price Compare">
+                <field name="product_id"/>
+                <field name="categ_id"/>
+                <filter name="sale_price" string="Sale Price != 1" domain="[('sale_price','!=',1)]"/>
+
+                <group string="Group By" name="groupby">
+                     <filter name="product_groupby" string="Product Variants" context="{'group_by': 'product_id'}"/>
+                    <filter name="product_categ_groupby" string="Product Categories" context="{'group_by': 'categ_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+    <record id="report_product_mrpsell_compare_tree" model="ir.ui.view">
+            <field name="name">report.product.mrpsell.compare.tree</field>
+            <field name="model">report.product.mrpsell.compare</field>
+            <field name="arch" type="xml">
+                <tree string="Product MRP Sale Price Compare" create="false">
+                    <field name="product_id" readonly="False"/>
+                    <field name="categ_id"/>
+                    <field name="product_mrp"/>
+                    <field name="sale_price"/>
+                    <field name="available_in_pos"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="report_product_mrpsell_compare_form" model="ir.ui.view">
+            <field name="name">report.product.mrpsell.compare.form</field>
+            <field name="model">report.product.mrpsell.compare</field>
+            <field name="arch" type="xml">
+                <form string="Product MRP Sale Price Compare" create="false">
+                    <sheet>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="categ_id"/>
+                        </group>
+                        <group>
+                            <field name="product_mrp"/>
+                            <field name="sale_price"/>
+                            <field name="available_in_pos"/>
+                           
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+    <record id="report_product_mrpsell_compare_action" model="ir.actions.act_window">
+        <field name="name">MRP Sell Price Compare</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.product.mrpsell.compare</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="report_product_mrpsell_compare_search"/>
+        <field name="context">{}</field>
+    </record>
+
+
+
+    <!--<menuitem id="menu_report_product_mrpsell_compare"-->
+              <!--action="report_product_mrpsell_compare_action"-->
+              <!--parent="menu_product_mrp_sale_wizard_parent"-->
+              <!--sequence="1"/>-->
+
+
+
+</odoo>

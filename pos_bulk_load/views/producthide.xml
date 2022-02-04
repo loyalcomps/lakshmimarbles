@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!--<record model="ir.ui.menu" id="sale.model_product_product" >-->
+            <!--<field name="groups_id"  eval="[(6,0,[ref('make_invisible')])]"/>-->
+        <!--</record>-->
+        <menuitem action="product.product_template_action" id="sale.menu_product_template_action" parent="sales_team.menu_sales" sequence="13" />
+
+        <record id="sale.menu_product_template_action" model="ir.ui.menu">
+            <field name="action" eval="False"/>
+
+
+        </record>
+                <menuitem name="Products" id="purchase.menu_procurement_partner_contact_form" action="purchase.product_normal_action_puchased"
+          parent="purchase.menu_procurement_management" sequence="20"/>
+        <record id="purchase.menu_procurement_partner_contact_form" model="ir.ui.menu">
+            <field name="action" eval="False"/>
+        </record>
+
+        <menuitem id="stock.menu_product_variant_config_stock" name="Products" action="stock.product_template_action_product"
+        parent="stock.menu_stock_inventory_control" sequence="1"/>
+        <record id="stock.menu_product_variant_config_stock" model="ir.ui.menu">
+            <field name="action" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="purcahase_narration" model="ir.ui.view">
+            <field name="name">purchase.order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='notes']" position="after">
+                    <field name="narration" placeholder="Narration" />
+
+                </xpath>
+                <!--<xpath expr="//field[@name='notes']" position="attributes">-->
+                    <!--<attribute name="widget">html</attribute>-->
+                    <!--<attribute name="width">50px</attribute>-->
+
+                <!--</xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

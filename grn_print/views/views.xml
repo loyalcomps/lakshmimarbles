@@ -1,0 +1,514 @@
+<odoo>
+    <data>
+        <record id="stock_vendor_reference" model="ir.ui.view">
+            <field name="name">stock.picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"></field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="purchase_id" invisible="1"/>
+                    <field name="partner_ref" attrs="{'invisible':[('purchase_id', '=',False)]}"/>
+                </field>
+                <field name="min_date" position="after">
+                    <field name="date_invoice"/>
+                </field>
+            </field>
+        </record>
+
+
+        <report
+                id="goods_receipt_note"
+                model="stock.picking"
+                string="GRN Print"
+                name="grn_print.gr_note"
+                file="grn_print.gr_note"
+                report_type="qweb-pdf"/>
+        <template id="external_layout_grn_footer">
+
+            <div class="footer row" style="padding: 0px;">
+                <div class="col-xs-5"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    PREPARED BY .............
+
+                </div>
+                <div class="col-xs-5"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    PURCHASE MANAGER .............
+
+                </div>
+
+
+                <div class="col-xs-2"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    APPROVED BY .............
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_grn">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+
+            <t t-raw="0"/>
+            <t t-call="grn_print.external_layout_grn_footer"/>
+
+        </template>
+
+
+        <template id="gr_note">
+            <t t-call="report.html_container">
+                <t t-call="grn_print.external_layout_grn">
+                    <t t-foreach="docs" t-as="doc">
+                        <!--<t t-call="report.external_layout">-->
+                        <div class="page">
+                            <div class="row">
+
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-family:Calibri !important;">
+                                    <t>
+                                        <img t-if="res_company.logo"
+                                             t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center"
+                                             style="height: 80px;width: 80px;"/>
+                                    </t>
+                                    <br/>
+                                    <span style="color:green;font-size:18px;font-weight: bold;">
+                                        <t t-esc="doc.company_id.name"/>
+                                    </span>
+                                    <br/>
+                                    <span style="font-size:13px;font-weight: bold;">
+                                        <t t-if="doc.company_id.street">
+                                            <t t-esc="doc.company_id.street"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.street2">
+                                            <t t-esc="doc.company_id.street2"/>
+
+                                        </t>
+
+                                        <t t-if="doc.company_id.city">
+                                            <br/>
+                                            <t t-esc="doc.company_id.city"/>
+                                        </t>
+
+                                        <t t-if="doc.company_id.state_id">
+                                            <br/>
+                                            <t t-esc="doc.company_id.state_id.name"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.zip">
+                                            <t t-esc="doc.company_id.zip"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.country_id">
+                                            <t t-esc="doc.company_id.country_id.name"/>
+                                        </t>
+                                        <t t-if="doc.company_id.email">
+                                            .EMAIL -
+                                            <t t-esc="doc.company_id.email"/>
+                                        </t>
+                                    </span>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-size:16px;font-family:Calibri !important;color:red;font-weight: bold;text-decoration: underline;">
+                                    GOODS RECEIVED NOTE
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <![CDATA[&nbsp;]]>
+                                </div>
+                            </div>
+                            <div class="row" >
+
+                                <div class="col-xs-4"
+                                     style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;padding:0px;">
+                                    <table style="width:100% ;">
+                                        <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                            <td width ="25%" >SUPPLIER NAME</td>
+                                            <td width ="3%" >:</td>
+                                            <td width ="72%" ><t t-esc="doc.partner_id.name"/></td>
+                                        </tr>
+                                        <t t-if="doc.name">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                                <td>GRN NO</td>
+                                                <td>:</td>
+                                                <td><t t-esc="doc.name"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="doc.purchase_id.name">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                                <td>PO NUMBER</td>
+                                                <td>:</td>
+                                                <td><t t-esc="doc.purchase_id.name"/></td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                    <!--SUPPLIER NAME :-->
+                                    <!--<t t-esc="doc.partner_id.name"/>-->
+                                    <!--<br/>-->
+                                    <!--<t t-if="doc.name">-->
+                                        <!--GRN NO :-->
+                                        <!--<t t-esc="doc.name"/>-->
+                                        <!--<br/>-->
+                                    <!--</t>-->
+                                    <!--<t t-if="doc.purchase_id.name">-->
+                                        <!--PO NUMBER :-->
+                                        <!--<t t-esc="doc.purchase_id.name"/>-->
+                                    <!--</t>-->
+
+                                </div>
+                                <!--<div class="col-xs-3"-->
+                                     <!--style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">-->
+                                    <!--GRN DATE :-->
+                                    <!--<t t-esc="doc.min_date"/>-->
+
+                                <!--</div>-->
+                                <div class="col-xs-4"
+                                     style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+
+                                    <table  style="width:100%;margin-left:100px;">
+                                        <t t-if="doc.company_id.x_gstin">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+
+                                                <td width ="30%">GST NO</td>
+                                                <td width ="3%">:</td>
+                                                <td width ="67%">
+                                                    <t t-esc="doc.company_id.x_gstin"/>
+                                                </td>
+
+                                            </tr>
+                                        </t>
+                                        <t t-if="doc.purchase_id.date_order">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                                <td>INVOICE NO/ DATE</td>
+                                                <td>:</td>
+                                                <td>
+                                                    <t t-if="doc.partner_ref">
+                                                        <t t-esc="doc.partner_ref"/>
+                                                        <t t-if="doc.date_invoice">
+                                                            /<![CDATA[&nbsp;]]><t t-esc="doc.date_invoice"/>
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="not doc.partner_ref">
+
+                                                        <t t-if="doc.date_invoice">
+                                                            <![CDATA[&nbsp;]]><t t-esc="doc.date_invoice"/>
+                                                        </t>
+                                                    </t>
+                                                    <!--<t t-esc="doc.partner_ref"/>/<![CDATA[&nbsp;]]><t t-esc="doc.date_invoice"/>-->
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="doc.purchase_id.payment_term_id">
+                                             <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                                <td>PAYMENT TERMS</td>
+                                                <td>:</td>
+                                                <td><t t-esc="doc.purchase_id.payment_term_id.name"/>
+
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                    </table>
+
+                                    <!--<t t-if="doc.company_id.x_gstin">-->
+                                        <!--GST NO :-->
+                                        <!--<t t-esc="doc.company_id.x_gstin"/>-->
+                                        <!--<br/>-->
+                                    <!--</t>-->
+
+                                    <!--<t t-if="doc.purchase_id.date_order">-->
+
+                                        <!--INVOICE NO/DATE :-->
+
+                                        <!--<br/>-->
+                                    <!--</t>-->
+
+                                    <!--<t t-if="doc.purchase_id.payment_term_id">-->
+
+                                        <!--PAYMENT TERMS :-->
+                                        <!--<t t-esc="doc.payment_term_id.name"/>-->
+
+                                    <!--</t>-->
+
+                                </div>
+                                <div class="col-xs-4"
+                                     style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                    <table style="width:100%;margin-left:120px;">
+                                        <t t-if="doc.min_date">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+
+                                                <td width ="20%">GRN DATE</td>
+                                                <td width ="3%">:</td>
+                                                <td width ="77%">
+                                                    <t t-esc="doc.min_date"/>
+                                                </td>
+
+                                            </tr>
+                                        </t>
+                                        <t t-if="doc.location_id.name">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+
+                                                <td>LOCATION</td>
+                                                <td>:</td>
+                                                <td>
+                                                    <t t-if="doc.picking_type_id.default_location_dest_id.location_id">
+                                                        <t t-esc="doc.picking_type_id.default_location_dest_id.location_id.name"/>
+                                                        /
+                                                    </t>
+                                                    <t t-esc="doc.picking_type_id.default_location_dest_id.name"/>
+                                                </td>
+
+                                            </tr>
+                                        </t>
+                                    </table>
+                                    <!--GRN DATE :-->
+                                    <!--<t t-esc="doc.min_date"/>-->
+
+                                    <!--<t t-if="doc.location_id.name">-->
+                                        <!--<br/>-->
+
+                                        <!--LOCATION :-->
+                                        <!--<t t-if="doc.location_id.location_id">-->
+                                            <!--<t t-esc="doc.location_id.location_id.name"/>/-->
+                                        <!--</t>-->
+                                        <!--<t t-esc="doc.location_id.name"/>-->
+                                        <!--<br/>-->
+                                    <!--</t>-->
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <![CDATA[&nbsp;]]>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <center>
+                                    <table class="table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr style="background-color:#2d405f;color:white;">
+                                                <th >
+                                                    <center>Sl.No</center>
+                                                </th>
+                                                <th >
+                                                    <center>Item Code</center>
+                                                </th>
+                                                <th >
+                                                    <center>Barcode</center>
+                                                </th>
+                                                <th width="150px">
+                                                    <center><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                                        Description<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                                        <![CDATA[&nbsp;]]></center>
+                                                </th>
+
+                                                <th >
+                                                    <center>Rec. Qty</center>
+                                                </th>
+
+                                                <th >
+                                                    <center>UOM</center>
+                                                </th>
+                                                <th >
+                                                    <center>Unit Price</center>
+                                                </th>
+                                                <th >
+                                                    <center>Gross Amt</center>
+                                                </th>
+                                                <th >
+                                                    <center>FOC</center>
+                                                </th>
+                                                <th >
+                                                    <center>FOC Amt</center>
+                                                </th>
+                                                <th >
+                                                    <center>GST%</center>
+                                                </th>
+                                                <th >
+                                                    <center>GST Amt</center>
+                                                </th>
+                                                <th >
+                                                    <center>Cost</center>
+                                                </th>
+                                                <th >
+                                                    <center>RSP</center>
+                                                </th>
+                                                <th >
+                                                    <center>GP%</center>
+                                                </th>
+                                                <th >
+                                                    <center>GP Value</center>
+                                                </th>
+                                                <th >
+                                                    <center>Net Amt</center>
+                                                </th>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="i" t-value="1"/>
+                                            <t t-set="gp_per" t-value="0"/>
+                                            <t t-set="landing_cost" t-value="0"/>
+                                            <t t-set="f" t-value="0"/>
+
+                                            <t t-foreach="doc.pack_operation_product_ids" t-as="l">
+                                                <tr t-if="l.product_id" style="page-break-inside:avoid;">
+                                                    <t t-if="l.qty_done">
+                                                        <t t-set="landing_cost" t-value="l.price_unit+(l.price_tax/l.qty_done)"/>
+                                                        <t t-if="doc.inclusive_value">
+                                                            <t t-set="landing_cost" t-value="l.price_unit"/>
+                                                        </t>
+                                                    </t>
+
+                                                    <td class="text-center" >
+                                                        <span t-esc="i"/>
+                                                        <t t-set="i" t-value="i+1"/>
+                                                    </td>
+                                                    <td class="text-center" >
+                                                        <span t-esc="l.product_id.id"/>
+                                                    </td>
+                                                    <td >
+                                                        <![CDATA[&nbsp;]]>
+                                                        <span t-field="l.barcode"/>
+                                                    </td>
+                                                    <td class="text-left" >
+                                                        <![CDATA[&nbsp;]]>
+                                                        <span t-field="l.product_id.name"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-field="l.qty_done"/>
+                                                    </td>
+                                                    <td class="text-left" >
+                                                        <![CDATA[&nbsp;]]>
+                                                        <span t-field="l.product_uom_id.name"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.price_unit)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.price_subtotal)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'%.2f'%(l.free_qty)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.foc_amount)"/>
+                                                    </td>
+
+                                                    <td class="text-center" >
+                                                        <span t-field="l.taxes_id.name"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.price_tax)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.landing_cost)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.sale_price)"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-if="l.landing_cost">
+                                                            <t t-set="gp_per"
+                                                               t-value="((l.sale_price-l.landing_cost)*100)/l.landing_cost"/>
+                                                        </t>
+
+                                                        <span t-esc="'%.2f'%(gp_per)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <span t-esc="'{:,.2f}'.format(l.sale_price-l.landing_cost)"/>
+                                                    </td>
+                                                    <td class="text-right" >
+                                                        <!--<span t-esc="'%.,2f'%(l.price_total)"/>-->
+                                                         <span t-esc="'{:,.2f}'.format(l.price_total)"/>
+                                                    </td>
+                                                </tr>
+
+                                            </t>
+                                            <tr >
+                                                <td colspan="16" class="text-right" style="font-weight:bold;">
+                                                    Net Amount
+
+                                                </td>
+                                                <td class="text-right" style="font-weight:bold;">
+                                                    <span t-esc="'{:,.2f}'.format(doc.net_amount)"/>
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td colspan="16" class="text-right" style="font-weight:bold;">
+                                                    Discount
+
+                                                </td>
+                                                <td class="text-right" style="font-weight:bold;">
+                                                    <span t-esc="'{:,.2f}'.format(doc.amount_discount)"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="16" class="text-right" style="font-weight:bold;">
+                                                    Total
+
+                                                </td>
+                                                <td class="text-right" style="font-weight:bold;">
+                                                    <span t-esc="'{:,.2f}'.format(doc.amount_total)"/>
+                                                </td>
+                                            </tr>
+
+
+
+                                        </tbody>
+                                    </table>
+
+                                </center>
+                            </div>
+
+                            <div class="row">
+                                <br/>
+
+                                <div class="col-xs-1"
+                                     style="text-align: left;font-size:13px;font-family:Calibri !important;padding: 0px;">
+                                    <span style="font-weight: bold;">REMARKS :</span>
+
+                                </div>
+                                <div class="col-xs-11"
+                                     style="text-align: left;font-size:13px;font-family:Calibri !important;padding: 0px;">
+                                    <pre style="background-color:white;color:black;border-style:none;white-space: pre-line;padding: 0px;">
+                                        <t t-esc="doc.note"/>
+                                    </pre>
+                                </div>
+
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                        </div>
+                    </t>
+                </t>
+
+            </t>
+        </template>
+
+
+    </data>
+
+
+</odoo>

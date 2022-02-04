@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_pos_combo" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.combo</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="after">
+                    <div name="combo" groups="point_of_sale.group_pos_manager">
+                        <div>
+                            <field name="is_combo"/>
+                            <label for="is_combo" string="Combo/pack"/>
+                        </div>
+                        <div>
+                            <field name="is_credit"/>
+                            <label for="is_credit" string="Is credit service"/>
+                        </div>
+                    </div>
+                </xpath>
+
+                <xpath expr="//page[2]" position="after">
+                    <page string="Combo Packs">
+                        <div name="combo" attrs="{'invisible': [('is_combo', '=', False)]}"
+                             groups="point_of_sale.group_pos_manager">
+                            <group>
+                                <field name="combo_limit" required="1"/>
+                            </group>
+                            <separator string="Combo items"/>
+                            <field name="pos_combo_item_ids" nolabel="1"
+                                   attrs="{'required': [('is_combo', '=', True)]}">
+                                <tree string="Combo items" editable="1">
+                                    <field name="product_id" options="{'no_create_edit': True}"/>
+                                    <field name="quantity" options="{'no_create_edit': True}"/>
+                                    <field name="uom_id"/>
+                                    <field name="default" options="{'no_create_edit': True}"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

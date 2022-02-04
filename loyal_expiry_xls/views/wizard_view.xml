@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='loyal_expiry_wizard_form'>
+            <field name="name">loyal.expiry.xls.form</field>
+            <field name="model">loyal.expiry.xls</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                    <group col="4" string="Dates">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    
+                    <group>
+                        <field name="company_id" />
+                        <!--<field name="type"/>-->
+                    </group>
+
+                    <footer>
+
+                        <!--<button name="export_xls" type="object" default_focus="1"-->
+                                <!--string="Export Item Purchase" class="oe_highlight"-->
+                                <!--context="{'xls_export':1}" icon="gtk-print"/>-->
+                        <!--or-->
+
+                        <button name="print_report" string="Print" type="object" class="oe_highlight" icon="gtk-print"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='loyal_expiry_wizard_act'>
+            <field name="name">Export Expiry</field>
+            <field name="res_model">loyal.expiry.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="loyal_expiry_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--<report-->
+            <!--id="itempurchase_xlsx"-->
+            <!--model="account.invoice"-->
+            <!--string=" "-->
+            <!--report_type="xlsx"-->
+            <!--name="tky_itempurchase_xls.itempurchase_xls.xlsx"-->
+            <!--file="tky_itempurchase_xls.itempurchase_xls.xlsx"-->
+            <!--attachment_use="False"-->
+        <!--/>-->
+
+        <report
+            id="expiry_report"
+            model="account.invoice"
+            string="Expiry Report"
+            report_type="qweb-pdf"
+            name="loyal_expiry_xls.expiry_report_pdf"
+            file="loyal_expiry_xls.expiry_report_pdf"  />
+        <menuitem name="Expiry Report" parent="account.menu_finance_reports" id="export_excel" action="loyal_expiry_wizard_act" sequence="3"/>
+
+    </data>
+</odoo>

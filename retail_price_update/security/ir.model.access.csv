@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_confirm_window_user,confirm_window_user,model_confirm_window,retail_price_update.group_user,1,1,1,1
+access_confirm_window_manager,confirm_window_manager,model_confirm_window,retail_price_update.group_manager,1,1,1,1
+access_confirm_window_line_user,confirm_window_line_user,model_confirm_window_line,retail_price_update.group_user,1,1,1,1
+access_confirm_window_line_manager,confirm_window_line_manager,model_confirm_window_line,retail_price_update.group_manager,1,1,1,1
+access_product_confirm_cancel_window_user,product.confirm.cancel.window.user,model_product_confirm_cancel_window,retail_price_update.group_user,1,1,1,1
+access_product_confirm_cancel_window_manager,product.confirm.cancel.window.manager,model_product_confirm_cancel_window,retail_price_update.group_manager,1,1,1,1

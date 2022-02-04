@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+
+	<record id="gst_invoice_view_country_state_form_inherit" model="ir.ui.view">
+        <field name="name">gst.invoice.res.country.state.form.inhert</field>
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_form"/>
+        <field name="arch" type="xml">
+        	<field name="code" position="after">
+        		<field name="x_tin"/>
+        	</field>
+        </field>
+    </record>
+
+</odoo>

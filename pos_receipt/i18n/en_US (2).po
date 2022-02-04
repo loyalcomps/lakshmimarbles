@@ -1,0 +1,665 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_receipt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-25 11:15+0000\n"
+"PO-Revision-Date: 2017-09-25 11:15+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:104
+#, python-format
+msgid "% discount"
+msgstr "% discount"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "<b>Chair Name : </b>"
+msgstr "<b>Chair Name : </b>"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "<b>Created Time : </b>"
+msgstr "<b>Created Time : </b>"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "<b>Customer: </b>"
+msgstr "<b>Customer: </b>"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "<b>Parcel : </b>"
+msgstr "<b>Parcel : </b>"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:32
+#, python-format
+msgid "Add Sequence"
+msgstr "Add Sequence"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_asset_method_time
+msgid "Asset Method Time"
+msgstr "Asset Method Time"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:194
+#, python-format
+msgid "Back"
+msgstr "Back"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:412
+#, python-format
+msgid "CHANGE"
+msgstr "CHANGE"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:596
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:630
+#, python-format
+msgid "Can not Print order which have no order line."
+msgstr "Can not Print order which have no order line."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:564
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:693
+#, python-format
+msgid "Can not create order which have no order line."
+msgstr "Can not create order which have no order line."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:83
+#, python-format
+msgid "Can not remove order."
+msgstr "Can not remove order."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:233
+#, python-format
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_table
+msgid "Chair"
+msgstr "Chair"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_table_name
+msgid "Chair Name"
+msgstr "Chair Name"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:166
+#, python-format
+msgid "Change:"
+msgstr "Change:"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "Clear All..."
+msgstr "Clear All..."
+
+#. module: pos_receipt
+#: model:ir.actions.act_window,help:pos_receipt.action_pos_pos_kanban
+msgid "Click to create a new order."
+msgstr "Click to create a new order."
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:62
+#, python-format
+msgid "Current order can not be remove"
+msgstr "Current order can not be remove"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:795
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:809
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:820
+#, python-format
+msgid "Current orderline is not remove"
+msgstr "Current orderline is not remove"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_partner_id
+msgid "Customer"
+msgstr "Customer"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:61
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_line_kanban
+#, python-format
+msgid "Customer :"
+msgstr "Customer :"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:17
+#, python-format
+msgid "Customer Receipt"
+msgstr "Customer Receipt"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:253
+#, python-format
+msgid "Customer:"
+msgstr "Customer:"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_line_kanban
+msgid "Delete"
+msgstr "Delete"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_line_kanban
+msgid "Description : ("
+msgstr "Description : ("
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:135
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:354
+#, python-format
+msgid "Discount:"
+msgstr "Discount:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:422
+#, python-format
+msgid "Discounts"
+msgstr "Discounts"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_config_display_customer_receipt
+msgid "Display Customer Receipt                                                 Button"
+msgstr "Display Customer Receipt                                                 Button"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_config_display_kitchen_receipt
+msgid "Display Kitchen Receipt Button"
+msgstr "Display Kitchen Receipt Button"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_config_display_send_to_kitchen
+msgid "Display Send To Kitchen Button"
+msgstr "Display Send To Kitchen Button"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "Done"
+msgstr "Done"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:727
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:741
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:757
+#, python-format
+msgid "Done orderline can't change"
+msgstr "Done orderline can't change"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "Done/Clear"
+msgstr "Done/Clear"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.sale_order_line_search_view
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_receipt
+#: model:ir.model.fields,help:pos_receipt.field_pos_config_display_customer_receipt
+msgid "If Display Customer                                          Receipt Button is true than                                         pos shows a Customer receipt button."
+msgstr "If Display Customer                                          Receipt Button is true than                                         pos shows a Customer receipt button."
+
+#. module: pos_receipt
+#: model:ir.model.fields,help:pos_receipt.field_pos_config_display_kitchen_receipt
+msgid "If Display Kitchen Receipt                 Button is true than pos shows a kitchen receipt button."
+msgstr "If Display Kitchen Receipt                 Button is true than pos shows a kitchen receipt button."
+
+#. module: pos_receipt
+#: model:ir.model.fields,help:pos_receipt.field_pos_config_display_send_to_kitchen
+msgid "If Display Send To kitchen                 Button is true than pos shows a send to kitchen button."
+msgstr "If Display Send To kitchen                 Button is true than pos shows a send to kitchen button."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:216
+#, python-format
+msgid "Items"
+msgstr "Items"
+
+#. module: pos_receipt
+#: model:ir.actions.act_window,name:pos_receipt.action_pos_order_line_view
+#: model:ir.actions.act_window,name:pos_receipt.action_pos_order_line_view_extended
+msgid "Kitchen Screen"
+msgstr "Kitchen Screen"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_order_line
+msgid "Lines of Point of Sale"
+msgstr "Lines of Point of Sale"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_name
+msgid "Name"
+msgstr "Name"
+
+#. module: pos_receipt
+#: code:addons/pos_receipt/models/pos_receipt.py:346
+#, python-format
+msgid "No cash statement found for                                     this session. Unable to                                     record returned cash."
+msgstr "No cash statement found for                                     this session. Unable to                                     record returned cash."
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.sale_order_line_search_view
+msgid "Order"
+msgstr "Order"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_order_line_state_id
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_order_line_state_id
+msgid "Order Line State"
+msgstr "Order Line State"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_order_name
+msgid "Order Name"
+msgstr "Order Name"
+
+#. module: pos_receipt
+#: model:res.groups,name:pos_receipt.group_order_screen
+msgid "Order Screen"
+msgstr "Order Screen"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:585
+#, python-format
+msgid "Order send to the kitchen successfully!"
+msgstr "Order send to the kitchen successfully!"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:698
+#, python-format
+msgid "Orderline Sequence"
+msgstr "Orderline Sequence"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_order_line_status
+msgid "Orderline Status"
+msgstr "Orderline Status"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.sale_order_line_search_view
+msgid "Orders"
+msgstr "Orders"
+
+#. module: pos_receipt
+#: model:ir.actions.act_window,name:pos_receipt.action_pos_pos_kanban
+msgid "Orders Screen"
+msgstr "Orders Screen"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_parcel
+msgid "Parcel"
+msgstr "Parcel"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:54
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_line_kanban
+#, python-format
+msgid "Parcel :"
+msgstr "Parcel :"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_parcel_name
+msgid "Parcel Name"
+msgstr "Parcel Name"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:247
+#, python-format
+msgid "Parcel:"
+msgstr "Parcel:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:41
+#, python-format
+msgid "Phone:"
+msgstr "Phone:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:512
+#, python-format
+msgid "Please Select Customer."
+msgstr "Please Select Customer."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:504
+#, python-format
+msgid "Please done all order line."
+msgstr "Please done all order line."
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Point of Sale Orders"
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_make_payment
+msgid "Point of Sale Payment"
+msgstr "Point of Sale Payment"
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_order_line_state
+msgid "Pos Order Line State"
+msgstr "Pos Order Line State"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_pricelist_ids
+msgid "Price list available for                                             this Ecommerce/Website"
+msgstr "Price list available for                                             this Ecommerce/Website"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:25
+#, python-format
+msgid "Print Receipt"
+msgstr "Print Receipt"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_product_details
+msgid "Product Details"
+msgstr "Product Details"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "Progress"
+msgstr "Progress"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_property_description
+msgid "Property Description"
+msgstr "Property Description"
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_category
+msgid "Public Category"
+msgstr "Public Category"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:215
+#, python-format
+msgid "Qty"
+msgstr "Qty"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_line_kanban
+msgid "Qty :"
+msgstr "Qty :"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_config_inherit
+msgid "Receipt Configuration"
+msgstr "Receipt Configuration"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.sale_order_line_search_view
+msgid "Search POS Order Line"
+msgstr "Search POS Order Line"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:236
+#, python-format
+msgid "Send"
+msgstr "Send"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:9
+#, python-format
+msgid "Send To Kitchen"
+msgstr "Send To Kitchen"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:217
+#, python-format
+msgid "Seq"
+msgstr "Seq"
+
+#. module: pos_receipt
+#: model:ir.model.fields,field_description:pos_receipt.field_pos_order_line_state_sequence
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:334
+#, python-format
+msgid "Served by"
+msgstr "Served by"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_kanban
+msgid "Show More / Less..."
+msgstr "Show More / Less..."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:382
+#, python-format
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:121
+#, python-format
+msgid "Subtotal:"
+msgstr "Subtotal:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:583
+#, python-format
+msgid "Successful"
+msgstr "Successful"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:395
+#, python-format
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#. module: pos_receipt
+#: model:ir.ui.view,arch_db:pos_receipt.view_pos_order_line_kanban
+msgid "Table :"
+msgstr "Table :"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:58
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:250
+#, python-format
+msgid "Table:"
+msgstr "Table:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:314
+#, python-format
+msgid "Tel:"
+msgstr "Tel:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:246
+#, python-format
+msgid "There is no any draft orders!!"
+msgstr "There is no any draft orders!!"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:434
+#, python-format
+msgid "Total Taxes"
+msgstr "Total Taxes"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:141
+#, python-format
+msgid "Total:"
+msgstr "Total:"
+
+#. module: pos_receipt
+#: model:ir.actions.act_window,help:pos_receipt.action_pos_pos_kanban
+msgid "Use this menu to browse previous orders. To record new\n"
+"                    orders, you may use the menu <i>Your Session</i> for\n"
+"                    the touchscreen interface."
+msgstr "Use this menu to browse previous orders. To record new\n"
+"                    orders, you may use the menu <i>Your Session</i> for\n"
+"                    the touchscreen interface."
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:42
+#, python-format
+msgid "User:"
+msgstr "User:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:317
+#, python-format
+msgid "VAT:"
+msgstr "VAT:"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:60
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:725
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:739
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:755
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:793
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:807
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:818
+#, python-format
+msgid "Warning"
+msgstr "Warning"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:81
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:245
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:503
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:511
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:563
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:595
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:628
+#: code:addons/pos_receipt/static/src/js/pos_receipt.js:691
+#, python-format
+msgid "Warning !"
+msgstr "Warning !"
+
+#. module: pos_receipt
+#. openerp-web
+#: code:addons/pos_receipt/static/src/xml/pos_receipt.xml:103
+#, python-format
+msgid "With a"
+msgstr "With a"
+
+#. module: pos_receipt
+#: code:addons/pos_receipt/models/pos_receipt.py:498
+#, python-format
+msgid "You cannot confirm all orders of this                             session, because they have not the 'paid' status"
+msgstr "You cannot confirm all orders of this                             session, because they have not the 'paid' status"
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_config
+msgid "pos.config"
+msgstr "pos.config"
+
+#. module: pos_receipt
+#: model:ir.model,name:pos_receipt.model_pos_session
+msgid "pos.session"
+msgstr "pos.session"
+
+#. module: pos_receipt
+#: code:addons/pos_receipt/models/pos_receipt.py:354
+#: code:addons/pos_receipt/models/pos_receipt.py:361
+#, python-format
+msgid "return"
+msgstr "return"
+

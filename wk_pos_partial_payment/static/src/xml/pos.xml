@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<templates id="template" xml:space="preserve">
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".payment-buttons" t-operation="append">
+            <t t-if="widget.pos.config.partial_payment">
+                <textarea id="partial_payment_description" placeholder="Invoice Remark" cols="50" rows="2" class="partial-payment-remark"></textarea>
+            </t>
+        </t>
+    </t>
+    <t t-name="PartialPaymentBlockPopup">
+        <div class="modal-dialog">
+            <div class="popup popup-textinput" style="height: 203px !important;width: 580px !important;margin-top: 188px;">
+                <p class="title"><t t-esc=" widget.options.title || 'Confirm ?' " /></p>
+                <p class="body"><t t-esc="  widget.options.body || '' "/></p>
+                <div class="footer">
+                    <div class="button cancel">
+                        OK
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

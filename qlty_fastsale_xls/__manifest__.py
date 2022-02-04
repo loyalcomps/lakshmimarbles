@@ -1,0 +1,28 @@
+{
+    'name': 'Fast Sale Report ',
+    'version': '10.0.2.0.0',
+    'summary': "Fast Sale report",
+    'category': 'Accounts',
+    'author': 'Loyal IT Solutions',
+    'company': 'Loyal IT Solutions',
+    'website': 'http://www.loyalitsolutions.com',
+    'depends': [
+                'base',
+                'account',
+                'sale',
+                'purchase',
+                'stock',
+                'product',
+                'account_report_menu',
+                'report_xlsx',
+                'point_of_sale',
+                ],
+    'data': [
+            'views/wizard_view.xml',
+            'views/fastsale_report_pdf.xml',
+            ],
+    'images': ['static/description/banner.jpg'],
+    'license': "AGPL-3",
+    'installable': True,
+    'auto_install': False,
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_purchase_order_filter_top25_product" model="ir.ui.view">
+            <field name="name">purchase.order.filter</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter string="Top Trending Products" domain="[('id','!=',False)]" context="{'top_25': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

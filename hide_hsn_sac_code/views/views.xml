@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hide_gst_invoice_product_template_hsn_code">
+            <field name="name">hide.hs_code</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="gst_invoice.gst_invoice_product_template_hsn_code"/>
+            <field name="arch" type="xml">
+                <field name="x_hsn_code" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <field name="x_hsn_code"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

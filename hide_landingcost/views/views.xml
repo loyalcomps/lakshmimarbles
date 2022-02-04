@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+         <!--<record model="ir.ui.view" id="product_form_hide_landing">-->
+            <!--<field name="name">product.template.landing</field>-->
+            <!--<field name="model">product.template</field>-->
+            <!--<field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--&lt;!&ndash;<xpath expr="//label[@for='standard_price']" position="attributes">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<attribute name="groups">hide_landing_cost.view_landingcost</attribute>&ndash;&gt;-->
+                 <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                 <!--<xpath expr="//field[@name='landing_cost']" position="attributes">-->
+                    <!--<attribute name="groups">hide_landingcost.view_landingcost</attribute>-->
+                 <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+
+        <!--<record model="ir.ui.view" id="product_point_landing">-->
+            <!--<field name="name">product.product.landing</field>-->
+            <!--<field name="model">product.product</field>-->
+            <!--<field name="inherit_id" ref="product.product_normal_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--&lt;!&ndash;<xpath expr="//label[@for='standard_price']" position="attributes">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<attribute name="groups">hide_landing_cost.view_landingcost</attribute>&ndash;&gt;-->
+                 <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                 <!--<xpath expr="//field[@name='landing_cost']" position="attributes">-->
+                    <!--<attribute name="groups">hide_landingcost.view_landingcost</attribute>-->
+                 <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+<!--purchase_invoice_inherit_form_view-->
+
+         <record model="ir.ui.view" id="purchase_invoice_inherit_form_view_hide_landing_cost">
+            <field name="name">landingcost</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_extended.purchase_invoice_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='landing_cost']" position="attributes">
+                    <attribute name="groups">hide_landingcost.view_landing_cost</attribute>
+<!--<attribute name="invisible">1</attribute>-->
+                </xpath>
+            </field>
+         </record>
+
+
+
+        <!---->
+    </data>
+</odoo>

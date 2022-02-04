@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="pos_config_buy3_get1">
+            <field name="name">pos.config.retail</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/> <!-- v10-->
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet" position="inside">
+
+                    <group>
+                        <group string="Promotion">
+                            <field name="promotion_manual_select"/>
+                            <field name="promotion_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+
+                        </group>
+
+                    </group>
+
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

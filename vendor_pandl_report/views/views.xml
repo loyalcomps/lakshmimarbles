@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='vendorwise_pl_wizard_form'>
+            <field name="name">qlty.vendorwise.xls.form</field>
+            <field name="model">vendor.pl</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+
+                    <group col="4" string="Dates">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+
+                    <group>
+                        <field name="company_id" options="{'no_create': True}"/>
+                        <field name="vendor_id" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="vendor_contact_id" widget="many2many_tags" domain="[('supplier','=',True),('parent_id','in',vendor_id[0][2])]"
+                         attrs ="{'invisible': [('vendor_id', '=', [])]}" options="{'no_create': True}"/>
+                        <field name="product_id" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+
+                    <footer>
+                        <button name="export_xls" type="object"
+                                string="Print Xls" class="oe_highlight"
+                                context="{'xls_export':1}" />
+                        or
+                        <button name="export_pdf" string="Print" type="object" default_focus="1"
+                                 class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='vendorwise_pl_wizard_act'>
+            <field name="name">Vendorwise P &amp; L Report</field>
+            <field name="res_model">vendor.pl</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="vendorwise_pl_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+                id="vendorwise_xlsx"
+                model="sale.order"
+                string="Vendor wise Profit and Loss - XLSX"
+                report_type="xlsx"
+                name="vendor_pandl_report.vendorwise_pandl_xls.xlsx"
+                file="vendor_pandl_report.vendorwise_pandl_xls.xlsx"
+                attachment_use="False"
+        />
+        <report
+            id="vendorwise_pdf"
+            model="sale.order"
+            string="Vendor wise Profit and Loss - PDF"
+            report_type="qweb-html"
+            name="vendor_pandl_report.vendorwise_pandl_pdf"
+            file="vendor_pandl_report.vendorwise_pandl_pdf"
+        />
+        <menuitem name="Vendor wise P&amp;L Report" parent="account.menu_finance_reports" id="export_excel"
+                  action="vendorwise_pl_wizard_act" sequence="7"/>
+
+    </data>
+</odoo>

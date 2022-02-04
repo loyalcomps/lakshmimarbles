@@ -1,0 +1,34 @@
+<odoo>
+  <data>
+
+      <record model="ir.ui.view" id="cess_sale_order_line_tree_inherit">
+        <field name="name">Sale Order Line</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"></field>
+        <field name="arch" type="xml">
+          <field name="name" position="after">
+                <field name="cess_tax_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id = 'cess_sale_order_form_inherit'>
+          <field name="name">Sale Order</field>
+          <field name="model">sale.order</field>
+          <field name = "inherit_id" ref="sale.view_order_form"></field>
+          <field name="arch" type="xml">
+              <xpath expr="//sheet/notebook/page/field[@name='order_line']/tree/field[@name='tax_id']" position="after">
+                  <field name="cess_tax_id" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"
+                                                attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+              </xpath>
+              <field name="amount_tax" position="after">
+                  <field name="amount_cess"/>
+              </field>
+          </field>
+      </record>
+
+
+
+
+  </data>
+</odoo>

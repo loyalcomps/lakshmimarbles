@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="CustomerPricelistInfoPopup">
+        <div class="modal-dialog">
+            <div class="popup popup-alert">
+                <p class="title"><t t-esc=" widget.options.title || 'Alert' " /></p>
+                <p class="body"><t t-esc=" widget.options.body || '' "/></p>
+                <div class="footer">
+                    <div class="button cancel">
+                        Ok
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="ClientListScreenWidget">
+        <t t-jquery=".client-list>thead>tr" t-operation="append">
+
+            <th>Pricelist</th>
+
+        </t>
+    </t>
+
+    <t t-extend="ClientLine">
+        <t t-jquery=".client-line" t-operation="append">
+
+            <td><t t-esc='partner.property_product_pricelist[1] or ""' /></td>
+
+        </t>
+    </t>
+
+
+    <t t-extend="ClientDetails">
+        <t t-jquery=".client-details-right" t-operation="append">
+            <div t-attf-class='client-detail #{widget.pos.pricelists.length &lt;= 1 ? "oe_hidden" : ""}'>
+                <span class='label'>Pricelist</span>
+                <t t-if='partner.property_product_pricelist'>
+                    <span class='detail property_product_pricelist'><t t-esc='partner.property_product_pricelist[1]'/></span>
+                </t>
+                <t t-if='!partner.property_product_pricelist'>
+                    <span class='detail property_product_pricelist empty'>N/A</span>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

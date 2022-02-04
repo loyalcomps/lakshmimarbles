@@ -1,0 +1,46 @@
+<odoo>
+  <data>
+
+
+     <record id="view_sale_config_settings_form_pos" model="ir.ui.view">
+            <field name="name">pos.config.settings.form</field>
+            <field name="model">pos.config.settings</field>
+
+         <field name="inherit_id" ref="point_of_sale.view_sale_config_settings_form_pos"/>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+
+                    <xpath expr="//group/field[@name='module_pos_restaurant']" position="after">
+                    <group string="Greeting Message ">
+                        <div>
+                            <div>
+                                <field name="greetings_id" class="oe_inline" />
+                                <label for="greetings_id" string="Greeting Message"/></div>
+
+                        </div>
+                    </group>
+                    </xpath>
+                </form>
+            </field>
+        </record>
+
+
+     <record model="ir.ui.view" id="pos_config_greetings">
+        <field name="name">pos.greetings.messahe</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+
+             <xpath expr="//sheet/group[@name='receipt']" position="before">
+                 <label for="greetings_bool" string="Greeting Message"/>
+                  <field name="greetings_bool" string="Greeting Message"/>
+                 <field name="greetings_active_char" attrs="{'invisible':[('greetings_bool','=',False)]}"/>
+
+            </xpath>
+
+        </field>
+    </record>
+
+
+  </data>
+</odoo>

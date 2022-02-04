@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="accounting_barcode_details.list">
+      <field name="name">accounting_barcode_details list</field>
+      <field name="inherit_id" ref="accounting_extended.barcode_details_view_inherits"/>
+      <field name="model">item.barcode</field>
+      <field name="arch" type="xml">
+        <field name="Food_y" position="after">
+          <br/><br></br>
+
+
+                               <field name="batch_x1"/>
+                              <field name="batch_x2"/>
+                              <field name="batch_y"/>
+
+          <br/><br></br>
+
+                              <field name="net_weight_x1"/>
+                              <field name="net_weight_x2"/>
+                              <field name="net_weight_y"/>
+
+
+
+
+
+
+        </field>
+        <field name="bcode_width" position="after">
+          <br/><br></br>
+
+
+          <field name="cust_care_x1"/>
+          <field name="cust_care_x2"/>
+          <field name="cust_care_y"/>
+
+          <field name="customer_care_no"/>
+
+
+
+
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

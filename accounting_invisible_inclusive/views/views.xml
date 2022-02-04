@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+   <record model="ir.ui.view" id="invisible_purchase_invoice_inherit_form_view">
+            <field name="name">invoice_sale_price_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_invoice_inherit_form_view"/>
+            <field name="arch" type="xml">
+                <field name="inclusive" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+               
+            </field>
+   </record>
+
+
+      <!--<record model="ir.ui.view" id="invisible_purchase_order_inherit_form_view">-->
+            <!--<field name="name">purchase_order_tree</field>-->
+            <!--<field name="model">purchase.order</field>-->
+            <!--<field name="inherit_id" ref="accounting_extended.purchase_order_inherit_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+
+
+               <!--<field name="inclusive" position="attributes">-->
+                    <!--<attributess name="invisible">1</attributess>-->
+                <!--</field>-->
+            <!--</field>-->
+      <!--</record>-->
+
+
+  </data>
+</odoo>

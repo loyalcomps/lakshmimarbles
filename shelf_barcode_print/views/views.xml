@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <!-- Barcode Settings Tree -->
+        <record model="ir.ui.view" id="shelf_barcode_settings_tree">
+            <field name="name">Shelf Barcode Settings</field>
+            <field name="model">shelf.barcode.settings</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="article_x"/>
+                    <field name="iea_x"/>
+                    <field name="uom_x"/>
+                    <field name="item_x"/>
+                    <field name="barcode_x"/>
+                    <field name="price_x"/>
+                    <field name="date_x"/>
+
+
+                </tree>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="shelf_barcode_settings_view">
+            <field name="name">Shelf Barcode Settings</field>
+            <field name="model">shelf.barcode.settings</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="article_x"/>
+                                <field name="iea_x"/>
+                                <field name="uom_x"/>
+                                <field name="qty_x"/>
+                                <field name="item_x"/>
+                                <field name="barcode_x"/>
+                                <field name="price_x"/>
+                                <field name="date_x"/>
+                            </group>
+                            <group>
+                                <field name="article_y"/>
+                                <field name="iea_y"/>
+                                <field name="uom_y"/>
+                                <field name="qty_y"/>
+                                <field name="item_y"/>
+                                <field name="barcode_y"/>
+                                <field name="price_y"/>
+                                <field name="date_y"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="shelf_barcode_settings_action">
+            <field name="name">Shelf Barcode Settings</field>
+            <field name="res_model">shelf.barcode.settings</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Shelf Barcode Size Settings
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="shelf_barcode_settings_menu" name="Shelf Barcode Settings" action="shelf_barcode_settings_action"
+                  parent="base.menu_custom"/>
+
+    </data>
+</odoo>

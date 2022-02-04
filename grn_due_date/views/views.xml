@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="gr_date_vendor_bill_form_view" model="ir.ui.view">
+            <field name="name">GR Date</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="date_invoice" position="after">
+                    <field name="gr_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

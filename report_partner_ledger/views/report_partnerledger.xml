@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_partnerledger1">
+    <t t-call="report.html_container">
+        <!--<t t-set="data_report_margin_top" t-value="12"/>-->
+        <!--<t t-set="data_report_header_spacing" t-value="9"/>-->
+        <!--<t t-set="data_report_dpi" t-value="110"/>-->
+
+        <t t-call="report.internal_layout">
+            <div class="page">
+                 <style type="text/css">
+                        .tdCenter{text-align:center;padding: 5px;border:1px solid #000000;display:table-cell;font-size: 14px;}
+                        .tdLeft{text-align:left;padding: 5px;border:1px solid #000000;;display:table-cell;font-size: 14px;}
+                        .tdRight{text-align:right;padding: 5px;border:1px solid #000000;;display:table-cell;font-size: 14px;}
+                        .bold{font-weight: bold;  }
+                        .line-height35{line-height: 35px;}
+                        .blue{  background-color: #e2e8e8;}
+                        .bghead{background-color: #7b0b5b;color: #ffffff;}
+                        .bgcolor{background-color: #929393;color: #ffffff;}
+                    </style>
+              <div class="row">
+
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-family:Calibri !important;">
+                                    <t>
+                                        <img t-if="res_company.logo"
+                                             t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center"
+                                             style="height: 80px;width: 80px;"/>
+                                    </t>
+                                    <br/>
+                                    <span style="color:green;font-size:18px;font-weight: bold;">
+                                        <t t-esc="res_company.name"/>
+                                    </span>
+                                    <br/>
+                                    <span style="font-size:13px;font-weight: bold;">
+                                        <t t-if="res_company.street">
+                                            <t t-esc="res_company.street"/>,
+                                        </t>
+                                        <t t-if="res_company.street2">
+                                            <t t-esc="res_company.street2"/>
+
+                                        </t>
+
+                                        <t t-if="res_company.city">
+                                            <br/>
+                                            <t t-esc="res_company.city"/>
+                                        </t>
+
+                                        <t t-if="res_company.state_id">
+                                            <br/>
+                                            <t t-esc="res_company.state_id.name"/>,
+                                        </t>
+                                        <t t-if="res_company.zip">
+                                            <t t-esc="res_company.zip"/>,
+                                        </t>
+                                        <t t-if="res_company.country_id">
+                                            <t t-esc="res_company.country_id.name"/>
+                                        </t>
+                                        <t t-if="res_company.email">
+                                            .EMAIL -
+                                            <t t-esc="res_company.email"/>
+                                        </t>
+                                    </span>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-size:16px;font-family:Calibri !important;color:red;font-weight: bold;">
+                                    PARTNER LEDGER
+                                </div>
+                            </div>
+
+                <div class="row" style="margin:20px">
+                    <table cellpading="0" cellspacing="0" width="100%" border="0">
+                        <t t-if="print_partnersname[0]">
+                        <tr>
+                            <td style="line-height:20px;width:10%" class="bold">
+                               Partners
+                            </td>
+                            <td class="bold" style="width:5%">:</td>
+                            <td class="bold">
+                                <span t-esc="', '.join([ lt or '' for lt in print_partnersname ])"/>
+                            </td>
+                        </tr>
+                        </t>
+                         <t t-if="data['date_from']">
+                        <tr>
+                            <td class="bold">
+                               Date
+                            </td>
+                            <td class="bold">:</td>
+                            <td class="bold"> <span t-esc="data['date_from']"  t-options="{'widget': 'date'}"/>  <t t-if="data['date_to']"> to <span t-esc="data['date_to']"  t-options="{'widget': 'date'}"/></t>
+                            </td>
+                        </tr>
+                        </t>
+                    </table>
+
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="text-center">
+                            <th style="width:10%" class="tdCenter bghead">Date</th>
+                            <th style="width:12%" class="tdCenter bghead">Journal</th>
+                            <th style="width:13%" class="tdCenter bghead">Check No</th>
+                            <th style="width:37%" class="tdCenter bghead">Particulers</th>
+                            <th style="width:10%" class="tdCenter bghead">Ref No</th>
+                            <th style="width:12%" class="tdCenter bghead">Debit</th>
+                            <th style="width:12%" class="tdCenter bghead">Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <t t-foreach="partners_res" t-as="partners">
+                           <t t-set="debittotal" t-value="0"/>
+                           <t t-set="credittotal" t-value="0"/>
+                            <tr>
+                                <td colspan="7"  class="tdLeft bold bgcolor">
+                                    <span t-esc="partners['partner_name']"/>
+                                </td>
+                                <!--<td class="tdRight bold bgcolor">-->
+                                   <!--<span t-esc="partners['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                <!--</td>-->
+                                <!--<td class="tdRight bold bgcolor">-->
+                                    <!--<span t-esc="partners['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                <!--</td>-->
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="tdRight bold ">Opening Balance</td>
+                                    <t t-set="openbal" t-value="0.00"/>
+                                    <t t-set="opendebit" t-value="0.00"/>
+                                    <t t-set="opencredit" t-value="0.00"/>
+                                <t t-foreach="partners['opening']" t-as="opening">
+                                 <t t-set="openbal" t-value="opening['balance']"/>
+                                    <t t-if="openbal &lt; 0">
+                                        <t t-set="opencredit" t-value="abs(openbal)"/>
+                                        <td class="tdRight bold "><span t-esc="0.00" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                        <td class="tdRight bold "><span t-esc="abs(openbal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    </t>
+                                    <t t-if="openbal &gt; 0">
+                                        <t t-set="opendebit" t-value="abs(openbal)"/>
+                                        <td class="tdRight bold "><span t-esc="abs(openbal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                        <td class="tdRight bold "><span t-esc="0.00" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    </t>
+                                 </t>
+                                    <t t-if="openbal == 0.00">
+                                        <!--<t t-set="opendebit" t-value="0.00"/>-->
+                                        <!--<t t-set="opencredit" t-value="0.00"/>-->
+                                        <td class="tdRight bold "><span t-esc="0.00" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                        <td class="tdRight bold "><span t-esc="0.00" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    </t>
+
+                            </tr>
+                            <tr t-foreach="partners['lines']" t-as="line">
+                                <td  class="tdCenter"><span t-esc="line['date']"  /></td>
+                                <td  class="tdLeft"><span t-if="line['ajname']" t-esc="line['ajname']"/></td>
+                                 <td  class="tdLeft"><span t-if="line['check_number']" t-esc="line['check_number']"/></td>
+                                <td  class="tdLeft"><span  t-if="line['displayed_name']"><span  t-esc="line['displayed_name']"/> - </span><span t-esc="line['code']"/></td>
+                                <td  class="tdRight"><span t-esc="line['move_name']"/></td>
+                                <td  class="tdRight">
+                                    <!--<span t-esc="line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                    <span t-esc="line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </td>
+                                <td  class="tdRight">
+                                    <span t-esc="line['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </td>
+                                <t t-set="debittotal" t-value="debittotal + line['debit'] "/>
+                                <t t-set="credittotal" t-value="credittotal + line['credit']"/>
+                            </tr>
+
+                        <tr>
+                           <t t-set="debittotal" t-value="debittotal + opendebit "/>
+                           <t t-set="credittotal" t-value="credittotal + opencredit"/>
+                            <td class="tdRight bold blue" colspan="5">Total Amount</td>
+                            <td class="tdRight bold blue"><span t-esc="debittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            <td class="tdRight bold blue"><span t-esc="credittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="tdRight bold blue" colspan="5">Closing Balance</td>
+                             <t t-if="debittotal - credittotal &lt; 0">
+                                   <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                   <td class="tdRight bold blue"></td>
+                             </t>
+                             <t t-if="debittotal - credittotal &gt; 0">
+                                   <td class="tdRight bold blue"></td>
+                                   <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': ' monetary', 'display_currency': res_company.currency_id}"/></td>
+                             </t>
+                             <t t-if="debittotal - credittotal == 0">
+                                    <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                             </t>
+                        </tr>
+                        <tr>
+                            <td class="tdRight bold blue" colspan="5">Grand Total</td>
+                            <t t-if="debittotal - credittotal &lt; 0">
+                                <td class="tdRight bold blue"><span t-esc="credittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                <td class="tdRight bold blue"><span t-esc="credittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            </t>
+                             <t t-if="debittotal - credittotal &gt;= 0">
+                                <td class="tdRight bold blue"><span t-esc="debittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                <td class="tdRight bold blue"><span t-esc="debittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            </t>
+                        </tr>
+                        </t>
+
+
+                        <tr><td style="height:50px;"></td></tr>
+                    </tbody>
+                </table>
+                        <!--Start Aged Partner Balance-->
+                        <!--<tr><td colspan="6" style="border-top: none;">-->
+
+                            <table cellspacing="0" cellpading="0" border="0" width="100%">
+                                <t t-set="show_move_line_details" t-value="report['show_move_line_details']"/>
+
+                          <t t-foreach="report['account_ids']" t-as="account">
+                            <div class="page_break">
+                                <!-- Display account header -->
+                                <div class="act_as_table list_table" style="margin-top: 10px;"/>
+                                <div class="act_as_caption account_title" style="font-size: 14px;">
+                                    <span t-field="account.code"/> - <span t-field="account.name"/>
+                                </div>
+
+                                <!-- Display account lines -->
+                                <t t-if="not show_move_line_details">
+                                            <!-- Display one line per partner -->
+                                            <t t-call="report_partner_ledger.report_aged_partner_balance_qweb_lines"/>
+                                </t>
+                                <!-- Display account move lines -->
+                                <t t-if="show_move_line_details">
+                                            <!-- Display partner move lines -->
+                                            <t t-call="report_partner_ledger.report_aged_partner_balance_qweb_move_lines"/>
+                                </t>
+                            </div>
+                        </t>
+                            </table>
+                        <!--</td>-->
+                        <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            </div>
+        </t>
+    </t>
+</template>
+<template id="report_partner_ledger.report_aged_partner_balance_qweb_lines">
+         <table cellspacing="0" cellpading="0" border="0" width="100%">
+            <thead>
+             <tr>
+                <!--## partner-->
+                <td class="tdCenter bghead">Partner</td>
+                <!--## current-->
+                <td class="tdCenter bghead">Current</td>
+                <!--## age_30_days-->
+                <td class="tdCenter bghead">Age ≤ 30 d.</td>
+                <!--## age_60_days-->
+                <td class="tdCenter bghead">Age ≤ 60 d.</td>
+                <!--## age_90_days-->
+                <td class="tdCenter bghead">Age ≤ 90 d.</td>
+                <!--## age_120_days-->
+                <td class="tdCenter bghead">Age ≤ 120 d.</td>
+                <!--## older-->
+                <td class="tdCenter bghead">Older</td>
+                 <!--## amount_residual-->
+                <td class="tdCenter bghead">Residual</td>
+            </tr>
+            </thead>
+             <tbody>
+             <!-- Display each lines -->
+             <t t-foreach="account['partner_ids']" t-as="partner">
+                 <t t-foreach="partner['line_ids']" t-as="line">
+            <tr>
+            <!-- # lines -->
+            <!--<div class="act_as_row lines">-->
+                <!--## partner-->
+                <td class="tdLeft"><span t-field="line.partner"/></td>
+                <!--## current-->
+                <td class="tdRight"><span t-field="line.current"/></td>
+                <!--## age_30_days-->
+                <td class="tdRight"><span t-field="line.age_30_days"/></td>
+                <!--## age_60_days-->
+                <td class="tdRight"><span t-field="line.age_60_days"/></td>
+                <!--## age_90_days-->
+                <td class="tdRight"><span t-field="line.age_90_days"/></td>
+                <!--## age_120_days-->
+                <td class="tdRight"><span t-field="line.age_120_days"/></td>
+                <!--## older-->
+                <td class="tdRight"><span t-field="line.older"/></td>
+                <!--## amount_residual-->
+                <td class="tdRight"><span t-field="line.amount_residual"/></td>
+            </tr>
+        </t>
+              </t>
+             <tr>
+                    <!--## total-->
+                    <td class="tdRight blue bold" style="border-top: none;">Total</td>
+                    <!--## current-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_current"/></td>
+                    <!--## age_30_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_30_days"/></td>
+                    <!--## age_60_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_60_days"/></td>
+                    <!--## age_90_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_90_days"/></td>
+                    <!--## age_120_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_120_days"/></td>
+                    <!--## older-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_older"/></td>
+                    <!--## amount_residual-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_amount_residual"/></td>
+             </tr>
+             <tr>
+                    <!--## total-->
+                    <td class="tdRight blue bold">Percents</td>
+                    <!--## date_due-->
+                    <!--<td class="tdRight blue bold"/>-->
+                    <!--## current-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_current"/>%</td>
+                    <!--## age_30_days-->
+                    <td class="tdRight blue bold" ><span t-field="account.percent_age_30_days"/>%</td>
+                    <!--## age_60_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_60_days"/>%</td>
+                    <!--## age_90_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_90_days"/>%</td>
+                    <!--## age_120_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_120_days"/>%</td>
+                    <!--## older-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_older"/>%</td>
+                    <!--## amount_residual-->
+                    <td class="tdRight blue bold"></td>
+             </tr>
+             </tbody>
+          </table>
+</template>
+<template id="report_partner_ledger.report_aged_partner_balance_qweb_move_lines">
+        <table cellspacing="0" cellpading="0" border="0" width="100%">
+            <thead>
+            <tr>
+                    <!--## date-->
+                    <td class="tdCenter bghead" >Date</td>
+                     <!--## Bill no-->
+                    <td class="tdCenter bghead" >Bill No</td>
+                    <!--## current-->
+                    <td class="tdCenter bghead">Current</td>
+                    <!--## age_30_days-->
+                    <td class="tdCenter bghead">Age ≤ 30 d.</td>
+                    <!--## age_60_days-->
+                    <td class="tdCenter bghead">Age ≤ 60 d.</td>
+                    <!--## age_90_days-->
+                    <td class="tdCenter bghead">Age ≤ 90 d.</td>
+                    <!--## age_120_days-->
+                    <td class="tdCenter bghead">Age ≤ 120 d.</td>
+                    <!--## older-->
+                    <td class="tdCenter bghead">Older</td>
+                    <!--## amount_residual-->
+                    <td class="tdCenter bghead" >Residual</td>
+                    </tr>
+            </thead>
+            <!-- Display each move lines -->
+           <!-- Display account partners -->
+            <tbody>
+            <t t-foreach="account['partner_ids']" t-as="partner">
+                <tr><td colspan="9" class="tdLeft bold bgcolor">
+                    <span t-field="partner.name"/>
+                </td></tr>
+            <t t-foreach="partner['move_line_ids']" t-as="line">
+                <!-- # lines or centralized lines -->
+                <!--<div class="act_as_row lines">-->
+                   <tr>
+                    <!--## date-->
+                    <td class="tdCenter"><span t-field="line.date"/></td>
+                    <!--## Bill no-->
+                    <td class="tdLeft"><span t-if="line.journal"> <span  t-esc="line['journal']"/> - </span><span t-esc="line['label']"/></td>
+                    <!--## current-->
+                    <td class="tdRight"><span t-field="line.current"/></td>
+                    <!--## age_30_days-->
+                    <td class="tdRight"><span t-field="line.age_30_days"/></td>
+                    <!--## age_60_days-->
+                    <td class="tdRight"><span t-field="line.age_60_days"/></td>
+                    <!--## age_90_days-->
+                    <td class="tdRight"><span t-field="line.age_90_days"/></td>
+                    <!--## age_120_days-->
+                    <td class="tdRight"><span t-field="line.age_120_days"/></td>
+                    <!--## older-->
+                    <td class="tdRight"><span t-field="line.older"/></td>
+                    <!--## amount_residual-->
+                    <td class="tdRight"><span t-field="line.amount_residual"/></td>
+                    </tr>
+            </t>
+            <t t-as="partner_cumul_line" t-foreach="partner['line_ids']">
+             <tr>
+                 <!--## date-->
+                <td class="tdRight blue bold" colspan="2" style="border-top: none;">Partner cumul aged balance</td>
+                <!--## bill no-->
+                 <!--<td class="tdRight blue bold"/>-->
+                <!--## current-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.current"/></td>
+                <!--## age_30_days-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.age_30_days"/></td>
+                <!--## age_60_days-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.age_60_days"/></td>
+                <!--## age_90_days-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.age_90_days"/></td>
+                <!--## age_120_days-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.age_120_days"/></td>
+                <!--## older-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.older"/></td>
+                <!--## amount_residual-->
+                <td class="tdRight blue bold" style="border-top: none;"><span t-field="partner_cumul_line.amount_residual"/></td>
+             </tr>
+            </t>
+            </t>
+            <tr>
+                    <!--## total-->
+                    <td class="tdRight blue bold " colspan="2" style="border-top: none;">Total</td>
+                    <!--## bill no-->
+                    <!--<td class="tdRight blue bold"/>-->
+                    <!--## current-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_current"/></td>
+                    <!--## age_30_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_30_days"/></td>
+                    <!--## age_60_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_60_days"/></td>
+                    <!--## age_90_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_90_days"/></td>
+                    <!--## age_120_days-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_age_120_days"/></td>
+                    <!--## older-->
+                    <td class="tdRight blue bold" style=";border-top: none;"><span t-field="account.cumul_older"/></td>
+                    <!--## amount_residual-->
+                    <td class="tdRight blue bold" style="border-top: none;"><span t-field="account.cumul_amount_residual"/></td>
+            </tr>
+            <tr>
+                <td class="tdRight blue bold" colspan="2">Percents</td>
+                    <!--## bill no-->
+                    <!--<td class="tdRight blue bold"/>-->
+                    <!--## current-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_current"/>%</td>
+                    <!--## age_30_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_30_days"/>%</td>
+                    <!--## age_60_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_60_days"/>%</td>
+                    <!--## age_90_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_90_days"/>%</td>
+                    <!--## age_120_days-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_age_120_days"/>%</td>
+                    <!--## older-->
+                    <td class="tdRight blue bold"><span t-field="account.percent_older"/>%</td>
+                    <!--## amount_residual-->
+                    <td class="tdRight blue bold"></td>
+            </tr>
+            </tbody>
+         </table>
+</template>
+</odoo>

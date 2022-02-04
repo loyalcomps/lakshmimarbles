@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_update_product_price_change_fields_update_product_price_change_fields,update_product_price_change_fields.update_product_price_change_fields,model_update_product_price_change_fields_update_product_price_change_fields,,1,0,0,0

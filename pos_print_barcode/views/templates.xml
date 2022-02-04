@@ -1,0 +1,16 @@
+<odoo>
+    <template id="pos_print_barcode_index" name="index pos ui" inherit_id="point_of_sale.index">
+        <xpath expr="//head" position="inside">
+            <script type="text/javascript" src="/pos_print_barcode/static/src/libs/js/jquery-barcode-last.min.js"/>
+        </xpath>
+    </template>
+
+    <template id="pos_print_barcode_assets" name="pos_print_barcode assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/pos_print_barcode/static/src/js/order.js"/>
+            <!--<script type="text/javascript" src="/pos_print_barcode/static/src/js/screen_receipt.js"/>-->
+            <!--<link rel="stylesheet" type="text/css" href="/pos_print_barcode/static/src/libs/fontawesome/css/font-awesome.css"/>-->
+
+        </xpath>
+    </template>
+</odoo>

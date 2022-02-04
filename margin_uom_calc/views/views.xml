@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+     <record model="ir.ui.view" id="uom_margin_purchase_view">
+            <field name="name">purchase margin uom calculation</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="after">
+                    <field name="ratio"/>
+                    <field name="cart_rate"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+     <record model="ir.ui.view" id="uom_margin_account_invoice_view">
+            <field name="name">vendor margin uom calculation</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='uom_id']" position="after">
+
+                   <field name="ratio"/>
+                    <field name="cart_rate"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

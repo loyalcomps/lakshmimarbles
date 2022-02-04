@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+
+
+      <!--<record id="customer_phone_search_view" model="ir.ui.view">-->
+            <!--<field name="name">Search</field>-->
+            <!--<field name="model">account.payment</field>-->
+            <!--<field name="inherit_id" ref="account.view_account_payment_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="payment_date" position="after">-->
+                    <!--<field name="phone" string="Phone" filter_domain="[('phone','ilike', self)]"/>-->
+                 <!--</field>-->
+
+                <!--&lt;!&ndash;<group string="Group By" position="inside">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<filter string="phone" context="{'group_by':'phone'}"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</group>&ndash;&gt;-->
+
+             <!--</field>-->
+        <!--</record>-->
+
+
+  </data>
+</odoo>

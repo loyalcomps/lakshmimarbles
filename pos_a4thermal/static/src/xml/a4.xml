@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PosTicketA4">
+
+        <!--<div class="centered-content2">-->
+                    <div class="pos-sale-ticket2">
+
+            <!--<div class="pos-center-align"><t t-esc="moment().format('LLLL ')"/><br/> <t t-esc="order.name"/></div>-->
+            <br />
+            <b><center style='font-size:22px;text-align:center;font-family:Calibri !important;'>INVOICE</center></b>
+            <br />
+
+             <table style="width: 210mm;">
+                <colgroup>
+                    <col width='3.33%' />
+                    <col width='32%' />
+                    <col width='29.33%' />
+                    <col width='32%' />
+                    <col width='3.33%' />
+
+                </colgroup>
+
+               <tr style="font-weight: 700;font-size:10px;font-family:Calibri !important;" >
+                   <td align="left">
+                           </td>
+                   <td align="left">
+                         <b>
+                        <t t-if='receipt.company.name'>
+                            <t t-esc='receipt.company.name' /><br/>
+                        </t>
+                         
+                       </b>
+		<t t-if='receipt.header'>
+<t t-esc='receipt.header'/>
+</t>
+                       <t t-if='receipt.company.company_registry'>
+                            GSTIN: <t t-esc="receipt.company.company_registry" /><br/>
+                        </t>
+                       <t t-if='receipt.company.company_registry'>
+                            StateCode:32<br/>
+                        </t>
+                       <t t-if='receipt.company.phone'>
+                            Contact : <t t-esc='receipt.company.phone' /><br/>
+                        </t>
+                       <t t-if='receipt.company.email'>
+                            mail : <t t-esc='receipt.company.email' /><br/>
+                        </t>
+                   </td>
+
+                   <td align="center">
+                        <t t-if='receipt.company.logo'>
+                        <img t-att-src='receipt.company.logo' style="height:89px;width:116px;"  />
+                        <br/>
+                        </t>
+
+                   </td>
+
+
+                   <td align="right" style='font-size:11px;font-family:Calibri !important;'>
+                       <span style='font-weight: bold;'>
+                        <t t-if="order.get_client()">
+
+                           Customer: <t t-esc="order.get_client().name"/>
+                            <br/>
+                            <t t-if="order.get_client().street" t-esc="order.get_client().street"/>
+
+ <t t-if="order.get_client().city" t-esc="order.get_client().city"/>
+
+                            <t t-if="order.get_client().state_id" t-esc="order.get_client().state_id"/>
+                       <br/>
+                       <t t-if="order.get_client().phone">
+                           Phone  <t t-esc="order.get_client().phone"/>
+                       </t>
+                            <br/>
+                            <t t-if="order.get_client().x_gstin">
+                            GSTIN: <t t-esc="order.get_client().x_gstin" />
+                            </t>
+                        </t>
+                       </span>
+                       <br/>
+                       <span style='font-size:11px;font-family:Calibri !important;'> Cashier:<t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name" /></span><br />
+
+
+
+                   </td>
+                   <td align="left">
+                     </td>
+
+               </tr>
+
+            </table>
+
+
+
+            <!--<b><center style='font-size:24px;text-align:center;font-family:Calibri !important;'>SALES INVOICE</center></b>-->
+
+            <!--<b><center style='font-size:15px;text-align:center;font-family:Calibri !important;'>-->
+
+                <!--<t t-if="order.get_debt_delta() != 0">-->
+
+                  <!--<input type="checkbox" value="None" id="slideOne" name="check" />-->
+                             <!--CASH <![CDATA[&nbsp;]]>-->
+                 <!--<input type="checkbox" value="None" id="slideOne" name="check" checked="" />-->
+                            <!--CREDIT-->
+                <!--</t>      -->
+
+                 <!--<t t-if="!order.get_debt_delta()">-->
+                  <!--<input type="checkbox" value="None" id="slideOne" name="check" checked=""/>-->
+                             <!--CASH <![CDATA[&nbsp;]]>-->
+                 <!--<input type="checkbox" value="None" id="slideOne" name="check"  />-->
+                            <!--CREDIT-->
+                <!--</t>-->
+            <!--</center></b>-->
+
+             <table style="width: 210mm;">
+                <colgroup>
+                    <col width='3.33%' />
+                    <col width='70.66%' />
+                    <col width='22.66%' />
+                    <col width='3.33%' />
+
+                </colgroup>
+
+               <tr style="font-weight: 700;font-size:14px;font-family:Calibri !important;" >
+
+
+                   <td align="left">
+                           </td>
+                   <td align="left">
+                        Invoice No: <t t-esc="order.name"/>
+                   </td>
+
+                   <td align="right">
+                       Sales date: <t t-esc="moment().format('DD-MM-YYYY')" t-field-options='{"format": "dd/MM/yyyy"}' />
+
+                   </td>
+
+
+             <td align="left">
+                      </td>
+
+               </tr>
+
+            </table>
+
+
+
+            <!--<b><center style='font-size:13px;text-align:center;font-family:Calibri !important;'>Sales date: <t t-esc="moment().format('LLLL ')"/></center></b>-->
+            <!--<b><center style='font-size:13px;text-align:center;font-family:Calibri !important;'>Sales Order Ref: <t t-esc="order.name"/></center></b>-->
+
+
+
+
+
+
+            <!--<t t-if="receipt.header">-->
+                <!--<div style='width:290px;text-align:center;font-family:Calibri !important;' >-->
+                <!--<b>-->
+                    <!--<t t-esc="receipt.header" /></b>-->
+                <!--</div>-->
+            <!--</t>-->
+
+            <!--<center> </center>-->
+             <!--<t t-if="receipt.footer">-->
+                <!--<div style='font-size:12px;text-align:center;font-family:Calibri !important;'>-->
+                    <!--<t t-esc="receipt.footer" />-->
+                <!--</div>-->
+            <!--</t>-->
+
+                <br/>
+            <table  align="center" style="width: 205mm;">
+                <!--<colgroup>-->
+                    <!--<col width='2%' />-->
+
+                    <!--<col width='20%' />-->
+                    <!--<col width='10%' />-->
+                    <!--<col width='3%' />-->
+                    <!--<col width='3%' />-->
+                    <!--<col width='3%' />-->
+                    <!--<col width='5%' />-->
+                    <!--<col width='4%' />-->
+                    <!--<col width='5%' />-->
+                    <!--<col width='10%' />-->
+                    <!--<col width='10%' />-->
+                    <!--<col width='10%' />-->
+                    <!--<col width='10%' />-->
+                    <!--<col width='10%' />-->
+                    <!--<col width='10%' />-->
+
+
+                <!--</colgroup>-->
+
+
+               <tr style="margin-bottom:10px;font-weight: 700;font-size:12px;font-family:Calibri !important;border: 1px solid black;" >
+                    <td align="center" width='6%'  style="border: 1px solid black;"><b>Sl No.</b></td>
+                   <td align="center"  width='17%'  style="border: 1px solid black;"><b>Particular</b></td>
+                   <td align="center" width='11%'  style="border: 1px solid black;"><b>HSN</b></td>
+                   <td align="center" width='6%'  style="border: 1px solid black;" ><b>UoM</b></td>
+                   <td align="center" width='9%'  style="border: 1px solid black;"><b>Qty</b></td>
+                   <td align="center" width='13%'  style="border: 1px solid black;"><b>Rate</b></td>
+                   <td align="center" width='8%'  style="border: 1px solid black;"><b>Discount</b></td>
+
+                   <td align="center" width='10%'   style="border: 1px solid black;" ><b>Tax %</b></td>
+                   <!--<td align="center" width='5%'   style="border: 1px solid black;" ><b>Taxable Value</b></td>-->
+                   <!--<td align="center" width='10%' colspan="2" style="border: 1px solid black;" ><b>Cgst</b></td>-->
+                   <!--<td align="center" width='10%' colspan="2" style="border: 1px solid black;" ><b>Sgst</b></td>-->
+                   <!--<td align="center" width='10%' colspan="2" style="border: 1px solid black;" ><b>Igst</b></td>-->
+                   <td align="center" width='20%'  style="border: 1px solid black;" ><b>Total</b></td>
+
+               </tr>
+                <!--<tr style="font-size:12px;">-->
+                    <!--<td align="center" width='5%' style="border: 1px solid black;" ><b>Rate</b></td>-->
+                    <!--<td align="center" width='5%' style="border: 1px solid black;" ><b>Amount</b></td>-->
+                    <!--<td align="center" width='5%' style="border: 1px solid black;" ><b>Rate</b></td>-->
+                    <!--<td align="center" width='5%' style="border: 1px solid black;" ><b>Amount</b></td>-->
+                    <!--<td align="center" width='5%' style="border: 1px solid black;" ><b>Rate</b></td>-->
+                    <!--<td align="center" width='5%' style="border: 1px solid black;" ><b>Amount</b></td>-->
+
+                <!--</tr>-->
+                  <t t-set="sl" t-value="0"/>
+
+                <t t-set="cgst" t-value="0"/>
+                <t t-set="sgst" t-value="0"/>
+                <t t-set="igst" t-value="0"/>
+                <t t-set="discount" t-value="0"/>
+
+                <tr t-foreach="orderlines" t-as="orderline" style="font-size:11px">
+
+
+                    <t t-if="orderline.get_product().display_name == 'Discount'" >
+                         <!--<t t-esc="orderline.get_price_with_tax_round()"/>-->
+                         <t t-set="discount" t-value="widget.format_currency_no_symbol(orderline.get_unit_price())" />
+                       </t>
+
+                    <t t-if="orderline.get_product().display_name!='Discount'">
+
+                    <td class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                            <t t-set="sl" t-value="sl+1"/>
+                            <t t-esc="sl"/>
+                        </td>
+                     <!--<t t-if="orderline.get_product().display_name == 'Discount'" >-->
+                         <!--&lt;!&ndash;<t t-esc="orderline.get_price_with_tax_round()"/>&ndash;&gt;-->
+                         <!--<t t-set="discount" t-value="(orderline.get_price_with_tax_round())" />-->
+                       <!--</t>-->
+                    <!--<t t-if="orderline.get_product().display_name != 'Discount'" >-->
+
+                    <td class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <t t-esc="orderline.get_product().display_name"/>
+
+                    </td>
+                        <td class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <t t-esc="orderline.get_product().hsn"/>
+
+                    </td>
+
+                    <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+
+                       <!--<t t-esc="orderline.get_product().arabic_name"/>-->
+                    <!--</td>-->
+
+                    <td class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+
+                       <t t-esc="orderline.get_product().uom_id[1]"/>
+                    </td>
+
+                    <td class="pos-right-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <t t-esc="orderline.get_quantity_round()"/>
+
+                    </td>
+                    <td class="pos-right-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price())"/>
+                    </td>
+
+                    <td class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;" >
+                       <t t-esc="orderline.get_discount()"/>
+                        <!--<t t-esc="widget.format_currency_no_symbol(orderline.get_display_price())"/>-->
+                        <!--<t t-set="j" t-value="j + (orderline.get_display_price())" />-->
+                    </td>
+                        <t t-if="!order.fiscal_position">
+                        <td class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;" >
+                          <t t-if="orderline.get_applicable_taxes()[0]">
+                            <t t-esc="orderline.get_applicable_taxes()[0].name"/>
+                          </t>
+                        <!--<t t-esc="widget.format_currency_no_symbol(orderline.get_display_price())"/>-->
+                        <!--<t t-set="j" t-value="j + (orderline.get_display_price())" />-->
+                    </td>
+                        </t>
+                        <t t-if="order.fiscal_position">
+                        <td t-foreach="orderline.get_taxes_name_fiscal_print()" t-as="tax_det" class="pos-center-align" style="font-size:11px;border-left: 1px solid black;font-weight: 700;font-family:Calibri !important;" >
+                          <t t-if="tax_det">
+                            <t t-esc="tax_det_value"/>
+                          </t>
+
+                    </td>
+                        </t>
+                      <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;" >-->
+                       <!--<t t-esc="orderline.get_price_without_tax_round()"/>-->
+                        <!--&lt;!&ndash;<t t-esc="widget.format_currency_no_symbol(orderline.get_display_price())"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<t t-set="i" t-value="i+(orderline.get_price_without_tax_round())" />&ndash;&gt;-->
+                    <!--</td>-->
+                        <!--<t t-if="order.fiscal_position">-->
+
+
+                            <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b>0</b>-->
+                        <!--</td>-->
+                            <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b>0</b>-->
+                        <!--</td>-->
+
+                        <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b>0</b>-->
+                        <!--</td>-->
+                            <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b>0</b>-->
+                        <!--</td>-->
+
+                                <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<t t-if="orderline.get_applicable_taxes()[0]">-->
+                                    <!--<b><t t-esc="orderline.get_applicable_taxes()[0].amount" /></b>-->
+
+                            <!--</t>-->
+                        <!--</td>-->
+
+
+                        <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b><t t-esc="orderline.get_tax_round()" /> </b>-->
+                            <!--<t t-if="orderline.get_tax_round()">-->
+                               <!--<t t-set="igst" t-value="igst+orderline.get_tax_round()"/>-->
+                            <!--</t>-->
+
+                        <!--</td>-->
+                        <!--</t>-->
+                        <!--<t t-if="!order.fiscal_position">-->
+
+                                <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<t t-if="orderline.get_applicable_taxes()[0]">-->
+                                    <!--<b><t t-esc="orderline.get_applicable_taxes()[0].amount/2" /></b>-->
+                            <!--</t>-->
+                        <!--</td>-->
+
+
+                            <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b><t t-esc="orderline.get_tax_round()/2" /></b>-->
+                                <!--<t t-if="orderline.get_tax_round()">-->
+                                <!--<t t-set="cgst" t-value="cgst+orderline.get_tax_round()/2"/>-->
+                                <!--</t>-->
+                        <!--</td>-->
+
+                                <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<t t-if="orderline.get_applicable_taxes()[0]">-->
+                                    <!--<b><t t-esc="orderline.get_applicable_taxes()[0].amount/2" /></b>-->
+                            <!--</t>-->
+                        <!--</td>-->
+
+
+                        <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b><t t-esc="orderline.get_tax_round()/2" /> </b>-->
+                            <!--<t t-if="orderline.get_tax_round()">-->
+                                <!--<t t-set="sgst" t-value="sgst+orderline.get_tax_round()/2"/>-->
+                                <!--</t>-->
+                        <!--</td>-->
+                        <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b>0 </b>-->
+                        <!--</td>-->
+                            <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                            <!--<b>0</b>-->
+                        <!--</td>-->
+                        <!--</t>-->
+
+
+                      <!--<td class="pos-center-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;" >-->
+                       <!--<t t-esc="orderline.get_tax_round()"/>-->
+                        <!--<t t-esc="widget.format_currency_no_symbol(orderline.get_display_price())"/>-->
+                        <!--<t t-set="k" t-value="k+(orderline.get_tax())" />-->
+                    <!--</td>-->
+                     <td class="pos-right-align" style="font-size:11px;border-left: 1px solid black;border-right: 1px solid black;font-weight: 700;font-family:Calibri !important;" >
+                       <t t-esc="widget.format_currency(orderline.get_price_with_tax_round())"/>
+                         <!--<t t-set="j" t-value="j+(orderline.get_price_with_tax_round())" />-->
+
+                    </td>
+                    </t>
+                </tr>
+                <tr>
+                    <td colspan="8" align="right" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        Total Invoice Value
+                    </td>
+                    <td align="right" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                       <t t-esc="widget.format_currency(order.get_total_with_tax())"/>
+                   </td>
+
+                </tr>
+                <!--<tr style="margin-bottom:10px;font-weight: 700;font-size:11px;font-family:Calibri !important;border: 1px solid black;" >-->
+                    <!--<td align="right" colspan="15" style="border: 1px solid black;" ><b>Total Amount Before Tax</b></td>-->
+
+                    <!--<td class="pos-right-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                        <!--<t t-esc="order.get_total_without_tax() - discount"/>-->
+
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr style="margin-bottom:10px;font-weight: 700;font-size:11px;font-family:Calibri !important;border: 1px solid black;" >-->
+                    <!--<td align="right" colspan="15" style="border: 1px solid black;" ><b>Add CGST</b></td>-->
+
+                    <!--<td class="pos-right-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                        <!--<t t-esc="cgst"/>-->
+
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr style="margin-bottom:10px;font-weight: 700;font-size:11px;font-family:Calibri !important;border: 1px solid black;" >-->
+                    <!--<td align="right" colspan="15" style="border: 1px solid black;" ><b>Add SGST</b></td>-->
+
+                    <!--<td class="pos-right-align" style="font-size:11px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                        <!--<t t-esc="sgst"/>-->
+
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr style="margin-bottom:10px;font-weight: 700;font-size:11px;font-family:Calibri !important;border: 1px solid black;" >-->
+                    <!--<td align="right" colspan="15" style="border: 1px solid black;" ><b>Add IGST</b></td>-->
+
+                    <!--<td class="pos-right-align" style="font-size:12px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                        <!--<t t-esc="igst"/>-->
+
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr style="margin-bottom:10px;font-weight: 700;font-size:12px;font-family:Calibri !important;border: 1px solid black;" >-->
+                    <!--<td align="right" colspan="15" style="border: 1px solid black;" ><b>Tax Amount GST</b></td>-->
+
+                    <!--<td class="pos-right-align" style="font-size:12px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                        <!--<t t-esc="order.get_total_tax()"/>-->
+
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr style="margin-bottom:10px;font-weight: 700;font-size:12px;font-family:Calibri !important;border: 1px solid black;" >-->
+                    <!--<td align="right" colspan="15" style="border: 1px solid black;" ><b>Total Amount After Tax</b></td>-->
+
+                    <!--<td class="pos-right-align" style="font-size:12px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">-->
+                        <!--<t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/>-->
+
+                    <!--</td>-->
+
+                <!--</tr>-->
+
+            </table>
+            <br/>
+                        <table style="width:205mm;" align="center">
+                    <tr style="font-family:Calibri !important;font-size: 12px;margin-bottom:10px;font-weight: 700;"
+
+                    >
+                        <th class="pos-center-align" width="33%" style="border: 1px solid black;">
+                            GST%
+                        </th>
+                        <th class="pos-center-align"  width="33%" style="border: 1px solid black;">
+                            Taxable Value
+                        </th>
+
+                        <!--<th class="pos-center-align" style="border: 1px solid black;">-->
+                            <!--CGST-->
+                            <!--Amt-->
+                        <!--</th>-->
+                        <!--<th class="pos-center-align" style="border: 1px solid black;">-->
+                            <!--SGST-->
+                            <!--Amt-->
+                        <!--</th>-->
+                        <t t-if="order.fiscal_position">
+                        <th class="pos-center-align" style="border: 1px solid black;" width="34%">
+                            IGST
+                            Amount
+                        </th>
+                        </t>
+                        <t t-if="!order.fiscal_position">
+                        <th class="pos-center-align" style="border: 1px solid black;" width="34%">
+                            GST
+                            Amount
+                        </th>
+                        </t>
+                    </tr>
+                <t t-foreach="order.get_tax_details_qlty()" t-as="taxdetail">
+
+                    <tr style="font-family:Calibri !important;font-size: 12px;">
+
+
+                       <td class="pos-center-align" style="border-left: 1px solid black;">
+                           <b> <t t-esc="taxdetail.name" /></b></td>
+                       <td class="pos-right-align" style="border-left: 1px solid black;">
+                           <b><t t-esc="taxdetail.taxable" /></b></td>
+
+
+
+
+<td class="pos-right-align" style="border-left: 1px solid black;border-right: 1px solid black;">
+                             <b><t t-esc="widget.format_currency(taxdetail.amount)" /></b>
+                        </td>
+
+                    </tr>
+
+                </t>
+                            <tr style="font-family:Calibri !important;font-size: 12px;">
+                        <td class="pos-center-align" style="border: 1px solid black;" colspan="2">
+                            <b>Total Tax Value </b>
+                        </td>
+                            <td class="pos-right-align" style="border: 1px solid black;border-right: 1px solid black;">
+                             <b><t t-esc="widget.format_currency(order.get_total_tax())" /></b>
+                            </td>
+
+                    </tr>
+            </table>
+                        <br/>
+
+             <!--<table style="width: 210mm;">-->
+                <!--<colgroup>-->
+                    <!--<col width='70%' />-->
+                    <!--<col width='30%' />-->
+
+
+                <!--</colgroup>-->
+
+               <!--<tr style="margin-bottom:14px;font-weight: 700;font-size:13px;font-family:Calibri !important;" >-->
+                   <!--<td align="right">-->
+                    <!--Amount Before Tax :-->
+
+                   <!--</td>-->
+                   <!--<td align="right">-->
+                       <!--<t t-esc="order.get_total_without_tax() - discount"/>-->
+                   <!--</td>-->
+               <!--</tr>-->
+                 <!--<tr style="margin-bottom:14px;font-weight: 700;font-size:13px;font-family:Calibri !important;" >-->
+                   <!--<td align="right">-->
+                    <!--Add CGST :-->
+
+                   <!--</td>-->
+                   <!--<td align="right">-->
+                       <!--<t t-esc="cgst"/>-->
+                   <!--</td>-->
+               <!--</tr>-->
+                 <!--<tr style="margin-bottom:14px;font-weight: 700;font-size:13px;font-family:Calibri !important;" >-->
+                   <!--<td align="right">-->
+                    <!--Add SGST :-->
+
+                   <!--</td>-->
+                   <!--<td align="right">-->
+                       <!--<t t-esc="sgst"/>-->
+                   <!--</td>-->
+               <!--</tr>-->
+                 <!--<tr style="margin-bottom:14px;font-weight: 700;font-size:13px;font-family:Calibri !important;" >-->
+                   <!--<td align="right">-->
+                    <!--Add IGST :-->
+
+                   <!--</td>-->
+                   <!--<td align="right">-->
+                       <!--<t t-esc="igst"/>-->
+                   <!--</td>-->
+               <!--</tr>-->
+                 <!--<tr style="margin-bottom:14px;font-weight: 700;font-size:13px;font-family:Calibri !important;" >-->
+                   <!--<td align="right">-->
+                    <!--GST Amount :-->
+
+                   <!--</td>-->
+                   <!--<td align="right">-->
+                       <!--<t t-esc="order.get_total_tax()"/>-->
+                   <!--</td>-->
+               <!--</tr>-->
+                 <!--<tr style="margin-bottom:14px;font-weight: 700;font-size:13px;font-family:Calibri !important;" >-->
+                   <!--<td align="right">-->
+                    <!--Net Sales Amount :-->
+
+                   <!--</td>-->
+                   <!--<td align="right">-->
+                       <!--<t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/>-->
+                   <!--</td>-->
+               <!--</tr>-->
+                 <!--<tr>-->
+
+                   <!--<td align="right">-->
+
+                       <!--&lt;!&ndash;<t t-if="orderline.get_product().display_name == 'Discount'" >&ndash;&gt;-->
+                       <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                   <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+
+                     <!--<t t-esc="order.get_total_without_tax() - discount"/> <br/>-->
+                       <!--Add CGST : <t t-esc="cgst"/><br/>-->
+                       <!--Add SGST : <t t-esc="sgst"/><br/>-->
+                       <!--Add IGST : <t t-esc="igst"/><br/>-->
+                    <!--GST Amount : <t t-esc="order.get_total_tax()"/><br/>-->
+                    <!--&lt;!&ndash;Total :  <t t-esc="order.get_total_with_tax() - discount"/> <br/>&ndash;&gt;-->
+                       <!--&lt;!&ndash;Round Off : <t t-esc="-1 * discount"/><br/>&ndash;&gt;-->
+
+                     <!--&lt;!&ndash;<t t-if="order.get_client()">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<t t-if="order.get_debt_delta() != 0">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Paid Amount : <t t-esc="order.get_total_paid() - order.get_debt_delta() "/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;Balance : <t t-esc="order.get_debt_delta()"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<br/><br/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                       <!--&lt;!&ndash;</t>&ndash;&gt;-->
+
+                    <!--Net Sales Amount: <t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/>-->
+
+                   <!--</td>-->
+
+               <!--</tr>-->
+
+            <!--</table>-->
+
+             <!--<table>-->
+                        <!--<colgroup>-->
+                          <!--<col width='25%' />-->
+                          <!--<col width='75%' />-->
+                        <!--</colgroup>-->
+                            <!--<tr style="margin-bottom:12px;font-weight: 600;font-size:14px;font-family:Calibri !important;" >-->
+                                <!--<td ></td>-->
+                            <!--<td>Amount in words:<t t-esc="order.get_subtotal_in_words(order.get_total_with_tax())"/></td>-->
+                            <!--</tr>-->
+             <!--</table>-->
+
+
+
+
+               <!--<table style="width: 210mm;">-->
+                <!--<colgroup>-->
+                    <!--<col width='3.33%' />-->
+                    <!--<col width='93.33%' />-->
+                    <!--<col width='3.33%' />-->
+
+
+                <!--</colgroup>-->
+
+               <!--<tr style="font-weight: 700;font-size:16px;font-family:Calibri !important;" >-->
+
+
+                   <!--<td align="left">-->
+                           <!--</td>-->
+                   <!--<td align="left">-->
+
+                <!--<t t-if="order.get_client()">-->
+
+
+                            <!--<t t-if="order.get_client().debt">-->
+                           <!--&lt;!&ndash;<t t-esc="order.get_client().debt"/>&ndash;&gt;-->
+                            <!--Old Balance Amount :<t t-esc="order.get_client().debt"/>-->
+                            <!--</t>-->
+
+                        <!--</t>-->
+
+                       <!--<br/>-->
+
+
+
+                   <!--</td>-->
+
+             <!--<td align="left">-->
+                      <!--</td>-->
+
+               <!--</tr>-->
+
+            <!--</table>-->
+
+
+
+
+
+         <!--    tax details -->
+
+            <!--<br />-->
+             <!--<table class='receipt-total' style="font-family:Calibri !important;font-size: 12px;">-->
+                    <!--<tr>-->
+                        <!--<th class="pos-center-align">-->
+                            <!--GST%-->
+                        <!--</th>-->
+                        <!--<th class="pos-center-align">-->
+                            <!--Net<br/>-->
+                            <!--Amt-->
+                        <!--</th>-->
+                        <!--<th class="pos-center-align">-->
+                            <!--GST<br/>-->
+                            <!--Amt-->
+                        <!--</th>-->
+                        <!--<th class="pos-center-align">-->
+                            <!--CGST<br/>-->
+                            <!--Amt-->
+                        <!--</th>-->
+                        <!--<th class="pos-center-align">-->
+                            <!--SGST<br/>-->
+                            <!--Amt-->
+                        <!--</th>-->
+                    <!--</tr>-->
+                <!--<t t-foreach="order.get_tax_details_take()" t-as="taxdetail">-->
+                    <!--<tr>-->
+                       <!--<td class="pos-center-align"><b> <t t-esc="taxdetail.name" /></b></td>-->
+                       <!--<td class="pos-center-align"><b><t t-esc="taxdetail.taxable" /></b></td>-->
+                        <!--<td class="pos-center-align">-->
+                             <!--<b><t t-esc="widget.format_currency(taxdetail.amount)" /></b>-->
+                        <!--</td>-->
+                        <!--<td class="pos-center-align">-->
+                            <!--<b><t t-esc="widget.format_currency((taxdetail.amount)/2)" /></b>-->
+                        <!--</td>-->
+                        <!--<td class="pos-center-align">-->
+                            <!--<b><t t-esc="widget.format_currency((taxdetail.amount)/2)" /> </b>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</t>-->
+            <!--</table>-->
+
+
+
+            <!--<table class='receipt-total' style="font-weight: 700;font-family:Calibri !important;">-->
+
+                <!--<tr>-->
+                    <!--<td>Discount:</td>-->
+                    <!--<td class="pos-center-align">-->
+                        <!--<t t-esc="widget.format_currency_no_symbol(order.get_total_discount())"/>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<div>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</div>-->
+                <!--<tr class="emph">-->
+                    <!--<td>Grand Total:</td>-->
+                    <!--<td class="pos-center-align">-->
+                        <!--<t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+
+            <!--<table class='receipt-paymentlines' style="font-weight: 700;font-family:Calibri !important;">-->
+                <!--<t t-foreach="paymentlines" t-as="line">-->
+                  <!--<tr>-->
+                      <!--<td>-->
+                          <!--Tender Cash:-->
+                      <!--</td>-->
+                      <!--<td class="pos-center-align">-->
+                          <!--<t t-esc="widget.format_currency_no_symbol(line.get_amount())"/>-->
+                      <!--</td>-->
+                  <!--</tr>-->
+                <!--</t>-->
+            <!--</table>-->
+
+            <!--<table class='receipt-change' style="font-weight: 700;font-family:Calibri !important;">-->
+                <!--<tr><td>Balance:</td><td class="pos-center-align">-->
+                    <!--<t t-esc="widget.format_currency_no_symbol(order.get_change())"/>-->
+                    <!--</td></tr>-->
+            <!--</table>-->
+
+            <!--<div>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</div>-->
+
+
+
+                        <!--<center style='font-size:28px;text-align:center;font-family:Calibri !important;'>شكر</center>-->
+
+
+             <!--<div style="border-style:single;border-bottom: 1px solid #000012; "></div>-->
+
+            <!--<div style="border-style:single;border-bottom: 1px solid #000012; "></div>-->
+
+
+            <table style="width: 210mm;">
+                <colgroup>
+                    <col width='80%' />
+                    <col width='20%' />
+                </colgroup>
+               <tr style="margin-bottom:12px;font-weight: 600;font-size:14px;font-family:Calibri !important;" >
+                   <td></td>
+                   <td align="center">
+                    Authorised Signatory<br/>
+                   </td>
+
+               </tr>
+            </table>
+
+
+
+              <table style="width: 210mm;">
+                <colgroup>
+                    <col width='7%' />
+                    <col width='93%' />
+
+                </colgroup>
+               <tr style="margin-bottom:12px;font-weight: 600;font-size:14px;font-family:Calibri !important;" >
+                   <td></td>
+                   <!--<td align="left">-->
+
+                        <!--Good's Once Sold Will Not Be Taken Back-->
+                   <!--</td>-->
+
+
+               </tr>
+
+            </table>
+
+
+
+
+
+
+
+
+            <!--<table><tr>-->
+                <!--<td align="center" style="font-size:15px;font-family:Calibri !important;">-->
+                   <!--<b> You have saved :</b>-->
+                <!--<t t-set="customer_profit" t-value="0"/>-->
+                                    <!--<t t-foreach="orderlines" t-as="orderline" >-->
+                                        <!--<t t-set="customer_profit" t-value="customer_profit+( (orderline.get_product().product_mrp)*(orderline.get_quantity() )) "/>-->
+                                    <!--</t>-->
+                        <!--<t t-set="sum" t-value="customer_profit*customer_Qty"/>-->
+                        <!--<t t-set="tot" t-value="order.get_total_with_tax()"/>-->
+                        <!--<t t-set="profit" t-value="widget.format_currency_no_symbol(customer_profit-tot)"/>-->
+                                   <!--<b>  <t t-esc="profit" /></b>-->
+            <!--</td>-->
+            <!--</tr></table>-->
+
+                         <!--<div>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</div>-->
+                <!--<div align="center"><p style='font-size:15px;font-family:Calibri !important;'><b>Thank You for shopping with us</b>-->
+                <!--<br/><span style='font-size:12px;font-family:Calibri !important;'>Please Check Your Bill Before Leaving The Shop</span>-->
+                <!--<br/><span style='font-size:13px;font-family:Calibri !important;'><b> FOR HOME DELIVERY</b></span>-->
+                <!--<br/><span style='font-size:13px;font-family:Calibri !important;'> Contact Us :-9383447072</span>-->
+                <!--<br/><span style='font-size:13px;font-family:Calibri !important;'> www.takeawaymart.com</span></p></div>-->
+
+
+
+        </div>
+            <!--</div>-->
+
+
+    </t>
+
+</templates>

@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_pos_config_form_access">
+            <field name="name">pos.config.form.inherit.access</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='receipt']" position="after">
+                    <group string="Access Features">
+
+                        <field name='disable_price'/>
+                        <field name='disable_discount'/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="pos_price_edit_report_view">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Price Edit Report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;font-size:12px;">
+
+                            From : <span t-esc="date_start"/><![CDATA[&nbsp;]]>
+                            To : <span t-esc="date_end"/>
+                            <br/>
+                            <br/>
+                        </div>
+
+                    </div>
+
+                    <t t-set="amounttotal" t-value="0"/>
+
+                    <div class="row" >
+                        <div class="col-xs-12">
+
+
+                            <table class="table-bordered" style="width:100%">
+                                <thead  >
+                                    <tr style="background-color: #884ea0 ;color:white;">
+                                        <th  style="text-align:center;" >Counter</th>
+                                        <th  style="text-align:center;" >Cashier</th>
+                                        <th  style="text-align:center;" >Product</th>
+                                         <th  style="text-align:center;" >Order Ref</th>
+                                         <th  style="text-align:center;" >Receipt Ref</th>
+
+
+                                        <th  style="text-align:center;" >Quantity</th>
+                                        <th  style="text-align:center;" >MRP</th>
+                                        <th style="text-align:center;" >Sale Price</th>
+                                        <th  style="text-align:center;" >Edited Price</th>
+                                        <th  style="text-align:center;" >Date &amp; Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <t t-foreach="sale" t-as="line_ids" >
+                                        <tr style="page-break-inside:avoid;background-color: #f8f9f9 ;font-size:11px;">
+                                            <td class="text-center" >
+                                                <span t-esc="line_ids['config']"/>
+                                            </td>
+                                            <td class="text-left" >
+                                                <span t-esc="line_ids['user']"/>
+                                            </td>
+                                            <td class="text-left" >
+                                                <span t-esc="line_ids['product']"/>
+                                            </td>
+                                             <td class="text-left" >
+                                                <span t-esc="line_ids['order_ref']"/>
+                                            </td>
+                                             <td class="text-left" >
+                                                <span t-esc="line_ids['receipt_ref']"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="line_ids['qty']"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.2f}'.format(line_ids['product_mrp'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.2f}'.format(line_ids['actual_price'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.2f}'.format(line_ids['price_unit'])"/>
+
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line_ids['create_date']"/>
+
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <!--<tr>-->
+                                        <!--<td style="border: 1px solid black;border-collapse:collapse;">Total</td>-->
+                                        <!--<td></td>-->
+                                        <!--<td></td>-->
+                                        <!--<td></td>-->
+                                        <!--<td></td>-->
+                                        <!--<td></td>-->
+                                        <!--<td style="border: 1px solid black;border-collapse:collapse;">-->
+                                            <!--<t t-esc="amounttotal" />-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                </tbody>
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+    </data>
+</openerp>

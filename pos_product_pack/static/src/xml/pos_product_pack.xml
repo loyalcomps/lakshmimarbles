@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">   
+
+	<t t-name="Orderline">
+		<li t-attf-class="orderline #{ line.selected ? 'selected' : '' }">
+			<span class="product-name">
+				<t t-esc="line.get_product().display_name"/>
+			</span>
+		   
+			<span class="price">
+				<t t-esc="widget.format_currency(line.get_display_price())"/>
+			</span>
+			<ul class="info-list">
+				<t t-if="line.get_quantity_str() !== '1' || line.selected ">
+					<li class="info">
+						<em>
+							<t t-esc="line.get_quantity_str()" />
+						</em>
+						<t t-esc="line.get_unit().name" />
+						at
+						<t t-esc="widget.format_currency(line.get_unit_price(),'Product Price')" />
+						/
+						<t t-esc="line.get_unit().name" />
+					</li>
+						<t t-set='wk_pack_product' t-value='line.getPackProduct(line.get_product().id,line.get_display_price(),line.get_quantity_str())' />
+						
+						
+						<t t-if="wk_pack_product">
+							
+						<t t-foreach="wk_pack_product.pack_product_list" t-as="product">
+							<ul class="info-list">
+								<ul class="info-list">
+									<ul class="info-list">
+							<span class="product-name wk_product_name" style="color:#555;si">
+								<t t-esc="product.product.display_name"/>
+							</span>
+							<ul class="info-list wk_product_list">
+							
+						   <t t-if="product.qty">
+							<li class="info">
+							<em>
+								<t t-esc="product.qty" />
+							</em>
+							 <t t-esc="line.wk_get_unit(product.product.uom_id)" />
+							at
+							<t t-esc="widget.format_currency(product.product.price,'Product Price')" />
+							/
+							<t t-esc="line.wk_get_unit(product.product.uom_id)" />
+							</li> 
+							</t>  
+						  </ul>
+					  </ul>
+						</ul>
+					</ul>
+						</t>
+					</t>	
+				</t>
+
+				<t t-if="line.get_discount_str() !== '0'">
+					<li class="info">
+						With a 
+						<em>
+							<t t-esc="line.get_discount_str()" />%
+						</em>
+						discount
+					</li>
+				</t> 
+			</ul>
+		</li>
+	</t>
+
+	<t t-extend="PosTicket">
+		<t t-jquery=".pos-sale-ticket" t-operation="append"> 
+			<div id="loyalty-points">
+				<table>
+					<tr>
+						<t t-set='wk_pack_benefits' t-value='order.get_pack_product_benefits(orderlines)' />
+						<t t-if="wk_pack_benefits">
+							<i style="font-size:10px">You Saved 
+							<t t-esc="widget.format_currency(wk_pack_benefits)"/> on purchase of pack product(s).</i>
+						</t>
+					</tr>
+				</table>
+			</div>
+		</t>
+	</t>
+
+	<t t-extend="Product">
+		<t t-jquery=".product-img" t-operation="append">
+			<t t-if="widget.wk_is_pack_product(product.id)">
+				<div class="product_pack">Pack Product</div>
+			</t> 
+		</t>	 
+	</t>
+
+</templates>

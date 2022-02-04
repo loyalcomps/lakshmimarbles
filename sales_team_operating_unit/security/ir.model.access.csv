@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_team,crm_team,model_crm_team,base.group_erp_manager,1,0,0,0
+
+

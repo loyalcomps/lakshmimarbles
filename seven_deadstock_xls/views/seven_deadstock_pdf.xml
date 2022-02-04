@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="seven_deadstock_pdf">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+
+                <div class="row">
+                    <div class="col-xs-12" style="text-align:center;">
+
+                          <t t-if="res_company.name"> <strong style="font-size:20px;"> <span t-esc="res_company.name"/></strong><br/></t>
+
+                        <t t-if="res_company.street"><strong><span t-esc="res_company.street"/></strong><br/></t>
+
+                          <p style="font-size:18px;">
+                             <strong>Ageing Products Report</strong>
+                          </p>
+
+                    </div>
+                </div>
+
+                 <div class="row">
+                     <div class="col-xs-12" style="text-align:center;font-size:12px;">
+
+                            <b> Start Date : <span t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <span t-esc="date_end"/> </b>
+                           <br/><br/>
+                     </div>
+
+
+
+                 </div>
+
+
+                <t t-set="invtytotal" t-value="0"/>
+                <t t-set="salecosttotal" t-value="0"/>
+                <t t-set="profittotal" t-value="0"/>
+                <!--<t t-set="qtytotal" t-value="0"/>-->
+
+
+                <div class="row">
+                <div class="col-xs-12">
+
+
+                    <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>-->
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Product </th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Barcode</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Brand</th>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Quantity</th>-->
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >ORP</th>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total </th>-->
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Quantity</th>-->
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valuesone" t-as="line_ids" >
+                            <tr >
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >-->
+                                <!--<span t-esc="line_ids['sl_no']"/>-->
+                            <!--</td>-->
+                             <td style="border: 1px solid black;border-collapse:collapse;" >
+                                <span t-esc="line_ids['product']"/>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                <span t-esc="line_ids['barcode'] "/>
+                                 <!--<t t-set="purchasetotal" t-value="purchasetotal + line_ids['pur_total']" />-->
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                <span t-esc="line_ids['brand'] "/>
+                                 <!--<t t-set="saletotal" t-value="saletotal + line_ids['sale_total']" />-->
+                            </td>
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="line_ids['qty'] "/>-->
+                                 <!--<t t-set="invtytotal" t-value="invtytotal + line_ids['qty']" />-->
+                            <!--</td>-->
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['trp'] "/>
+                                 <t t-set="salecosttotal" t-value="salecosttotal + line_ids['trp']" />
+                            </td>
+
+
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="line_ids['total'] "/>-->
+                                 <!--<t t-set="profittotal" t-value="profittotal + line_ids['total']" />-->
+                            <!--</td>-->
+
+                                <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="line_ids['totalquantity'] "/>-->
+                                 <!--<t t-set="qtytotal" t-value="qtytotal + line_ids['totalquantity']" />-->
+                            <!--</td>-->
+
+                            </tr>
+                        </t>
+
+
+
+
+
+                        <!--<tr >-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                             <!--<td colspan="3" style="text-align:center;border: 1px solid black;border-collapse:collapse;">-->
+                                <!--<span><b>Total</b></span>-->
+                            <!--</td>-->
+
+                             <!--&lt;!&ndash;<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<b> <t t-esc="invtytotal" /></b>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="salecosttotal" /></b>-->
+                            <!--</td>-->
+
+                             <!--&lt;!&ndash;<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<b> <t t-esc="profittotal" /></b>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                             <!--&lt;!&ndash;<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<b> <t t-esc="qtytotal" /></b>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+
+                        <!--</tr>-->
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+
+
+
+
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

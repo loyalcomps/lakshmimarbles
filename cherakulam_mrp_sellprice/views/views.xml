@@ -1,0 +1,44 @@
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="purchase_order_invoice_form">
+            <field name="name">purchase_order_mrp_sellprice</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+
+                    <field name="sale_price"/>
+                    <field name="product_mrp"/>
+
+                </xpath>
+            </field>
+      </record>
+
+
+       <record model="ir.ui.view" id="cherakulam_vendor_inherit_form_view">
+            <field name="name">vendor tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+              <!-- <field name="product_mrp" position="after">
+                    <field name="sale_price"/>
+
+              </field>
+ -->
+
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after">
+
+                    <field name="sale_price"/>
+
+                </xpath>
+
+                 
+            </field>
+       </record>
+
+
+
+  </data>
+</odoo>

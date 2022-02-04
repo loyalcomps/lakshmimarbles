@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="pos_bus_tree" model="ir.ui.view">
+            <field name="name">pos.bus.tree</field>
+            <field name="model">pos.bus</field>
+            <field name="arch" type="xml">
+                <tree string="Bus Location">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pos_bus_form" model="ir.ui.view">
+            <field name="name">pos.bus.form</field>
+            <field name="model">pos.bus</field>
+            <field name="arch" type="xml">
+                <form string="Bus Location">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="log_ids" nolabel="1">
+                                <tree string="Logs">
+                                    <field name="user_id"/>
+                                    <field name="action"/>
+                                    <field name="order_uid"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pos_bus">
+            <field name="name">Syncing Locations</field>
+            <field name="res_model">pos.bus</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_action_pos_bus"
+                  parent="point_of_sale.menu_point_config_product"
+                  action="action_pos_bus"
+        />
+
+
+        <record model="ir.ui.view" id="pos_config_users">
+            <field name="name">pos.config.users</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/> <!-- bruce, dont merge -->
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='receipt']" position="after">
+                    <group string="Assigned Users" col="4">
+                        <field name="user_ids" widget="many2many_tags" required="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="point_of_sale.action_pos_config_kanban" model="ir.actions.act_window">
+            <field name="domain">[('user_ids', 'in', [uid])]</field>
+        </record>
+
+
+
+    </data>
+</odoo>

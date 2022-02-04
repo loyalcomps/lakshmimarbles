@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_avoid_brand_dupli_avoid_brand_dupli,avoid_brand_dupli.avoid_brand_dupli,model_avoid_brand_dupli_avoid_brand_dupli,,1,0,0,0

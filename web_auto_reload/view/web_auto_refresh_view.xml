@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_ir_actions_window_form_inherit">
+            <field name="name">ir.actions.windows.form</field>
+            <field name="model">ir.actions.act_window</field>
+            <field name="inherit_id" ref="base.view_window_action_form" />
+            <field name="arch" type="xml">
+                <field name="multi" position="after">
+                   <field name="auto_refresh"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

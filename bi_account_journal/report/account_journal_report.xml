@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_account_journal_bi">
+		<t t-call="report.external_layout">
+			<div class="page" style="border: 1px solid black;font-size:15px;padding:10px;">
+				<div class="oe_structure"/>
+					<div class="row">
+						<p class="account_payment_report" align="center" style="font-size:25px">
+							<b>Journal Entry</b>
+						</p>                     
+						<br/><br/>                
+					</div>
+							
+					<div>
+						<p  align="left">
+							<strong>Journal.No:</strong>
+							<span t-field="doc.name"></span>
+						</p>
+						<p  align="left">
+							<strong>Date:</strong> 
+							<span t-field="doc.date"  t-field-options='{"format": "d MMMM y"}'></span>
+						</p> 
+						<table class="table table-bordered"  style="line: 1px solid black;margin-left: -10px;">
+							<thead>  
+							 	<th style="text-align:left;line: 1px solid black;">Sr#</th> 
+							 	<th style="text-align:left;line: 1px solid black;">Account</th>
+							 	<th style="text-align:left;line: 1px solid black;">Description</th>
+							 	<th style="text-align:right;line: 1px solid black;">Debit</th>
+							 	<th style="text-align:right;line: 1px solid black;">Credit</th>                      
+							</thead>
+								<tbody class="account_tbody" style="border: 1px solid black;">
+								<t t-set="i" t-value="1"/>
+					 			<tr t-foreach="doc.line_ids" t-as="l">
+					 				<td style="text-align:left;line: 1px solid black;">
+                         				<span t-esc="i"/>
+                         					<t t-set="i" t-value="i+1"/>
+                        			</td>
+									<td style="text-align:left;line: 1px solid black;">
+										<span t-field="l.account_id.name"/><br/>
+									</td>							
+									<td style="text-align:left;line: 1px solid black;">
+									  	<span t-if="l.partner_id"> 
+											<span t-field="l.partner_id"/>,<br/>
+										</span>
+										<span t-if="l.name"> 
+											<span t-field="l.name"/>,<br/>
+										</span>
+										<span t-if="l.analytic_account_id"> 
+											<span t-field="l.analytic_account_id"/><br/>
+										</span>
+									</td>
+									<td style="text-align:right;line: 1px solid black;">
+										<span  t-field="l.debit"/>
+									</td>
+
+									<td style="text-align:right;line: 1px solid black;">
+										<span  t-field="l.credit"/>
+									</td>
+									<td style="text-align:right;line: 1px solid black;">
+										<span/>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" >
+										<span style="font-weight:bold;line: 1px solid black;"/>
+									</td>	
+									<td align="right">
+										<strong>Total Amount (AED): </strong> 
+										<span style="font-weight:bold;line: 1px solid black;"/>
+									</td>
+									<td align="right">
+										<strong>
+											<span style="font-weight:bold;line: 1px solid black;" t-field="doc.amount"/>
+										</strong>
+									</td>
+									<td align="right">
+										<strong>
+											<span style="font-weight:bold;line: 1px solid black;" t-field="doc.amount"/>
+										</strong>
+									</td>
+								</tr>
+							</tbody>
+						</table> 
+
+					<table class="table table-bordered" style="line: 2px solid black;margin-right: -10px;">
+						<tr>
+							<td align="left">
+								<strong>Prepared By: </strong>
+								<span t-field="doc.create_uid"/>
+							</td>
+							<td align="left">
+								<strong>
+									<span t-field="doc.state"/>
+								</strong>
+							</td>
+						</tr>
+					</table> 
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>	
+					<div>
+						<div class="col-xs-4" style="left">
+							<p class="text-center" style="padding-left:5mm; border-top:3px solid black; border-length: 7px;">Checked By</p>
+						</div>
+						<div class="col-xs-4" style="center">
+							<p class="text-center" style="padding-left:5mm; border-top:3px solid black; border-length: 7px;">Approved By</p>
+						</div>
+						<div class="col-xs-4" style="right">
+							<p class="text-center" style="padding-left:5mm; border-top:3px solid black; border-length: 7px;">Finance Manager</p>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>                 
+				</div>
+			</t>
+	</template>
+
+	<template id="report_account_journal_details">
+		<t t-call="report.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="bi_account_journal.report_account_journal_bi"/>
+			</t>
+		</t>
+	</template>
+</odoo>

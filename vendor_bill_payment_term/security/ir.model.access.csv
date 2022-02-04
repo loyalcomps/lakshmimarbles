@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_bill_payment_term_vendor_bill_payment_term,vendor_bill_payment_term.vendor_bill_payment_term,model_vendor_bill_payment_term_vendor_bill_payment_term,,1,0,0,0

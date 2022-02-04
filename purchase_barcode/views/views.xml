@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="tky_barcode_account_invoice_view_inherit">
+        <field name="name">barcode form view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"></field>
+        <field name="arch" type="xml">
+            <!--<field name="partner_id" position="after">-->
+                <!--<field name="barcode" />-->
+            <!--</field>-->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--<xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">-->
+                <!--<attribute name="autofocus">True</attribute>-->
+            <!--</xpath>-->
+           
+        </field>
+    </record>
+
+
+
+
+       <record model="ir.ui.view" id="barcode_scan_supplier_form_purchaseview">
+            <field name="name">purchaseinvoice</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_order_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+                <!--<xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after"-->
+                       <!--&gt;-->
+
+                       <field name="sl_no" position="after">
+
+                    <field name="barcode_scan" />
+                  </field>
+
+                <field name="barcode" position="before">
+
+                <field name="product_tmpl_id" invisible="1"/>
+                <!-- <field name="barcode_scan" /> -->
+                <field name="multi_barcode" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+                 <field name="product_bool" invisible="1"/>
+               </field>
+            </field>
+      </record>
+
+      <record model="ir.ui.view" id="barcode_scan_supplier_form_view">
+            <field name="name">invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_invoice_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+                <!--<xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after"-->
+                       <!--&gt;-->
+
+                       <field name="sl_no" position="after">
+
+                    <field name="barcode_scan" />
+                  </field>
+
+                <field name="barcode" position="before">
+
+                    <field name="product_tmpl_id" invisible="1"/>
+
+
+<!--                     <field name="barcode_scan" />
+ -->                    <field name="multi_barcodes" />
+                    <field name="invproduct_bool" invisible="1"/>
+               </field>
+            </field>
+      </record>
+
+
+       
+
+  </data>
+</odoo>

@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+
+
+      <record model="ir.ui.view" id="cess_purchase_order_line_tree_inherit">
+        <field name="name">Purchase Order Line</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"></field>
+        <field name="arch" type="xml">
+          <field name="name" position="after">
+                <field name="cess_tax_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id = 'cess_purchase_order_form_inherit'>
+          <field name="name">Purchase Order</field>
+          <field name="model">purchase.order</field>
+          <field name = "inherit_id" ref="purchase.purchase_order_form"></field>
+          <field name="arch" type="xml">
+              <xpath expr="//sheet/notebook/page/field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
+                  <field name="cess_tax_id" domain="[('type_tax_use','=','purchase')]" context="{'default_type_tax_use': 'purchase'}"/>
+              </xpath>
+              <field name="amount_tax" position="after">
+                  <field name="amount_cess"/>
+              </field>
+          </field>
+      </record>
+  </data>
+</odoo>

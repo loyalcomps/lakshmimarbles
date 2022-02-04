@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="XmlReceipt">
+
+
+        <t t-jquery="div[font*='b']:eq(1)" t-operation="after">
+
+            <t t-if="widget.pos.config.barcode_receipt and order.ean13">
+                <barcode encoding="ean13"><t t-esc='order.ean13'/></barcode>
+            </t>
+        </t>
+    </t>
+
+    <!--<t t-extend="PosTicket">-->
+        <!--<t t-jquery=".barcode-reference" t-operation="after">-->
+        <!--&lt;!&ndash;.pos-sale-ticket" t-operation="append">&ndash;&gt;-->
+
+                <!--<img id="barcode"/>-->
+
+        <!--</t>-->
+    <!--</t>-->
+
+
+</templates>

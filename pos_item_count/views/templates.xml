@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="pos_item_count assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_item_count/static/src/js/chromes.js"></script>
+                <link rel="stylesheet" href="/pos_item_count/static/src/css/retail.css"/>
+            </xpath>
+          <!--<xpath expr="//link[@id='pos-stylesheet']" position="after">-->
+              <!---->
+          <!--</xpath>-->
+        </template>
+
+
+    </data>
+</odoo>

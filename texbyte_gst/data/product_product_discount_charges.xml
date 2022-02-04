@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="product_category_3" model="product.category">
+            <field name="parent_id" ref="product.product_category_1"/>
+            <field name="name">Services</field>
+        </record>
+
+        <record id="service_advance_01" model="product.product">
+            <field name="name">Advance Payment</field>
+            <field name="categ_id" ref="product_category_3"/>
+            <field name="standard_price">0</field>
+            <field name="list_price">0</field>
+            <field name="invoice_policy">order</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="description">Advance amount paid.</field>
+            <field name="default_code">ADVANCE</field>
+            <field name="taxes_id" eval="[(6, 0, [ref('GSTO18')])]"/>
+            <field name="supplier_taxes_id" eval="[(6, 0, [ref('GSTI18')])]"/>
+        </record>
+        <record id="service_discount_01" model="product.product">
+            <field name="name">Global Discount</field>
+            <field name="categ_id" ref="product_category_3"/>
+            <field name="standard_price">0</field>
+            <field name="list_price">-1</field>
+            <field name="invoice_policy">order</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="description">Special discount on total amount.</field>
+            <field name="default_code">DISCOUNT</field>
+        </record>
+
+        <record id="service_charges_01" model="product.product">
+            <field name="name">Extra Charges</field>
+            <field name="categ_id" ref="product_category_3"/>
+            <field name="standard_price">0</field>
+            <field name="list_price">1</field>
+            <field name="invoice_policy">order</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="description">Extra charges.</field>
+            <field name="default_code">CHARGES</field>
+        </record>
+
+    </data>
+</odoo>
+

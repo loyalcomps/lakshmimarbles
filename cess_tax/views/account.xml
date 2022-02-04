@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+
+      <record model="ir.ui.view" id="cess_account_tax_view_inherit">
+        <field name="name">Account Tax</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"></field>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='amount_type']" position="after">
+              <field name="cess_per_thousand" attrs="{'invisible': ['|',('amount_type', '!=', 'fixed'),('cess', '!=', True)]}"/>
+           </xpath>
+            <field name="name" position="after">
+                <field name="cess"/>
+                <field name="whichever_is_higher" attrs="{'invisible': ['|',('amount_type', '!=', 'group'),('cess', '!=', True)]}"/>
+            </field>
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id="cess_account_invoice_line_tree_inherit">
+        <field name="name">Account Invoice Line</field>
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_form"></field>
+        <field name="arch" type="xml">
+
+            <field name="invoice_line_tax_ids" position="after">
+                <field name="cess_tax_id" domain="[('cess', '=', True)]"/>
+                <field name="visible_cess" />
+            </field>
+        </field>
+    </record>
+      <record model="ir.ui.view" id="cess_account_invoice_sale_inherit">
+        <field name="name">Account Invoice Sale</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"></field>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="include" invisible="1"/>
+                  <field name="visible_cess"/>
+              </field>
+          <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='invoice_line_tax_ids']" position="after">
+              <field name="cess_tax_id" domain="[('type_tax_use','=','sale'),('cess', '=', True),('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'sale'}"
+              attrs="{'invisible': [('visible_cess', '=', False)]}"/>
+              <field name="cess_amount" invisible="1"/>
+              <field name="visible_cess" invisible="1"/>
+          </xpath>
+            <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='invoice_line_tax_ids']" position="attributes">
+              <attribute name="domain">[('cess', '!=', True)]</attribute>
+          </xpath>
+            <field name="amount_tax" position="after">
+                  <field name="amount_cess"/>
+              </field>
+
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id="cess_account_invoice_purchase_inherit">
+        <field name="name">Account Invoice Purchase</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"></field>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="include"/>
+                  <field name="visible_cess"/>
+              </field>
+          <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='invoice_line_tax_ids']" position="after">
+              <field name="cess_tax_id" domain="[('type_tax_use','=','purchase'),('cess', '=', True),('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'purchase'}"
+              attrs="{'invisible': [('visible_cess', '=', False)]}"/>
+              <field name="cess_amount" invisible="1"/>
+              <field name="visible_cess" invisible="1"/>
+          </xpath>
+            <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='invoice_line_tax_ids']" position="attributes">
+              <attribute name="domain">[('cess', '!=', True)]</attribute>
+          </xpath>
+            <field name="amount_tax" position="after">
+                  <field name="amount_cess"/>
+              </field>
+        </field>
+    </record>
+
+  </data>
+</odoo>

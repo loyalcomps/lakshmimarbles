@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ProductScreenWidget">
+        <t t-jquery=".rightpane" t-operation="prepend">
+            <header class="rightpane-header">
+                <div class="tag-selector">
+
+                    <div class="wk_tags">
+
+
+                                <input type="text" placeholder="Multi Barcode" class="searchbox-multi-barcode"/>
+
+                                <button class="wk_tag">Search</button>
+
+
+
+
+                    </div>
+                </div>
+            </header>
+
+        </t>
+    </t>
+
+
+    <!--<t t-extend="SynchNotificationWidget">-->
+        <!--<t t-jquery=".oe_status .js_synch" t-operation="prepend">-->
+            <!--&lt;!&ndash;<header class="rightpane-header">&ndash;&gt;-->
+                <!--<div class="tag-selector2">-->
+
+                    <!--<div class="wk_tags2">-->
+
+
+                                <!--<input type="text" placeholder="Multi Barcode" class="searchbox-multi-barcode2"/>-->
+
+                                <!--<button class="wk_tag2">Search</button>-->
+
+
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--&lt;!&ndash;</header>&ndash;&gt;-->
+
+        <!--</t>-->
+    <!--</t>-->
+
+</templates>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='take_fastslow_wizard_form'>
+            <field name="name">take.fastslow.xls.form</field>
+            <field name="model">take.fastslow.xls</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                    <group col="4" string="Dates">
+
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    
+                    <group>
+                        <field name="slow_move" />
+                        <field name="company_id" />
+
+                    </group>
+                    <group col="4" string="Ware House">
+                        <field name="store_id" widget="many2many_tags"/>
+                    </group>
+
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Report" class="oe_highlight"
+                                context="{'xls_export':1}" icon="gtk-print"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='take_fastslow_wizard_act'>
+            <field name="name">Export Detailed Fast/Slow Move Sale in Excel</field>
+            <field name="res_model">take.fastslow.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="take_fastslow_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+            id="take_fastslowmove_report"
+            model="sale.order"
+            string=" "
+            report_type="xlsx"
+            name="take_fastslowmove_xls.take_fastslow_xls.xlsx"
+            file="take_fastslowmove_xls.take_fastslow_xls.xlsx"
+            attachment_use="False"
+        />
+        <menuitem name="Fast/Slow Move Sale" parent="point_of_sale.menu_point_rep" id="take_export_detailedsale_menu" action="take_fastslow_wizard_act" sequence="7"/>
+    </data>
+</openerp>

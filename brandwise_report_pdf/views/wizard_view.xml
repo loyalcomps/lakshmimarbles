@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='qlty_brandwise_wizard_form'>
+            <field name="name">brandwisesale.report.pdf.form</field>
+            <field name="model">brandwisesale.report.pdf</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                    <group col="4" string="Dates">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    
+                    <group>
+                        <field name="company_id" />
+                         <!--<field name="brand_id" />-->
+                    </group>
+
+                    <group>
+                        <field name="brand_id" />
+
+                    </group>
+
+                    <!--<group attrs="{'invisible': [('brand_only','=',False)]}">-->
+                        <!--<field name="brand_id" colspan="4" nolabel="1" />-->
+                    <!--</group>-->
+
+                    <footer>
+                        <!--<button name="export_xls" type="object" default_focus="1"-->
+                                <!--string="Vendorwise Profit And Sale Report" class="oe_highlight"-->
+                                <!--context="{'xls_export':1}" icon="gtk-print"/>-->
+                        <!--or-->
+                        <button name="export_pdf" string="Export Report" type="object" default_focus="1"
+                                context="{'xls_export':1}" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='qlty_brandwise_wizard_act'>
+            <field name="name">Export Brandwise Excel</field>
+            <field name="res_model">brandwisesale.report.pdf</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="qlty_brandwise_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <!--<report-->
+            <!--id="vendorwise_xlsx"-->
+            <!--model="sale.order"-->
+            <!--string=" "-->
+            <!--report_type="xlsx"-->
+            <!--name="brandsale_report_xls.qlty_brand_xls.xlsx"-->
+            <!--file="brandsale_report_xls.qlty_brand_xls.xlsx"-->
+            <!--attachment_use="False"-->
+        <!--/>-->
+
+         <report
+            id="brandwisesale_report_pdf11"
+            model="sale.order"
+            string=" "
+            report_type="qweb-html"
+            name="brandwise_report_pdf.qlty_brand_pdf"
+            file="brandwise_report_pdf.qlty_brand_pdf"
+        />
+        <menuitem name="Brand Wise Report" parent="account.menu_finance_reports" id="export_excel" action="qlty_brandwise_wizard_act" sequence="5"/>
+    </data>
+</openerp>

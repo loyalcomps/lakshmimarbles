@@ -1,0 +1,356 @@
+<odoo>
+    <data>
+
+        <report
+                id="purchase_receipt_print"
+                model="purchase.order"
+                string="Purchase Print"
+                name="purchase_print.purchase_receipt"
+                file="purchase_print.purchase_receipt"
+                report_type="qweb-pdf"/>
+
+        <template id="external_layout_purchase_footer">
+            <div class="footer raw">
+                <div class="col-xs-4"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;">
+                
+                    <br/>
+                    Created By
+
+                </div>
+                <div class="col-xs-4"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;">
+                     <br/>
+                    Forwarded By
+                    <br/>
+                    Purchase Manager 
+                   
+
+
+                </div>
+                <div class="col-xs-4"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;">
+            
+                    <br/>
+                    Approved By 
+                    <br/>
+                    General Manager
+                </div>
+
+            </div>
+        </template>
+
+        <template id="external_layout_purchase">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+
+            <t t-raw="0"/>
+            <t t-call="purchase_print.external_layout_purchase_footer"/>
+            <!--<t t-if="o and 'company_id' in o">-->
+            <!--<t t-set="company" t-value="o.company_id"></t>-->
+            <!--</t>-->
+            <!--<t t-if="not o or not 'company_id' in o">-->
+            <!--<t t-set="company" t-value="res_company"></t>-->
+            <!--</t>-->
+
+            <!--<t t-call="report.external_layout_footer" />-->
+        </template>
+
+        <template id="purchase_receipt">
+            <t t-call="report.html_container">
+                <t t-call="purchase_print.external_layout_purchase">
+                <t t-foreach="docs" t-as="doc">
+
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-4"
+                                 style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                SUPPLIER NAME - <t t-esc="doc.partner_id.name"/>
+                                <br/>
+                                <t t-if="doc.partner_id.x_gstin">
+                                    GST NO - <t t-esc="doc.partner_id.x_gstin"/>
+                                </t>
+
+                            </div>
+
+                            <div class="col-xs-4"
+                                 style="text-align: center;font-family:Calibri !important;">
+                                 <t><img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center" style="height: 80px;width: 80px;"/></t>
+                                <br/>
+                                <span style="color:green;font-size:18px;font-weight: bold;">
+                                    <!--<t t-if="!res_company.logo">-->
+                                        <t  t-esc="doc.company_id.name"  />
+                                    <!--</t>-->
+                                </span>
+                                <br/>
+                                <span style="font-size:13px;font-weight: bold;">
+                                    <t t-if="doc.company_id.street">
+                                        <t t-esc="doc.company_id.street"/>,
+                                    </t>
+                                    <t t-if="doc.company_id.street2">
+                                        <t t-esc="doc.company_id.street2"/>
+
+                                    </t>
+
+                                    <t t-if="doc.company_id.city">
+                                        <br/>
+                                        <t t-esc="doc.company_id.city"/>
+                                    </t>
+
+                                    <t t-if="doc.company_id.state_id">
+                                        <br/>
+                                        <t t-esc="doc.company_id.state_id.name"/>,
+                                    </t>
+                                    <t t-if="doc.company_id.zip">
+                                        <t t-esc="doc.company_id.zip"/>,
+                                    </t>
+                                    <t t-if="doc.company_id.country_id">
+                                        <t t-esc="doc.company_id.country_id.name"/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">
+                                        .EMAIL - <t t-esc="doc.company_id.email"/>
+                                    </t>
+                                </span>
+
+                            </div>
+                            <div class="col-xs-4"
+                                 style="text-align: left;font-size:12px;font-family:Calibri !important;">
+                                <div style="margin-left:130px;">
+                                    <t t-if="doc.name">
+                                        PO NO : <t t-esc="doc.name"/>
+                                    </t>
+
+                                    <t t-if="doc.date_order">
+                                        <br/>
+                                        ORDER DATE : <t t-esc="doc.date_order"/>
+                                    </t>
+
+                                    <t t-if="doc.date_planned">
+                                        <br/>
+                                        DELIVERY DATE : <t t-esc="doc.date_planned"/>
+                                    </t>
+                                    <t t-if="doc.picking_type_id.default_location_dest_id.name">
+                                        <br/>
+                                        LOCATION : <t t-if="doc.picking_type_id.default_location_dest_id.location_id">
+                                            <t t-esc="doc.picking_type_id.default_location_dest_id.location_id.name"/>/
+                                            </t>
+                                        <t t-esc="doc.picking_type_id.default_location_dest_id.name"/>
+                                    </t>
+                                    <t t-if="doc.create_uid">
+                                        <br/>
+                                        CONTACT PERSON : <t t-esc="doc.create_uid.name"/>
+                                    </t>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <![CDATA[&nbsp;]]>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12"
+                                 style="text-align: center;font-size:16px;font-family:Calibri !important;color:red;font-weight: bold;text-decoration: underline;">
+                                PURCHASE ORDER
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <![CDATA[&nbsp;]]>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <center>
+                                <table class="table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr style="background-color:#2d405f;color:white;">
+                                            <th  >
+                                                <center>Sl.No</center>
+                                            </th>
+                                            <th  >
+                                                <center>Article No.</center>
+                                            </th>
+                                            <th  >
+                                                <center>Barcode</center>
+                                            </th>
+                                            <th  width="150px">
+                                                <center><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>Description<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]></center>
+                                            </th>
+                                            <th  >
+                                                <center>UOM</center>
+                                            </th>
+
+                                            <th  >
+                                                <center>Req. Qty</center>
+                                            </th>
+
+                                            <th  >
+                                                <center>Cost</center>
+                                            </th>
+                                            <th  >
+                                                <center>Gross Amount</center>
+                                            </th>
+                                            <th  >
+                                                <center>Discount %</center>
+                                            </th>
+                                            <th  >
+                                                <center>Discount Amount</center>
+                                            </th>
+                                            <th  >
+                                                <center>FOC</center>
+                                            </th>
+                                            <th  >
+                                                <center>Net Amount</center>
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody class="purchase_tbody">
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-set="f" t-value="0"/>
+
+                                        <t t-foreach="doc.order_line" t-as="l">
+                                            <tr t-if="l.product_id" style="page-break-inside:avoid;">
+                                                <td class="text-center" >
+                                                    <span t-esc="i"/>
+                                                    <t t-set="i" t-value="i+1"/>
+                                                    <!--<span t-field="l.sequence_number"/>-->
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-field="l.product_article_no"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-field="l.barcode"/>
+                                                </td>
+                                                <td >
+                                                    <span t-field="l.product_id.name"/>
+                                                </td>
+                                                <td >
+                                                    <span t-field="l.product_uom.name"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="'%.2f'%(l.product_qty)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'%.2f'%(l.price_unit)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'%.2f'%(l.price_subtotal)"/>
+                                                </td>
+
+                                                <td class="text-right">
+                                                    <span t-esc="'%.2f'%(l.discount_percentage)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'%.2f'%(l.discount_amount)"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="'%.2f'%(l.free_qty)"/>
+                                                </td>
+
+
+                                                <td class="text-right">
+                                                    <span t-esc="'%.2f'%(l.price_total)"/>
+                                                </td>
+
+
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td colspan="11" class="text-right" style="font-weight:bold;">
+                                                Total
+
+                                            </td>
+                                            <td class="text-right">
+                                                <span style="font-weight:bold;" t-field="doc.amount_total"/>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </center>
+
+
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-2"
+                                 style="text-align: left;font-size:13px;font-family:Calibri !important;">
+
+                               <span style="font-weight: bold;">Comments : </span>
+                            </div>
+                            <div class="col-xs-10"
+                                 style="text-align: left;font-size:13px;font-family:Calibri !important;padding: 0px;">
+                                 <!--<span t-raw="doc.narration" />-->
+
+                                <!--<br/>-->
+                                <pre style="background-color:white;color:black;border-style:none;white-space: pre-line;padding: 0px;"><t t-esc="doc.narration"/></pre>
+
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-2"
+                                 style="text-align: left;font-size:13px;font-family:Calibri !important;">
+                                <span style="font-weight: bold;">Terms and Conditions : </span>
+
+                            </div>
+                            <div class="col-xs-10"
+                                 style="text-align: left;font-size:13px;font-family:Calibri !important;padding: 0px;">
+
+                                <pre style="background-color:white;border-style:none;color:black;white-space: pre-line;padding: 0px;"><t t-esc="doc.notes"/></pre>
+
+                            </div>
+
+                        </div>
+                        <br/>
+                        <br/>
+
+                        <!--<div class="footer">-->
+                            <!--<div class="col-xs-4"-->
+                                    <!--style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;">-->
+                                <!--Sign . . .-->
+                                <!--<br/>-->
+                                <!--PREPARED BY .............-->
+
+                            <!--</div>-->
+                            <!--<div class="col-xs-4"-->
+                                    <!--style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;">-->
+                                <!--Sign . . .-->
+                                <!--<br/>-->
+                                <!--Approved By-->
+
+                            <!--</div>-->
+                            <!--<div class="col-xs-4"-->
+                                    <!--style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;">-->
+                                <!--Sign . . .-->
+                                <!--<br/>-->
+                                <!--PURCHASE MANAGER .............-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+                    </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

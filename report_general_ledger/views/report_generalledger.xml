@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_generalledger1">
+    <t t-call="report.html_container">
+        <!--<t t-set="data_report_margin_top" t-value="12"/>-->
+        <!--<t t-set="data_report_header_spacing" t-value="9"/>-->
+        <!--<t t-set="data_report_dpi" t-value="110"/>-->
+
+        <t t-call="report.internal_layout">
+            <div class="page">
+                 <style type="text/css">
+                        .tdCenter{text-align:center;padding: 5px;border:1px solid #000000;}
+                        .tdLeft{text-align:left;padding: 5px;border:1px solid #000000;}
+                        .tdRight{text-align:right;padding: 5px;border:1px solid #000000;}
+                        .bold{font-weight: bold;  }
+                        .line-height35{line-height: 35px;}
+                        .blue{  background-color: #e2e8e8;}
+                        .bghead{background-color: #7b0b5b;color: #ffffff;}
+                        .bgcolor{background-color: #929393;color: #ffffff;}
+                    </style>
+              <div class="row">
+
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-family:Calibri !important;">
+                                    <t>
+                                        <img t-if="res_company.logo"
+                                             t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center"
+                                             style="height: 80px;width: 80px;"/>
+                                    </t>
+                                    <br/>
+                                    <span style="color:green;font-size:18px;font-weight: bold;">
+                                        <t t-esc="res_company.name"/>
+                                    </span>
+                                    <br/>
+                                    <span style="font-size:13px;font-weight: bold;">
+                                        <t t-if="res_company.street">
+                                            <t t-esc="res_company.street"/>,
+                                        </t>
+                                        <t t-if="res_company.street2">
+                                            <t t-esc="res_company.street2"/>
+
+                                        </t>
+
+                                        <t t-if="res_company.city">
+                                            <br/>
+                                            <t t-esc="res_company.city"/>
+                                        </t>
+
+                                        <t t-if="res_company.state_id">
+                                            <br/>
+                                            <t t-esc="res_company.state_id.name"/>,
+                                        </t>
+                                        <t t-if="res_company.zip">
+                                            <t t-esc="res_company.zip"/>,
+                                        </t>
+                                        <t t-if="res_company.country_id">
+                                            <t t-esc="res_company.country_id.name"/>
+                                        </t>
+                                        <t t-if="res_company.email">
+                                            .EMAIL -
+                                            <t t-esc="res_company.email"/>
+                                        </t>
+                                    </span>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-size:16px;font-family:Calibri !important;color:red;font-weight: bold;">
+                                    GENERAL LEDGER
+                                </div>
+                            </div>
+
+                <div class="row" style="margin:20px">
+                    <table cellpading="0" cellspacing="0" width="100%" border="0">
+                        <t t-if="Accounts[0]['name']">
+                        <tr>
+                            <td style="line-height:20px;width:10%" class="bold">
+                               Accounts
+                            </td>
+                            <td class="bold" style="width:5%">:</td>
+                            <td class="bold">
+                                <span t-esc="', '.join([ lt or '' for lt in print_accountname ])"/>
+                            </td>
+                        </tr>
+                        </t>
+                         <t t-if="data['date_from']">
+                        <tr>
+                            <td class="bold">
+                               Date
+                            </td>
+                            <td class="bold">:</td>
+                            <td class="bold"> <span t-esc="data['date_from']"  t-options="{'widget': 'date'}"/>  <t t-if="data['date_to']"> to <span t-esc="data['date_to']"  t-options="{'widget': 'date'}"/></t>
+                            </td>
+                        </tr>
+                        </t>
+                    </table>
+
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="text-center">
+                            <th style="width:10%" class="tdCenter bghead">Date</th>
+                            <th style="width:10%" class="tdCenter bghead">Journal</th>
+                            <th style="width:40%" class="tdCenter bghead">Particulers</th>
+                            <th style="width:10%" class="tdCenter bghead">Ref No</th>
+                            <th style="width:15%" class="tdCenter bghead">Debit</th>
+                            <th style="width:15%" class="tdCenter bghead">Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <t t-foreach="Accounts" t-as="account">
+                            <t t-set="debittotal" t-value="0"/>
+                            <t t-set="credittotal" t-value="0"/>
+                            <tr>
+                                <td colspan="6"  class="tdLeft bold bgcolor">
+                                    <span t-esc="account['code']"/>
+                                    <span t-esc="account['name']"/>
+                                </td>
+                                <!--<td class="tdRight bold bgcolor">-->
+                                    <!--<span t-esc="account['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                <!--</td>-->
+                                <!--<td class="tdRight bold bgcolor">-->
+                                    <!--<span t-esc="account['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                <!--</td>-->
+                                <!--<td class="text-right">-->
+                                    <!--<span t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                <!--</td>-->
+                                <!--<td groups="base.group_multi_currency"/>-->
+                            </tr>
+                            <tr t-foreach="account['move_lines']" t-as="line">
+                                <td  class="tdCenter"><span t-esc="line['ldate']"   t-options="{'widget': 'date'}"/></td>
+                                <td  class="tdLeft"><span t-if="line['jname']" t-esc="line['jname']"/></td>
+                                <td  class="tdLeft"><span  t-if="line['partner_name']"><span  t-esc="line['partner_name']"/> - </span><span t-esc="line['lname']"/></td>
+                                <td  class="tdRight"><span t-esc="line['move_name']"/></td>
+                                <td  class="tdRight">
+                                    <!--<span t-esc="line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
+                                    <span t-esc="line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </td>
+                                <td  class="tdRight">
+                                    <span t-esc="line['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </td>
+                                <t t-set="debittotal" t-value="debittotal + line['debit']"/>
+                                <t t-set="credittotal" t-value="credittotal + line['credit']"/>
+                            </tr>
+
+                        <tr>
+                            <td class="tdRight bold blue" colspan="4">Total Amount</td>
+                            <td class="tdRight bold blue"><span t-esc="debittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            <td class="tdRight bold blue"><span t-esc="credittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="tdRight bold blue" colspan="4">Closing Balance</td>
+                            <t t-if="debittotal - credittotal &lt; 0">
+                                <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                <td class="tdRight bold blue"></td>
+                            </t>
+                            <t t-if="debittotal - credittotal &gt; 0">
+                                <td class="tdRight bold blue"></td>
+                                <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                </t>
+                            <t t-if="debittotal - credittotal == 0">
+                                    <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    <td class="tdRight bold blue"><span t-esc="abs(debittotal - credittotal)" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                </t>
+                        </tr>
+
+                        <tr>
+                            <td class="tdRight bold blue" colspan="4">Grand Total</td>
+                            <t t-if="debittotal - credittotal &lt; 0">
+                                <td class="tdRight bold blue"><span t-esc="credittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                <td class="tdRight bold blue"><span t-esc="credittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            </t>
+                             <t t-if="debittotal - credittotal &gt;= 0">
+                                <td class="tdRight bold blue"><span t-esc="debittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                <td class="tdRight bold blue"><span t-esc="debittotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            </t>
+                        </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</odoo>

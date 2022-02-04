@@ -1,0 +1,125 @@
+<odoo>
+    <data>
+        <!--inherited tree view of product supplier info-->
+
+        <record id="inherited_supplier_info_tree_view" model="ir.ui.view">
+            <field name="name">supplierinfo_inherited_tree_view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"></field>
+            <field name="arch" type="xml">
+
+                <field name="price" position="after">
+                    <field name="landing_cost"/>
+                </field>
+            </field>
+        </record>
+
+        <!--inherited form view of product supplier info-->
+
+        <record id="inherited_supplier_info_form_view" model="ir.ui.view">
+            <field name="name">supplierinfo.form.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group/field[@name='product_tmpl_id']" position="after">
+
+                    <field name="landing_cost"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="purchase_order_inherit_form_view">
+            <field name="name">purchase_order_tree</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                    <field name="sl_no"/>
+                </xpath>
+
+                <field name="partner_id" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </field>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="barcode"/>
+                    <field name="brand_id" options="{'no_create': True}" required="1"/>
+                    <field name="category_id" options="{'no_create': True}" required="1"/>
+                    <field name="hsn"/>
+                </xpath>
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                    <!--<field name="product_mrp" invisible="0"/>-->
+                    <field name="date_exp" invisible="0"/>
+                </xpath>
+
+
+
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="discount_percentage" string="Disc %"/>
+                    <field name="discount_amount" string="Disc Amt"/>
+                </xpath>
+
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
+                    <field name="customer_tax_id" widget="many2many_tags" string="Sale Taxes"
+                           domain="[('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'sale'}"
+                           options="{'no_create': True}" required="0" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">
+                    <attribute name="string">Qty</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="attributes">
+                    <attribute name="required">True</attribute>
+                    <attribute name="options">{'no_create': True}</attribute>
+
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                    <attribute name="string">UOM</attribute>
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="price_subtotal_tax" invisible="1"/>
+                    <field name="price_subtotal_taxinc"/>
+                    <field name="price_unit_tax" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <field name="amount_tax" position="after">
+                    <field name="amount_discount"/>
+                </field>
+
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

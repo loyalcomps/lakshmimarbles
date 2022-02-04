@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_combopack/static/src/js/combo.js"></script>
+                <script type="text/javascript" src="/pos_combopack/static/src/js/popup.js"></script>
+            </xpath>
+            <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/pos_combopack/static/src/css/combo.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="stockleadger_report_pdf">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+
+                <div class="row">
+                    <div class="col-xs-12" style="text-align:center;">
+
+                          <t t-if="res_company.name"> <strong style="font-size:20px;"> <span t-esc="res_company.name"/></strong><br/></t>
+
+                        <t t-if="res_company.street"><strong><span t-esc="res_company.street"/></strong><br/></t>
+
+                          <!--<p style="font-size:18px;">-->
+                             <!--<strong>  </strong>-->
+                          <!--</p>-->
+
+                    </div>
+                </div>
+
+                 <div class="row">
+                     <div class="col-xs-12" style="text-align:center;font-size:12px;">
+
+                            <b> Start Date : <span t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <span t-esc="date_end"/> </b>
+                           <br/><br/>
+                     </div>
+
+
+
+                 </div>
+
+                <t t-set="saletotal" t-value="0"/>
+                <t t-set="purchasetotal" t-value="0"/>
+                <t t-set="invtytotal" t-value="0"/>
+
+                 <t t-set="saleqty" t-value="0"/>
+                <t t-set="purchaseqty" t-value="0"/>
+                <t t-set="invtyqty" t-value="0"/>
+
+
+                <div class="row">
+                <div class="col-xs-12">
+
+
+                    <table style="width: 210mm;border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Product</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Qty</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Amount</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Qty</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Amount</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Inventory Qty</td>
+                                <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Inventory Value</td>
+                                <!--<td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Profit </td>-->
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valuesone" t-as="line_ids" >
+                            <tr >
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >
+                                <span t-esc="line_ids['sl_no']"/>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;" >
+                                <span t-esc="line_ids['pname']"/>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['quantitypur'] "/>
+                                 <t t-set="purchaseqty" t-value="purchaseqty + line_ids['quantitypur']" />
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['pur_total'] "/>
+                                 <t t-set="purchasetotal" t-value="purchasetotal + line_ids['pur_total']" />
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['totalsaleqty'] "/>
+                                 <t t-set="saleqty" t-value="saleqty + line_ids['totalsaleqty']" />
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['sale_total'] "/>
+                                 <t t-set="saletotal" t-value="saletotal + line_ids['sale_total']" />
+                            </td>
+
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['onhand'] "/>
+                                 <t t-set="invtyqty" t-value="invtyqty + line_ids['onhand']" />
+                            </td>
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['onhandtotal'] "/>
+                                 <t t-set="invtytotal" t-value="invtytotal + line_ids['onhandtotal']" />
+                            </td>
+
+                            </tr>
+                        </t>
+
+
+
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+                             <td  style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                  <b> <t t-esc="purchaseqty" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="purchasetotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="saleqty" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="saletotal" /></b>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="invtyqty" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="invtytotal" /></b>
+                            </td>
+
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+
+
+
+
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

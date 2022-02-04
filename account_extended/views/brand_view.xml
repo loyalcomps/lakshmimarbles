@@ -1,0 +1,89 @@
+<odoo>
+  <data>
+    <!-- Product Brand-->
+    <record model="ir.ui.view" id="create_brand_form_view">
+      <field name="name">create brand list</field>
+      <field name="model">product.brand</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="company_id" invisible="1"/>
+            </group>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions brand view models -->
+
+    <record model="ir.actions.act_window" id="brand_action_window">
+      <field name="name">Brand</field>
+      <field name="res_model">product.brand</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="brand_menuitem" name="Brand"
+                  parent="sales_team.menu_sales"
+                  action="brand_action_window" sequence="23"/>
+
+    <record model="ir.ui.view" id="brand_product_product_form">
+      <field name="name">purchase.product.form</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"></field>
+      <field name="arch" type="xml">
+        <field name="barcode" position="after">
+          <field name="brand_id"  required="1" options="{'no_create': True}"/>
+          <field name="date_exp" placeholder="Expiry"/>
+
+        </field>
+        <field name="categ_id" position="attributes">
+          <attribute name="options">{'no_create': True}</attribute>
+        </field>
+
+        <field name="lst_price" position="after">
+          <field name="product_mrp" widget="monetary" option="{'currency_field':'currency_id'}"/>
+        </field>
+      </field>
+
+    </record>
+
+
+    <record id="product_template_brand_form" model="ir.ui.view">
+      <field name="name">product.template</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+
+        <field name="barcode" position="after">
+          <field name="brand_id"  required="1" options="{'no_create': True}"/>
+          <field name="date_exp" placeholder="Expiry"/>
+        </field>
+        <field name="categ_id" position="attributes">
+          <attribute name="options">{'no_create': True}</attribute>
+        </field>
+        <field name="list_price" position="after">
+          <field name="product_mrp" widget="monetary" option="{'currency_field':'currency_id'}"/>
+
+
+        </field>
+      </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+      <field name="name">product.template.common.landing</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="arch" type="xml">
+
+        <field name="list_price" position="after">
+          <field name="landing_cost" widget="monetary" option="{'currency_field':'currency_id'}"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,78 @@
+.pos .product .qty-tag {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    background: #7f82ac;
+    padding: 2px 5px;
+    border-radius: 2px;
+	font-weight: bold;
+}
+.pos .product .qty-tag.not-available {
+    background: #d882ac;
+}
+
+.pos .order .orderline .qty-info{
+	color: #777;
+	font-weight: bold;
+	font-style: normal;
+}
+.pos .order .orderline .qty-info.not-available{
+	color:red;
+
+
+.pos .pos-sale-ticket2 {
+    text-align: left;
+    width: 210mm;
+    height: 297mm;
+    background-color: white;
+    margin: 20px;
+    padding: 15px;
+    font-size: 14px;m
+    padding-bottom:30px;
+    display: inline-block;
+    font-family: "Inconsolata";
+    border: solid 1px rgb(220,220,220);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.pos .pos-sale-ticket2 pre{
+    font-family: "Inconsolata";
+}
+
+.pos .pos-sale-ticket2 .emph{
+    font-size: 20px;
+    margin:5px;
+}
+
+.pos .pos-sale-ticket2 table {
+    width: 210mm;
+    border: 0;
+    table-layout: fixed;
+}
+.pos .pos-sale-ticket2 table td {
+    border: 0;
+    word-wrap: break-word;
+}
+.pos .pos-sale-ticket2{
+        margin: 0;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        border: none !important;
+        font-size: 13px !important;
+        width: 210mm;
+ }
+.screen .centered-content2{
+    position: absolute;
+    right:0%; top: 64px; bottom: 0px;
+    left:0%;
+    border-right: dashed 1px rgb(215,215,215);
+    border-left: dashed 1px rgb(215,215,215);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+}

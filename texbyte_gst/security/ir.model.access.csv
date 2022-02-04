@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_texbyte_gst_hsncode_manager,access_texbyte_gst_hsncode_manager,model_texbyte_gst_hsncode,stock.group_stock_manager,1,1,1,1
+access_texbyte_gst_hsncode_user,access_texbyte_gst_hsncode_user,model_texbyte_gst_hsncode,base.group_user,1,0,0,0
+access_texbyte_gst_poscode_manager,access_texbyte_gst_poscode_manager,model_texbyte_gst_gstpos,stock.group_stock_manager,1,1,1,1
+access_texbyte_gst_poscode_user,access_texbyte_gst_poscode_user,model_texbyte_gst_gstpos,base.group_user,1,0,0,0
+access_texbyte_gst_report_purchase_order,purchase.report,model_texbyte_gst_purchase_order_bi_report,purchase.group_purchase_manager,1,0,0,0

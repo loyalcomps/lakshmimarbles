@@ -1,0 +1,275 @@
+<odoo>
+    <data>
+        <report
+                id="cheque_management_print"
+                model="cheque.payment"
+                string="Cheque Payment Print"
+                name="cheque_payment_print.cheque_print"
+                file="cheque_payment_print.cheque_print"
+                report_type="qweb-pdf"/>
+        <template id="external_layout_cheque_print_footer">
+
+            <div class="footer row" style="padding: 0px;">
+                <hr style="border-color: red;"/>
+                <div class="col-xs-3"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    ACCOUNTS MANAGER
+
+                </div>
+                <div class="col-xs-3"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    GENERAL MANAGER
+
+                </div>
+
+
+                <div class="col-xs-3"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    CHAIRMAN
+                </div>
+                <div class="col-xs-3"
+                     style="text-align: left;font-size:13px;font-family:Calibri !important;font-weight: bold;padding: 0px;">
+
+                    RECEIVED BY
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_cheque_print">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+
+            <t t-raw="0"/>
+            <t t-call="cheque_payment_print.external_layout_cheque_print_footer"/>
+
+        </template>
+
+
+        <template id="cheque_print">
+            <t t-call="report.html_container">
+                <t t-call="cheque_payment_print.external_layout_cheque_print">
+                    <t t-foreach="docs" t-as="doc">
+                        <!--<t t-call="report.external_layout">-->
+                        <div class="page">
+                            <div class="row">
+
+                                <div class="col-xl-12"
+                                     style="text-align: left;font-family:Calibri !important;">
+                                    <t>
+                                        <img t-if="res_company.logo"
+                                             t-att-src="'data:image/png;base64,%s' %res_company.logo"
+                                             class="center"
+                                             style="height: 80px;width: 80px;"/>
+                                    </t>
+                                    <br/>
+                                    <span style="color:green;font-size:18px;font-weight: bold;">
+                                        <t t-esc="doc.company_id.name"/>
+                                    </span>
+                                    <br/>
+                                    <span style="font-size:13px;font-weight: bold;">
+                                        <t t-if="doc.company_id.street">
+                                            <t t-esc="doc.company_id.street"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.street2">
+                                            <t t-esc="doc.company_id.street2"/>
+
+                                        </t>
+
+                                        <t t-if="doc.company_id.city">
+                                            <br/>
+                                            <t t-esc="doc.company_id.city"/>
+                                        </t>
+
+                                        <t t-if="doc.company_id.state_id">
+                                            <br/>
+                                            <t t-esc="doc.company_id.state_id.name"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.zip">
+                                            <t t-esc="doc.company_id.zip"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.country_id">
+                                            <t t-esc="doc.company_id.country_id.name"/>
+                                        </t>
+                                        <t t-if="doc.company_id.email">
+                                            .EMAIL -
+                                            <t t-esc="doc.company_id.email"/>
+                                        </t>
+                                    </span>
+
+                                </div>
+                            </div>
+                            <hr style="border-color: red;"/>
+                            <div class="row">
+
+                                <div class="col-xl-12"
+                                     style="text-align: center;font-family:Calibri !important;font-weight: bold;font-size:16px;text-decoration: underline;">
+                                    CHEQUE PAYMENT VOUCHER
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <![CDATA[&nbsp;]]>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-xs-12"
+                                     style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;padding:0px;">
+                                    <table style="width:50% ;">
+                                        <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                            <td width="20%">NAME</td>
+                                            <td width="3%">:</td>
+                                            <td width="77%">
+                                                <t t-esc="doc.partner_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <t t-if="doc.check_number">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                                <td>CHEQUE NO</td>
+                                                <td>:</td>
+                                                <td>
+                                                    <t t-esc="doc.check_number"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="doc.payment_date">
+                                            <tr style="text-align: left;font-size:12px;font-family:Calibri !important;font-weight: bold;">
+                                                <td>DATE</td>
+                                                <td>:</td>
+                                                <td>
+                                                    <t t-esc="doc.payment_date"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <![CDATA[&nbsp;]]>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <center>
+                                    <t t-if="doc.invoice_ids">
+                                        <table  style="width:100%">
+                                            <thead>
+                                                <tr >
+                                                    <th style="border: 1px solid black;">
+                                                        <center>Sl.No</center>
+                                                    </th>
+                                                    <th style="border: 1px solid black;">
+                                                        <center>Particulars</center>
+                                                    </th>
+                                                    <th style="border: 1px solid black;">
+                                                        <center>Amount</center>
+                                                    </th>
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="i" t-value="1"/>
+                                                <t t-set="total_invoice" t-value="0"/>
+
+                                                <t t-foreach="doc.invoice_ids" t-as="l">
+                                                    <tr>
+
+
+                                                        <td class="text-center" style="border-left: 1px solid black;">
+                                                            <span t-esc="i"/>
+                                                            <t t-set="i" t-value="i+1"/>
+                                                        </td>
+                                                        <td class="text-center" style="border-left: 1px solid black;">
+                                                            <span t-field="l.reference"/>
+                                                            <![CDATA[&nbsp;]]>
+                                                            <span t-field="l.date_invoice"/>
+                                                        </td>
+
+                                                        <td class="text-right" style="border-right: 1px solid black;border-left: 1px solid black;">
+
+                                                            <span t-esc="'{:,.2f}'.format(l.amount_total)"/>
+                                                            <t t-set="total_invoice"
+                                                               t-value="total_invoice+l.amount_total"/>
+                                                        </td>
+                                                    </tr>
+
+                                                </t>
+                                                <tr>
+
+                                                    <td class="text-right" style="font-weight:bold;border: 1px solid black;"
+                                                        colspan="2">
+                                                        CHQ<![CDATA[&nbsp;]]>#<![CDATA[&nbsp;]]>
+                                                        <span t-field="doc.check_number"/>
+                                                    </td>
+
+                                                    <td class="text-right" style="border: 1px solid black;font-weight:bold;">
+                                                        <span t-esc="'{:,.2f}'.format(doc.amount)"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="text-right"
+                                                        style="font-weight:bold;border: 1px solid black;">
+                                                        TOTAL INVOICE VALUE
+
+                                                    </td>
+                                                    <td class="text-right"
+                                                        style="font-weight:bold;border: 1px solid black;">
+                                                        <span t-esc="'{:,.2f}'.format(total_invoice)"/>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <t t-if="not doc.invoice_ids">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    CHQ<![CDATA[&nbsp;]]>#<![CDATA[&nbsp;]]>
+                                                    <span t-field="doc.check_number"/>
+
+                                                </td>
+                                                <td>
+                                                    :
+
+                                                </td>
+                                                <td>
+                                                    <span t-esc="'{:,.2f}'.format(doc.amount)"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+
+                                </center>
+                            </div>
+
+                            <br/>
+                            <br/>
+
+                        </div>
+                    </t>
+                </t>
+
+            </t>
+        </template>
+
+    </data>
+</odoo>

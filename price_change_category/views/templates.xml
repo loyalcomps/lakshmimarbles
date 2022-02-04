@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="product_category_margin_fields" model="ir.ui.view">
+            <field name="name">product.category.new.added.fields</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[@name='first']" position="after">
+
+                    <group name="first" col="4" string="Product Sale Price">
+                        <field name="sale_price" readonly="1"/>
+                        <field name="min_sale_amt" readonly="1"/>
+
+                    </group>
+
+
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

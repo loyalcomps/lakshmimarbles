@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sale_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Consolidated SALE Report</strong><br/>
+                            </p><br/>
+
+
+                            <b style="font-size:18px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/><br/>
+
+
+
+
+                        </div>
+                    </div>
+
+
+                    <t t-set="open" t-value="0"/>
+                    <t t-set="cashh" t-value="0"/>
+                    <t t-set="card" t-value="0"/>
+                    <t t-set="credit" t-value="0"/>
+                    <t t-set="pmoney" t-value="0"/>
+                    <t t-set="tmoney" t-value="0"/>
+                    <t t-set="end" t-value="0"/>
+
+
+                     <t t-set="fgopen" t-value="0"/>
+                    <t t-set="fgcashh" t-value="0"/>
+                    <t t-set="fgcard" t-value="0"/>
+                    <t t-set="fgcredit" t-value="0"/>
+                    <t t-set="fgpmoney" t-value="0"/>
+                    <t t-set="fgtmoney" t-value="0"/>
+                    <t t-set="fgend" t-value="0"/>
+                    <t t-set="retn" t-value="0"/>
+                    <t t-set="rety" t-value="0"/>
+
+
+
+
+
+                <t t-if="not counter_only and pos_config_ids">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <!--<thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">-->
+
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Date</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Particulars</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Debit</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Credit</th>-->
+
+
+
+                                <!--</thead>-->
+
+                                <tbody class="invoice_tbody">
+                                        <!--<tr  style="page-break-inside: avoid;">-->
+                                            <!--<td colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:center;">OPENING BALANCE</td>-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="get_opening"/>-->
+                                            <!--</td>-->
+                                            <!--<td></td>-->
+                                        <!--</tr>-->
+
+
+                                        <tr t-foreach="get_totstartbal" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">OPENING BALANCE</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="open" t-value="open + line_ids1['openbalance']"/>
+                                                <span t-esc="open"/>
+
+
+                                            </td>
+                                        </tr>
+
+                                        <tr t-foreach="get_cash" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">CASH</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="cashh" t-value="cashh + line_ids1['cash']"/>
+
+                                                <span t-esc="cashh"/>
+
+                                            </td>
+                                        </tr>
+
+
+                                        <tr t-foreach="get_card" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">CARD</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="card" t-value="card + line_ids1['card']"/>
+
+                                                <span t-esc="card"/>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr t-foreach="get_credit" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">CREDIT</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="credit" t-value="credit + line_ids1['credit']"/>
+
+                                                <span t-esc="credit"/>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr t-foreach="get_totalputmoney" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">PUT MONEY IN</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="pmoney" t-value="pmoney + line_ids1['put_money_in']"/>
+
+                                                <span t-esc="pmoney"/>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr t-foreach="get_total_takemoney" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">TAKE MONEY OUT</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="tmoney" t-value="tmoney + line_ids1['take_money']"/>
+
+                                                <span t-esc="tmoney"/>
+
+                                            </td>
+                                        </tr>
+
+
+                                    <tr t-foreach="get_ret" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">RETURN</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="retn" t-value="retn + line_ids1['ret']"/>
+
+                                                <span t-esc="retn"/>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr t-foreach="get_totalendbal" t-as="line_ids1" style="page-break-inside: avoid;">
+
+                                            <th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">CLOSING BALANCE</th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-set="end" t-value="end + line_ids1['endbalance']"/>
+
+                                                <span t-esc="end"/>
+
+                                            </td>
+                                        </tr>
+
+                                     <tr >
+
+                                     <td  colspan="2" style="text-align:left;border: 1px solid black;border-collapse:collapse;">
+                                        <span><b>Total</b></span>
+                                    </td>
+
+                                     <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <b> <t t-esc="end+tmoney+pmoney+credit+card+cashh+open+retn" /></b>
+                                    </td>
+
+                                </tr>
+
+
+                                    <!--<tr t-foreach="get_totalendbal" t-as="line_ids1" style="page-break-inside: avoid;">-->
+
+                                            <!--<th colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:left;">CLOSING BALANCE</th>-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<t t-set="end" t-value="end + line_ids1['endbalance']"/>-->
+
+                                                <!--<span t-esc="end"/>-->
+
+                                            <!--</td>-->
+                                        <!--</tr>-->
+
+
+                                </tbody>
+                            </table>
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                        <!--</t>-->
+
+
+
+                        </div>
+                    </div>
+                     </t>
+
+
+
+
+
+
+                     <t t-if="counter_only and pos_config_ids">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <!--<thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" ></th>-->
+
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >OPENING BALANCE</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >CASH</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >CARD</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >CREDIT</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >PUT MONEY IN</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >TAKE MONEY OUT</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >CLOSING BALANCE</th>-->
+
+
+
+
+                                <!--</thead>-->
+
+                                <tbody class="invoice_tbody">
+                                        <!--<tr  style="page-break-inside: avoid;">-->
+                                            <!--<td colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:center;">OPENING BALANCE</td>-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="get_opening"/>-->
+                                            <!--</td>-->
+                                            <!--<td></td>-->
+                                        <!--</tr>-->
+                                    <!--<tr t-foreach="configures" t-as="pfg" style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+
+                                        <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                    <!--&lt;!&ndash;<span t-esc="get_opening"/>&ndash;&gt;-->
+                                                <!--<t t-esc="str(pfg.name)"/>-->
+                                                <!--&lt;!&ndash;<t t-set="fgopen" t-value="fgopen + lin<t t-esc="str(pfg.name)"/>e_ids1['openbalance']"/>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<span t-esc="fgopen"/>&ndash;&gt;-->
+
+
+                                            <!--</td>-->
+                                    <!--<tr t-foreach="configures" t-as="pfg" scope="row" style="border: 1px solid black;border-collapse:collapse;text-align:center;"><t t-esc="str(pfg.name)"/></tr>-->
+                                    <!--</tr>-->
+
+
+                                    <!--<tr  style="page-break-inside: avoid;">-->
+
+
+                                     <tr>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" ></th>
+
+                                            <td t-foreach="config" t-as="pfg" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                    <!--<span t-esc="get_opening"/>-->
+                                                <t t-esc="str(pfg.name)"/>
+                                                <!--<t t-set="fgopen" t-value="fgopen + line_ids1['openbalance']"/>-->
+                                                <!--<span t-esc="fgopen"/>-->
+
+
+                                            </td>
+                                         <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >TOTAL</td>
+
+                                        </tr>
+
+                                        <tr>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >OPENING BALANCE</th>
+
+                                            <td t-foreach="valuesix" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                    <!--<span t-esc="get_opening"/>-->
+                                                <t t-esc="line_ids1['openbalance']"/>
+                                                <t t-set="fgopen" t-value="fgopen + line_ids1['openbalance']"/>
+                                                <!--<span t-esc="fgopen"/>-->
+
+
+                                            </td>
+
+                                             <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                    <span t-esc="fgopen"/>
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >CASH</th>
+
+
+                                            <td t-foreach="valuefour" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['cash']"/>
+
+                                                <t t-set="fgcashh" t-value="fgcashh + line_ids1['cash']"/>
+
+                                                <!--<span t-esc="fgcashh"/>-->
+
+                                            </td>
+                                            <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                    <span t-esc="fgcashh"/>
+                                                </td>
+                                        </tr>
+
+
+                                        <tr>
+
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >CARD</th>
+
+
+                                            <td t-foreach="valuefive" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['card']"/>
+
+                                                <t t-set="fgcard" t-value="fgcard + line_ids1['card']"/>
+<!---->
+                                                <!--<span t-esc="fgcard"/>-->
+
+                                            </td>
+
+                                            <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                     <span t-esc="fgcard"/>
+                                                </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >CREDIT</th>
+
+
+                                            <td  t-foreach="valueone" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['debtamount']"/>
+
+                                                <t t-set="fgcredit" t-value="fgcredit + line_ids1['debtamount']"/>
+
+                                                <!--<span t-esc="fgcredit"/>-->
+
+                                            </td>
+
+                                              <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                     <span t-esc="fgcredit"/>
+                                                </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >PUT MONEY IN</th>
+
+
+                                            <td t-foreach="valuethree" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['put_money_in']"/>
+
+                                                <t t-set="fgpmoney" t-value="fgpmoney + line_ids1['put_money_in']"/>
+
+                                                <!--<span t-esc="fgpmoney"/>-->
+
+                                            </td>
+
+                                              <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                      <span t-esc="fgpmoney"/>
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >TAKE MONEY OUT</th>
+
+
+                                            <td  t-foreach="valuetwo" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['take_money']"/>
+
+                                                <t t-set="fgtmoney" t-value="fgtmoney + line_ids1['take_money']"/>
+
+                                                <!--<span t-esc="fgtmoney"/>-->
+
+                                            </td>
+
+                                             <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                       <span t-esc="fgtmoney"/>
+                                                </td>
+                                        </tr>
+
+                                    <tr>
+
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >RETURN</th>
+
+
+                                            <td  t-foreach="retwise" t-as="line_ids1" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['ret']"/>
+
+                                                <t t-set="rety" t-value="rety + line_ids1['ret']"/>
+
+                                                <!--<span t-esc="fgtmoney"/>-->
+
+                                            </td>
+
+                                             <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                       <span t-esc="rety"/>
+                                                </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:left;" >CLOSING BALANCE</th>
+
+
+                                            <td  t-foreach="valueseven" t-as="line_ids1"  style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <t t-esc="line_ids1['endbalance']"/>
+
+                                                <t t-set="fgend" t-value="fgend + line_ids1['endbalance']"/>
+
+                                                <!--<span t-esc="fgend"/>-->
+
+                                            </td>
+
+                                              <td class="text-center"
+                                                    style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                        <span t-esc="fgend"/>
+                                                </td>
+                                        </tr>
+
+                                    <tr>
+
+                                                <td class="text-center"
+                                                    style="text-align:left;border: 1px solid black;border-collapse:collapse;">
+                                                    TOTAL
+
+                                                </td>
+                                                <t t-set="total" t-value="0"/>
+
+                                                <td t-foreach="totalline" t-as="l" class="text-center"
+                                                    style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+
+                                                    <t t-set="total" t-value="total + (l)"/>
+                                                    <t t-esc="l"/>
+
+                                                </td>
+
+
+                                                <!-- <td t-foreach="valuetwo" t-as="line" class="text-center" style="text-align:center;border: 1px solid black;"><t t-esc="line['card']"/> </td> -->
+                                                <td class="text-center"
+                                                    style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                                    <t t-esc="total"/>
+                                                </td>
+
+                                            </tr>
+
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                        <!--</t>-->
+
+
+
+                        </div>
+                    </div>
+                     </t>
+
+
+
+
+
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

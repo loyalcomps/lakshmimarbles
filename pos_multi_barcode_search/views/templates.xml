@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+
+                <script type="text/javascript" src="/pos_multi_barcode_search/static/src/js/multibarcode_search.js"></script>
+
+                <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                    <link rel="stylesheet" href="/pos_multi_barcode_search/static/src/css/pos.css"/>
+                </xpath>
+            </xpath>
+        </template>
+    </data>
+</odoo>

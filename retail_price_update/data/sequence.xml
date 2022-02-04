@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <!-- Sequences for confirm.window -->
+        <record id="seq_confirm_window" model="ir.sequence">
+            <field name="name">Product Price Confirm Window</field>
+            <field name="code">confirm.window</field>
+            <field name="prefix">RPU</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--<record id="seq_update_window" model="ir.sequence">-->
+            <!--<field name="name">Product Price Update Window</field>-->
+            <!--<field name="code">update.window</field>-->
+            <!--<field name="prefix">RPU</field>-->
+            <!--<field name="padding">5</field>-->
+            <!--<field name="company_id" eval="False"/>-->
+        <!--</record>-->
+    </data>
+</odoo>

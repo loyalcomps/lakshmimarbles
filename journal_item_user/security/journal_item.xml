@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+    <record model="res.groups" id="group_journal_item_user">
+        <field name="name">journal item</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+
+
+
+    </data>
+</odoo>

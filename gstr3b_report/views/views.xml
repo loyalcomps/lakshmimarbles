@@ -1,0 +1,46 @@
+<odoo>
+  <data>
+    <!--addons-path=addons,customaddons -u texbyte_gst -d afsc -->
+        <record id="invoice_gstr3b_wizard_form" model="ir.ui.view">
+            <field name="name">GSTR3B Report</field>
+            <field name="model">invoice.report.gstr3b.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="state"/>
+                    <div states="choose">
+                        <group >
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <!-- <field name="inv_type" required="1"/> -->
+                        </group>
+                    </div>
+                    <div states="get">
+                        <group>
+                            <field name="name" colspan="4" invisible="1"/>
+                            <field name="report" filename="name" colspan="4"/>
+                        </group>
+                    </div>
+                    <footer states="choose">
+                        <button name="generate_gstr3b_report" string="Generate GSTR3B" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                    </footer>
+                    <footer states="get">
+                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_gstr3b_report" model="ir.actions.act_window">
+            <field name="name">GSTR3B Report</field>
+            <field name="res_model">invoice.report.gstr3b.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_gstr3b_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="account_report_gstr3b" name="GSTR3B Report" parent="account.account_reports_business_intelligence_menu" action="action_gstr3b_report" sequence="23" groups="account.group_account_manager"/>
+
+  </data>
+</odoo>

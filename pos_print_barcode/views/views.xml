@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="pos_print_barcode_pos_config">
+            <field name="name">pos.config.barcode</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='receipt_footer']" position="after">
+                    <field name="barcode_receipt"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="pos_print_barcode_view_pos_pos_form" model="ir.ui.view">
+            <field name="name">pos.order.barcode</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='extra']/group/field[@name='pos_reference']" position="after">
+                    <field name="ean13_barcode"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pos_print_barcode_view_pos_order_tree">
+            <field name="name">Orders</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="ean13_barcode"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="pos_print_barcode_pos_order_filter" model="ir.ui.view">
+            <field name="name">pos.order.list.select</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="ean13_barcode"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

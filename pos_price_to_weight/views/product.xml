@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_price_view" model="ir.ui.view">
+            <field name="name">Update Product Price</field>
+            <field name="model">product.price</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <!--<field name="name" style="width:55%%"/>-->
+                            <field name="product_id" style="width:55%%"
+                                    context="{'default_to_weight': 1}" domain="[('to_weight','=',True)]" attrs="{'required': [('is_export','=', False)]}"/>
+                            <field name="sale_price" style="width:25%%" attrs="{'required': [('is_export','=', False)]}"/>
+                            <field name="to_weight" invisible="1"/>
+
+                            <!--<field name="cost_price" style="width:25%%"/>-->
+                        </group>
+                        <group>
+                            <field name="is_export"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="change_product_price" type="object" attrs="{'invisible': [('is_export','=', True)]}" string="Update Price" class="oe_highlight"/>
+
+                        <button name="text_export_new" type="object" attrs="{'invisible': [('is_export','=', False)]}" string="Export" class="oe_highlight"/>
+                        <!--<button name="text_export" type="object" attrs="{'invisible': [('is_export','=', False)]}" string="Export Meezan" class="oe_highlight"/>-->
+
+                        <!--<button name="text_export_essai" type="object" attrs="{'invisible': [('is_export','=', False)]}" string="Export For Essae" class="oe_highlight"/>-->
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_price_view_action" model="ir.actions.act_window">
+            <field name="name">Update Product Price</field>
+            <field name="res_model">product.price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_price_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_product_price" name="Update Price" parent="sales_team.menu_sales"
+                  action="product_price_view_action" sequence="25"/>
+
+        <record model="ir.ui.view" id="product_template_form_view_plu">
+            <field name="name">product.template.lu</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="to_weight" position="after">
+                    <!--<field name="plu" attrs="{'required': [('to_weight','=', True)]}"/>-->
+                    <field name="plu" />
+
+                    <field name="is_piece"/>
+                </field>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="product_product_form_view_plu">-->
+            <!--<field name="name">product.product.plu</field>-->
+            <!--<field name="model">product.product</field>-->
+            <!--<field name="inherit_id" ref="product.product_normal_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="barcode" position="after">-->
+                    <!--<field name="granger_pin"/>-->
+                    <!--<field name="granger_org_price" string="Grainger Original Price USD"/>-->
+                <!--</field>-->
+                <!--<xpath expr="//sheet/div[@class='oe_title']" position="attributes">-->
+                    <!--<attribute name="style">width: 545px;</attribute>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

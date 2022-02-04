@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gst_invoice_tax_gst_invoice_tax,gst_invoice_tax.gst_invoice_tax,model_gst_invoice_tax_gst_invoice_tax,,1,0,0,0

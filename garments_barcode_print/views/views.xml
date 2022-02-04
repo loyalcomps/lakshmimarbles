@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <!-- Barcode Settings Tree -->
+        <record model="ir.ui.view" id="garment_barcode_settings_tree">
+            <field name="name">Garment Barcode Settings</field>
+            <field name="model">garment.barcode.settings</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_name_x"/>
+                  <field name="article_number_x"/>
+                  <field name="barcode_x"/>
+                  <field name="mrp_x"/>
+                  <field name="sale_price_x"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="garment_barcode_settings_view">
+            <field name="name">Garment Barcode Settings</field>
+            <field name="model">garment.barcode.settings</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+
+    <!--product_name_fontsize = fields.Integer(string='Product Font Size')-->
+
+    <!--article_barcode_fontsize = fields.Integer(string='Article Barcode Font Size')-->
+
+    <!--mrp_saleprice_fontsize = fields.Integer(string='MRP Sale Price Font Size')-->
+
+                                <field name="product_name_x"/>
+                               <field name="article_number_x"/>
+                                <field name="barcode_x"/>
+                                <field name="mrp_x"/>
+                                <field name="sale_price_x"/>
+                              <field name="product_name_fontsize"/>
+                              <field name="article_barcode_fontsize"/>
+                            </group>
+                            <group>
+                                <field name="product_name_y"/>
+                                <field name="article_number_y"/>
+                                <field name="barcode_y"/>
+                                <field name="mrp_y"/>
+                                <field name="sale_price_y"/>
+                              <field name="mrp_saleprice_fontsize"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="garment_barcode_settings_action">
+            <field name="name">Garment Barcode Settings</field>
+            <field name="res_model">garment.barcode.settings</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Garment Barcode Size Settings
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="garment_barcode_settings_menu" name="Garment Barcode Settings" action="garment_barcode_settings_action"
+                  parent="base.menu_custom"/>
+
+    </data>
+</odoo>

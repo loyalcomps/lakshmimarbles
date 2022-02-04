@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_product_mrp_search" model="ir.ui.view">
+        <field name="name">report.product.mrp.compare.search</field>
+        <field name="model">report.product.mrp.compare</field>
+        <field name="arch"  type="xml">
+            <search string="Product MRP Sale Price Compare">
+                <field name="product_id"/>
+                <field name="categ_id"/>
+
+                <group string="Group By" name="groupby">
+                     <filter name="product_groupby" string="Product Variants" context="{'group_by': 'product_id'}"/>
+                    <filter name="product_categ_groupby" string="Product Categories" context="{'group_by': 'categ_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- <record id="report_product_mrp_pivot" model="ir.ui.view">
+        <field name="name">report.product.mrp.compare.pivot</field>
+        <field name="model">report.product.mrp.compare</field>
+        <field name="arch"  type="xml">
+            <pivot string="Product MRP Sale Price Compare">
+                <field name="product_id" type="col"/> 
+                <field name="product_mrp" type="row"/>
+            </pivot>
+        </field>
+    </record> -->
+
+    <record id="report_product_mrp_tree" model="ir.ui.view">
+            <field name="name">report.product.mrp.compare.tree</field>
+            <field name="model">report.product.mrp.compare</field>
+            <field name="arch" type="xml">
+                <tree string="Product MRP Sale Price Compare">
+                    <field name="product_id" readonly="False"/>
+                    <field name="categ_id"/>
+                    <field name="stock" />
+                    <field name="product_mrp"/>
+                    <field name="sale_price"/>
+                    <field name="available_in_pos"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="report_product_mrp_form" model="ir.ui.view">
+            <field name="name">report.product.mrp.compare.form</field>
+            <field name="model">report.product.mrp.compare</field>
+            <field name="arch" type="xml">
+                <form string="Product MRP Sale Price Compare">
+                    <sheet>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="categ_id"/>
+                        </group>
+                        <group>
+                            
+                            <field name="stock"/>
+                            <field name="product_mrp"/>
+                            <field name="sale_price"/>
+                            <field name="available_in_pos"/>
+                           
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="report_product_mrp_search" model="ir.ui.view">
+            <field name="name">report.product.mrp.compare.search</field>
+            <field name="model">report.product.mrp.compare</field>
+            <field name="arch" type="xml">
+                <search string="Product MRP Sale Price Compare">
+                    <field name="proname" string="Product Categories"/>
+                    <separator/>
+                    <filter name="filter_to_availabe_pos" string="Available in POS" domain="[('available_in_pos', '=', True)]"/>
+                    
+                </search>
+            </field>
+        </record>
+
+    <!--<record id="pos_sale_analytic_graph" model="ir.ui.view">-->
+        <!--<field name="name">report.product.mrp.compare.graph</field>-->
+        <!--<field name="model">report.product.mrp.compare</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<graph string="POS orders and Sale Orders">-->
+                <!--<field name="date" type="col"/>-->
+                <!--<field name="origin" type="col"/>-->
+                <!--<field name="qty" type="measure"/>-->
+                <!--<field name="sale_total" type="measure"/>-->
+            <!--</graph>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <record id="product_mrp_compare_action" model="ir.actions.act_window">
+        <field name="name">Sale Price gt MRP</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.product.mrp.compare</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="report_product_mrp_search"/>
+        <field name="context">{}</field>
+    </record>
+
+
+
+
+
+    <menuitem id="menu_product_mrp_compare"
+              action="product_mrp_compare_action"
+              parent="admin_reports_compare"
+              sequence="10"/>
+
+
+    <!--<act_window id="product_product_pos_sale_report_action"-->
+        <!--key2="client_action_multi"-->
+        <!--name="Sales Statistics"-->
+        <!--res_model="report.product.mrp.compare"-->
+        <!--src_model="product.product"-->
+        <!--view_mode="pivot"-->
+        <!--domain="[('product_id', 'in', active_ids)]"-->
+        <!--context="{'search_default_product_groupby': 1}"-->
+        <!--/>-->
+
+    <!--<act_window id="product_template_pos_sale_report_action"-->
+        <!--key2="client_action_multi"-->
+        <!--name="Sales Statistics"-->
+        <!--res_model="report.product.mrp.compare"-->
+        <!--src_model="product.template"-->
+        <!--view_mode="pivot"-->
+        <!--domain="[('product_tmpl_id', 'in', active_ids)]"-->
+        <!--context="{'search_default_product_tmpl_groupby': 1}"-->
+        <!--/>-->
+
+</odoo>

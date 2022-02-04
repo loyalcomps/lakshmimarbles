@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_expense_inherit_form_view">
+            <field name="name">Purchase Expense</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_line_ids']" position="before">
+
+                    <field name="purchase_expense_line_ids">
+                        <tree editable="bottom" string="Purchase Expense">
+                            <field name="name"/>
+                            <field name="rate"/>
+                            <field name="exp_to_total"/>
+                            <field name="company_id" invisible="1"/>
+
+                        </tree>
+                    </field>
+                </xpath>
+                <field name="amount_tax" position="after">
+                    <field name="expense"/>
+
+                </field>
+
+                <xpath expr="//notebook/page/group/group/field[@name='move_id']" position="after">
+                    <field name="expense_move_id" attrs="{'invisible': [('expense_move_id', '=', False)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_expense_inherit_form_view">
+            <field name="name">Purchase Expense</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//sheet/notebook/page/field[@name='order_line']" position="after">-->
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="purchase_expense_line_ids">-->
+                                <!--<tree editable="bottom" string="Purchase Expense">-->
+                                    <!--<field name="name"/>-->
+                                    <!--<field name="rate"/>-->
+                                    <!--<field name="exp_to_total"/>-->
+                                    <!--<field name="company_id" invisible="1"/>-->
+
+                                <!--</tree>-->
+                            <!--</field>-->
+                        <!--</group>-->
+                        <!--<group>-->
+
+                        <!--</group>-->
+                    <!--</group>-->
+                <!--</xpath>-->
+
+                <xpath expr="//notebook/page[1]/group[@class='oe_subtotal_footer oe_right']" position="replace">
+                    <group col="4">
+                        <group name="Expense" colspan="2">
+                            <field name="purchase_expense_line_ids">
+                                <tree editable="bottom" string="Purchase Expense">
+                                    <field name="name"/>
+                                    <field name="rate"/>
+                                    <field name="exp_to_total"/>
+                                    <field name="company_id" invisible="1"/>
+
+                                </tree>
+                            </field>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="purchase_total">
+                            <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="expense"/>
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="amount_total"/>
+                            </div>
+                            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                        </group>
+                    </group>
+                </xpath>
+
+                <!--<field name="amount_tax" position="after">-->
+                    <!--<field name="expense"/>-->
+
+                <!--</field>-->
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

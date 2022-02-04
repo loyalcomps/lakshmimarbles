@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        <record id="Sale_order_approval_form" model="ir.ui.view">
+            <field name="name">Sale Approval</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//button[@name='action_confirm'][1]" position="after">-->
+                    <!--<button name="confirm_quotation" states="draft" string="Confirm Quotation" class="oe_highlight"-->
+                            <!--type="object"/>-->
+                <!--</xpath>-->
+
+                <xpath expr="//button[@name='action_confirm'][2]" position="after">
+                    <button name="action_sales_approvals" states="draft,sent" type="object" string="Ask for approval"/>
+                    <button name="md_approval" states="waiting_for_approval" type="object" class="oe_highlight"
+                            string="Approve" groups="sales_team.group_sale_manager"/>
+                    <button name="md_refused" states="waiting_for_approval" type="object" class="oe_highlight"
+                            string="Reject" groups="sales_team.group_sale_manager"/>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page/field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in',
+                        ('done','cancel','waiting_for_approval','approved','sale'))]}
+                    </attribute>
+
+                </xpath>
+
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="attributes">
+                    <attribute name="states">draft,approved</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                    <attribute name="states">draft,approved</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="states">cancel,rejected</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation'][1]" position="attributes">
+                    <attribute name="states">draft,approved</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_sale_approval" model="ir.actions.act_window">
+            <field name="name">Sales Approval</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+            <field name="context">{}</field>
+            <field name="domain">[('state', 'in', ('waiting_for_approval','refused','approved'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p><p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    You'll be able to invoice it and collect payments.
+                    From the <i>Sales Orders</i> menu, you can track delivery
+                    orders or services.
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_sale_approval"
+            id="menu_sale_approval" parent="sales_team.menu_sales"
+            sequence="14" groups="sales_team.group_sale_manager"/>
+
+
+        <record id="sale.action_orders" model="ir.actions.act_window">
+             <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+
+        </record>
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+             <field name="domain">[('state', 'in', ('draft', 'sent','cancel'))]</field>
+
+        </record>
+
+        <record id="so_status_to_tree_view" model="ir.ui.view">
+            <field name="name">Sale Status to SO Tree View</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

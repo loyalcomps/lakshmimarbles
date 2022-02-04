@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qlty_expense_manager,qlty.expense,model_qlty_expense,account.group_account_manager,1,1,1,1
+access_qlty_expense,qlty.expense,model_qlty_expense,account.group_account_manager,1,1,1,0

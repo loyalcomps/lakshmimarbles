@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="discount_total_account_invoice_view_form" model="ir.ui.view">
+            <field name="name">discount.account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_untaxed']" position="after">
+                        <field name="amount_discount"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']" position="after">
+                    <group colspan="4">
+                        <group colspan="2" name="Discount">
+                            <field name="discount_type" />
+                            <field name="discount_rate" />
+                            <field name="discount_amt" invisible="1"/>
+                        </group>
+                        <group colspan="2">
+
+                        </group>
+                    </group>
+
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="discount_total_account_invoice_supplier_view_form" model="ir.ui.view">
+            <field name="name">discount.account.invoice.supplier</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                        <field name="amount_discount"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']" position="after">
+                    <group colspan="4">
+                        <group colspan="2" name="Discount">
+                            <field name="discount_type" />
+                            <field name="discount_rate" />
+                            <field name="discount_amt" invisible="1"/>
+                        </group>
+                        <group colspan="2">
+
+                        </group>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

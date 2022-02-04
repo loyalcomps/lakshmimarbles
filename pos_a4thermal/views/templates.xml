@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <template id="assets_backend_a4thermal" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_a4thermal/static/src/js/pos.js"></script>
+                <script type="text/javascript" src="/pos_a4thermal/static/src/js/a5thermal.js"></script>
+                <script type="text/javascript" src="/pos_a4thermal/static/src/js/mrp_search.js"></script>
+            </xpath>
+          <xpath expr="//link[@id='pos-stylesheet']" position="after">
+              <link rel="stylesheet" href="/pos_a4thermal/static/src/css/pos.css"/>
+          </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,106 @@
+<odoo>
+    <data>
+        <!--<report-->
+            <!--id="gst_general_report"-->
+            <!--model="account.invoice"-->
+            <!--string="invoice report"-->
+            <!--report_type="qweb-pdf"-->
+            <!--name="general_invoice_report.gstinvoice_report"-->
+            <!--file="general_invoice_report.gstinvoice_report"-->
+            <!--attachment_use="True"/>-->
+        <report
+            id="action_report_pos_returnreceipt"
+            string="Reprint"
+            model="pos.order"
+            
+            report_type="qweb-pdf"
+            name="pos_ordereturn_print.sales_return_receipt"
+            file="pos_ordereturn_print.sales_return_receipt"
+            attachment_use="True"
+
+        />
+
+
+        <!--<record id="paperformat_pos_return" model="report.paperformat">-->
+            <!--<field name="name">US Letter</field>-->
+            <!--<field name="default" eval="True"/>-->
+            <!--<field name="format">custom</field>-->
+            <!--<field name="page_height">297</field>-->
+            <!--<field name="page_width">210</field>-->
+            <!--<field name="orientation">Portrait</field>-->
+            <!--<field name="margin_top">40</field>-->
+            <!--<field name="margin_bottom">32</field>-->
+            <!--<field name="margin_left">7</field>-->
+            <!--<field name="margin_right">7</field>-->
+            <!--<field name="header_line" eval="False"/>-->
+            <!--<field name="header_spacing">32</field>-->
+            <!--<field name="dpi">90</field>-->
+        <!--</record>-->
+
+
+        <!--<record id="pos_salesreturn_print.action_report_pos_returnreceipt" model="ir.actions.report.xml">-->
+            <!--<field name="paperformat_id" ref="pos_salesreturn_print.paperformat_pos_return"/>-->
+        <!--</record>-->
+
+        <template id="external_layout_pos_id">
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="pos_ordereturn_print.external_layout_inv_header_id"/>
+            <t t-raw="0"/>
+        </template>
+
+        <template id="external_layout_inv_header_id">
+            <div class="header">
+                <div class="row">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <center>
+                                    <t t-if="company.name">
+                                        <b style="font-size:30px">
+                                            <t t-esc="company.name"/>
+                                        </b>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company.street">
+                                        <t t-esc="company.street"/>
+                                    </t>
+                                    <t t-if="company.street2">
+                                        ,
+                                        <t t-esc="company.street2"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company.state_id.name">
+                                        <t t-esc="company.state_id.name"/>
+                                    </t>
+                                    <t t-if="company.country_id">
+                                        ,
+                                        <t t-esc="company.country_id.name"/>
+                                    </t>
+                                    <t t-if="company.zip">
+                                        <t t-esc="company.zip"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="company.company_registry">
+                                        <b>GSTIN
+                                            <t t-esc="company.company_registry"/>
+                                        </b>
+                                    </t><br/>
+
+                                    <t><img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center" style="height: 80px;width: 80px;"/></t><br/><br/>
+
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

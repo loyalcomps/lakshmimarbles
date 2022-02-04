@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <report
+            id="report_invoice"
+            model="account.invoice"
+            string="GST Invoice"
+            name="gst_tax_module.report_invoice_gst"
+            file="gst_tax_module.report_invoice_gst"
+            report_type="qweb-pdf"
+            />
+
+            <template id="report_invoice_gst">
+                <t t-call="report.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                        <!--<t t-call="report.external_layout">-->
+                            <div class="page">
+
+                        <div class="row">
+                            <div class="col-xs-4" style="text-align: left">
+                                <img t-if="res_company.logo"
+                                     t-att-src="'data:image/png;base64,%s' % res_company.logo"
+                                     style="height:104px;width:150px;"/>
+                            </div>
+                            <div class="col-xs-4" style="text-align: center;font-size:18px;font-family:Calibri !important;">
+                                <br /><br />
+                                <b >TAX INVOICE</b>
+                            </div>
+
+                            <div class="col-xs-4" style="text-align: right;font-size:11px;;font-family:Calibri !important;">
+                                <b ><sapn t-field="doc.company_id.partner_id.name"/></b><br />
+                                <sapn t-field="doc.company_id.partner_id.street"/><br />
+                                <sapn t-field="doc.company_id.partner_id.street2"/>-PIN-<sapn t-field="doc.company_id.partner_id.zip"/><br />
+                                <sapn t-field="doc.company_id.partner_id.city"/><sapn t-field="doc.company_id.partner_id.fax"/><br />
+                                Mob :<sapn t-field="doc.company_id.phone"/><br />
+                                GSTIN/UIN : <sapn t-field="doc.company_id.gst_in"/><br />
+                                E-mail: <sapn t-field="doc.company_id.email"/><br />
+                            </div>
+
+                        </div>
+
+                                <div class="row">
+                                    <div style="border-style:double;border-bottom: 1px solid #000000; "></div>
+                                    <div class="col-xs-7" style="text-align: left;font-size:11px;">
+                                        Name &amp; address of purchase<br />
+                                        <b><sapn t-field="doc.partner_id.name"/></b><br />
+                                        <sapn t-field="doc.partner_id.street"/><br />
+                                        <sapn t-field="doc.partner_id.street2"/>-PIN-<sapn t-field="doc.company_id.partner_id.zip"/><br />
+                                        <!--<sapn t-field="doc.partner_id.city"/><sapn t-field="doc.partner_id.fax"/><br />-->
+                                        <!--Mob :<sapn t-field="doc.partner_id.phone"/><br />-->
+                                        <!--GSTIN/UIN : <sapn t-field="doc.partner_id.gst_in"/><br />-->
+                                    </div>
+                                    <div class="col-xs-5" style="text-align:right;font-size:11px;">
+                                        <div class="col-xs-4" style="text-align: left;font-size:11px;">
+                                            <p>Invoice No</p>
+                                            Date
+                                        </div>
+                                        <!--<div class="col-xs-1" style="text-align: right">-->
+                                            <!--:<br />-->
+                                            <!--:-->
+                                        <!--</div>-->
+
+                                        <div class="col-xs-8" style="text-align: center;font-size:11px;">
+                                            <p>:<![CDATA[&nbsp;]]><b><sapn t-field="doc.number"/></b></p>
+                                                :<![CDATA[&nbsp;]]> <b> <span t-field="doc.date_invoice" t-field-options='{"format": "dd/MMM/yyyy"}'/></b>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row">
+
+
+                                    <div class="col-xs-6" style="text-align: left;font-size:11px;">
+
+
+                                            Place of Suplly :<![CDATA[&nbsp;]]><sapn t-field="doc.partner_id.state_id.name"/><br />
+                                            State Name <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>:<![CDATA[&nbsp;]]><sapn t-field="doc.partner_id.state_id.name"/> <sapn t-field="doc.partner_id.state_code"/><br />
+                                             GSTIN/UIN <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>:<![CDATA[&nbsp;]]><span t-field="doc.partner_id.gst_in" />
+
+
+
+                                    </div>
+
+                                    <div class="col-xs-6" style="text-align: right;font-size:11px;">
+                                            <br /><br />
+                                           Veh No:
+
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                <div class="col-xs-12">
+                                <table class="table table-bordered" style="border:1px solid black;font-size:11px;">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Sl No</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Descriptions of Foods</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">HSN code</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">MRP</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Unit Price</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Qty</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Value</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Cash Disc(%)</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2" >Taxable Value</th>
+                                            <th class="text-center" style="border: 1px solid black;height:3px;" colspan="2">CGST</th>
+                                            <th class="text-center" style="border: 1px solid black;height:3px;" colspan="2">SGST</th>
+                                            <th class="text-center" style="border: 1px solid black;" rowspan="2">Total</th>
+
+
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center" style="border: 1px solid black;height:3px;" >%</th>
+                                            <th class="text-center" style="border: 1px solid black;height:3px;" >Value</th>
+                                            <th class="text-center" style="border: 1px solid black;height:3px;" >%</th>
+                                            <th class="text-center" style="border: 1px solid black;height:3px;" >Value</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody">
+                                        <t t-set="i" t-value="1" />
+                                        <t t-foreach="doc.invoice_line_ids" t-as="l">
+
+                                            <tr t-if="l.quantity">
+                                                <td class="text-center" style="border: 1px solid black;">
+                                                     <span t-esc="i"/>
+                                                     <t t-set="i" t-value="i+1"/>
+                                                </td>
+
+                                                <td style="border: 1px solid black;" >
+                                                    <span t-field="l.name"/>
+                                                </td>
+                                                 <td style="border: 1px solid black;text-align:center" >
+                                                    <span t-field="l.product_id.hsn"/>
+                                                </td>
+                                                <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-field="l.price_unit" />
+                                                </td>
+
+                                                 <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-field="l.price_unit_tax" />
+                                                </td>
+
+
+                                                <td class="text-center" style="border: 1px solid black;">
+
+                                                    <span t-field="l.quantity"/>
+
+                                                </td>
+
+                                                <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-field="l.price_subtotal" />
+
+                                                </td>
+                                                 <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-field="l.discount"/>
+                                                </td>
+                                                 <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-field="l.price_subtotal" />
+
+                                                </td>
+
+
+
+                                                <t t-foreach="l.invoice_line_tax_ids" t-as="o">
+                                                    <td class="text-center" style="border: 1px solid black;">
+                                                     <span t-esc="(o.amount)/2"/>
+                                                    </td>
+                                                    <td class="text-right" style="border: 1px solid black;">
+                                                        <span t-esc="(l.price_subtotal * o.amount)/(100*2)" />
+
+                                                    </td>
+
+                                                    <td class="text-center" style="border: 1px solid black;" >
+                                                     <span t-esc="(o.amount)/2"/>
+                                                    </td>
+                                                    <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-esc="(l.price_subtotal * o.amount)/(100*2)" />
+
+                                                    </td>
+                                                </t>
+
+
+
+                                                <td class="text-right" style="border: 1px solid black;">
+                                                    <span t-esc="l.price_subtotal_taxinc" />
+
+                                                </td>
+
+
+                                            </tr>
+                                            </t>
+
+                                            <tr>
+                                                <td colspan="13" style="text-align:right;border: 1px solid black" >
+                                                    <b>Total Invoice Value </b><br />
+                                                    <b>Round Off</b>
+                                                </td>
+
+                                                <td class="text-right" style="border: 1px solid black;" >
+                                                    <span t-field="doc.amount_total"  /><br />
+                                                    <span t-field="doc.round_off_value"  />
+                                                </td>
+
+                                            </tr>
+
+
+
+                                            <tr>
+                                                <td colspan="13" style="text-align:center;border: 1px solid black" >
+                                                    <b><i>Grand Total</i></b>
+                                                </td>
+
+                                                <td class="text-right" style="border: 1px solid black;" >
+                                                    <span t-field="doc.rounded_total"  />
+                                                </td>
+
+                                            </tr>
+
+
+
+                                        </tbody>
+                                </table>
+
+                                    <div  style="text-align: left">
+                                        E&amp;OE
+                                    </div>
+
+                                </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-xs-12" style="text-align: left">
+                                        <strong><b>Amount In Words: <![CDATA[&nbsp;]]>
+
+                                            <span t-esc="doc._get_amount(doc.rounded_total)"/> <![CDATA[&nbsp;]]>Only
+
+                                               </b></strong>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" t-if="doc.gst_tax_ids">
+                                    <div class="col-xs-12">
+                                        <table class="table table-bordered"  style="height:5px;border: 1px solid black;font-size:11px;" >
+                                            <thead>
+                                                <tr>
+                                                    <th style="height:5px;border: 1px solid black;" rowspan="2">HSN/SAC</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center"   rowspan="2">Taxable Value</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center"  colspan="2">Central Tax</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center"  colspan="2">State Tax</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center"  colspan="2">Integrated Tax</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center">Rate</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center">Amount</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center">Rate</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center">Amount</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center">Rate</th>
+                                                    <th style="height:5px;border: 1px solid black;text-align: center">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="height:5px;border: 1px solid black;">
+                                                <t t-set="taxable_value" t-value="0"/>
+                                                <t t-set="central_amount" t-value="0"/>
+                                                <t t-set="state_amount" t-value="0"/>
+                                                <t t-set="integrated_amount" t-value="0"/>
+                                                <tr t-foreach="doc.gst_tax_ids" t-as="t">
+                                            
+                          
+                                                    <td style="height:5px;border: 1px solid black;text-align:left;"><span t-field="t.hsn"/></td>
+                                                    
+                                                    <td class="text-right" style="height:5px;border: 1px solid black;text-align:right;">
+                                                        <span t-field="t.taxable_value"
+                                                            t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                        <t t-set="taxable_value" t-value="taxable_value+t.taxable_value"/>
+                                                    </td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:center;"><span t-field="t.central_tax"/>%</td>
+
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-field="t.central_amount"
+                                                        t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+
+                                                        <t t-set="central_amount" t-value="central_amount+t.central_amount"/>
+
+
+                                                    </td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:center;"><span t-field="t.state_tax"/>%</td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-field="t.state_amount"
+                                                        t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                        <t t-set="state_amount" t-value="state_amount+t.state_amount"/>
+                                                    </td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:center;"><span t-field="t.integrated_tax"/>%</td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-field="t.integrated_amount"
+                                                        t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                        <t t-set="integrated_amount" t-value="integrated_amount+t.integrated_amount"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="height:5px;border: 1px solid black;">Total</th>
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-esc="taxable_value"/></td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:left;"></td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-esc="central_amount"/></td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:left;"></td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-esc="state_amount"/></td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:left;"></td>
+                                                    <td style="height:5px;border: 1px solid black;text-align:right;"><span t-esc="integrated_amount"/></td>
+                                                    
+                                                </tr>
+
+                                                <tr style="border: 1px solid black;">
+                                                    <td colspan="7" style="height:5px;text-align:center;border: 1px solid black" >
+                                                        <b><i>Total Tax Value :-</i></b>
+                                                    </td>
+                                                    <td class="text-right" style="height:5px;border: 1px solid black;" >
+                                                        <span t-field="doc.amount_tax"  />
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        <div  >
+                                            <strong style="text-align: left"><b>Amount In Words(Tax Value): <![CDATA[&nbsp;]]>
+                                                <span t-esc="doc._get_amount(doc.amount_tax)"/> <![CDATA[&nbsp;]]>Only
+                                                   </b></strong>
+
+
+
+                                        </div>
+
+                                           <div  style="text-align: right">
+                                                <strong ><p> For <b><sapn t-field="doc.company_id.partner_id.name"/></b></p></strong>
+                                                <strong >Authorised Signatory</strong>
+                                           </div  >
+
+
+
+                                    </div>
+                                </div>
+
+
+                                <!--<div class="row">-->
+
+                                    <!--<div class="col-xs-9" style="text-align: left">-->
+                                        <!--<strong><b>Amount In Words(Tax Value): <![CDATA[&nbsp;]]>-->
+                                            <!--<span t-esc="doc._get_amount(doc.amount_tax)"/> <![CDATA[&nbsp;]]>Only-->
+                                               <!--</b></strong>-->
+
+                                    <!--</div>-->
+
+
+                                    <!--<div class="col-xs-3" style="text-align: right">-->
+                                        <!--For <b><sapn t-field="doc.company_id.partner_id.name"/></b><br /><br />-->
+                                        <!--Authorised Signatory-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+
+
+
+                            </div>
+                        </t>
+                    <!--</t>-->
+                </t>
+            </template>
+
+
+
+
+
+
+
+    </data>
+</openerp>

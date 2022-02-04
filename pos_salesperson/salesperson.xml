@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+        
+         <record model="ir.ui.view" id="view_pos_salesperson_form">
+          <field name="model">pos.order</field>
+          <field name="name">pos.order.salerperson</field>
+          <field name="view_type">form</field>
+          <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+          <field name="arch" type="xml">
+              <!--<field name="partner_id" position="after">-->
+                  <!--<field name="salesperson_name"/>-->
+              <!--</field>-->
+              <xpath expr="//sheet/group/field[@name='partner_id']" position="after">
+              <field name="salesperson_name"/>
+              </xpath>
+          </field>
+      </record>
+
+
+
+        
+    </data>
+</openerp> 

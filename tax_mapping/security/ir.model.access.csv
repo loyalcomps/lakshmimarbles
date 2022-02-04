@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+vtoc_tax_mapping,tax_mapping.vtoc_tax_mapping,model_vtoc_tax_mapping,,1,1,1,1
+tax_mapping_taxes,tax_mapping.tax_mapping_taxes,model_tax_mapping_taxes,,1,1,1,1

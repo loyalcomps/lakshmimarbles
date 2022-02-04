@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qlty_pos_reprint_qlty_pos_reprint,qlty_pos_reprint.qlty_pos_reprint,model_qlty_pos_reprint_qlty_pos_reprint,,1,0,0,0

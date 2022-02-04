@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="vendor_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Vendor Wise Profit and Loss Report </strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <t t-set="purchasetotal" t-value="0"/>
+                    <t t-set="saletotal" t-value="0"/>
+                    <t t-set="profittotal" t-value="0"/>
+                    <t t-set="salecosttotal" t-value="0"/>
+                    <t t-set="onhandtotal" t-value="0"/>
+
+
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product Name</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Amount</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Amount </th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Inventory Value</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Cost Of Sale</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Profit </th>
+
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sl_no']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids['pname']"/>
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids['pur_total']"/>
+                                                 <t t-set="purchasetotal" t-value="purchasetotal + line_ids['pur_total']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sale_total']"/>
+                                                <t t-set="saletotal" t-value="saletotal + line_ids['sale_total']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['onhand']"/>
+                                                <t t-set="onhandtotal" t-value="onhandtotal + line_ids['onhand']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['totalsalecost']"/>
+                                                <t t-set="salecosttotal" t-value="salecosttotal+ line_ids['totalsalecost']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['profit']"/>
+                                                <t t-set="profittotal" t-value="profittotal + line_ids['profit']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="purchasetotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="saletotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="onhandtotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="salecosttotal" /></b>
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="profittotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

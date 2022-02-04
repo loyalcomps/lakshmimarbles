@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+
+        <record model='ir.ui.view' id='price_change_form_view'>
+            <field name="name">Products Price Change</field>
+            <field name="model">price.change.category</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+
+                    <sheet>
+                        <!--<div class="oe_title">-->
+                            <!--<h1>-->
+                                <!--<field name="name" readonly="1"/>-->
+                            <!--</h1>-->
+                        <!--</div>-->
+                        <group>
+
+                            <field name="category_id" />
+                            <field name="sale_price" />
+                            <field name="min_sale_amt"/>
+                            <field name="company_id" invisible="1"/>
+
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="price_change_line_ids" >
+                                    <tree string="Product List" editable="bottom" >
+
+                                        <field name="product_id" options="{'no_create': True}" required="1" domain="[('categ_id','child_of',parent.category_id)]"/>
+                                        <field name="sale_price" />
+                                        <field name="min_sale_amt"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <footer>
+                            <button name="update_price" string="Update Price" type="object" default_focus="1"
+                                class="oe_highlight"/>
+
+
+                            <button string="Cancel" class="oe_link" special="cancel" />
+                        </footer>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='price_change_wizard_act'>
+            <field name="name">Product Price Change</field>
+            <field name="res_model">price.change.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="price_change_form_view"/>
+            <field name="target">new</field>
+
+        </record>
+
+
+
+        <menuitem name="Price Change" parent="sales_team.menu_base_partner"
+                  id="price_change_menu" action="price_change_wizard_act" sequence="8" groups="sales_team.group_sale_manager"/>
+
+    </data>
+</odoo>

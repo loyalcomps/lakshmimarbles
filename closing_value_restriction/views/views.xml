@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+ <record id="pos_session_closing_value_control" model="ir.ui.view">
+            <field name="name">closing_value_control</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//sheet/group/div/group/field[@name='cash_register_balance_end_real']" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_real_closing_balance</attribute>
+                </xpath>
+
+               <xpath expr="//sheet/div/button[@name='open_cashbox'][2]" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_set_closing_value</attribute>
+                </xpath>
+
+                 <field name="name" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                 </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                 </field>
+                <field name="config_id" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                 </field>
+                  <xpath expr="//sheet/group/div/group[@class='oe_subtotal_footer oe_right']" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                </xpath>
+
+                 <xpath expr="//sheet/group/div/group/field[@name='cash_register_difference']" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='start_at']" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='stop_at']" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                </xpath>
+
+                <xpath expr="//sheet/div/button[@name='open_cashbox'][1]" position="attributes">
+                    <attribute name="groups">closing_value_restriction.view_pos_session_fields</attribute>
+                </xpath>
+
+
+            </field>
+      </record>
+  </data>
+</odoo>

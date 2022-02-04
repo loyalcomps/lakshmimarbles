@@ -1,0 +1,18 @@
+.o_form_view .o_form_sheet_bg .o_form_sheet{
+    max-width: 92%;
+    min-width: 85%;
+}
+
+.odoo .o_form_sheet_width_large{
+    max-width: 95%;
+    min-width: 85%;
+    width: 85%;
+}
+
+.table .table-condensed .table-striped th[data-id='product_id'] {
+    width:30%;
+}
+
+th[data-id='product_id'] {
+    width:50px;
+}

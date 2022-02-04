@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- Account Invoice Line view-->
+    <record model="ir.ui.view" id="book_account_invoice_paid_tree_view">
+      <field name="name">account.invoice.tree</field>
+      <field name="model">account.invoice</field>
+      <field name="inherit_id" ref="account.invoice_tree"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <!-- <xpath expr='//page[@name="general_information"]' position="after"> -->
+        <!-- <notebook> -->
+        <!-- <page name="invoicing" position="after"> -->
+        <!-- <tree name="sale_order_lines_tree" position="inside"> -->
+        <!--    <xpath expr='//field[@name="price_unit"]' position="before">
+                <field name="main_currency" class="oe_read_only"/>
+            </xpath>
+            <xpath expr='//field[@name="tax_id"]' invisible="1"/>
+         -->
+        <!-- </tree> -->
+        <!-- <xpath expr="//sheet" position="attributes">
+            <attribute name="class">oe_form_sheet_width_large</attribute>
+            <attribute name="width">"90%"</attribute>
+        </xpath> -->
+
+        <header>
+            <button name="%(action_account_invoice_payment)d" type="action" states="open" string="Register Payment" groups="account.group_account_invoice" class="oe_highlight"/>
+        </header>
+
+      </field>
+    </record>
+  </data>
+</odoo>

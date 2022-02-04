@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+
+        <template id="keyboard_assets_backend" name="keyboard bulk assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+
+            <script type="text/javascript" src="/pos_keyboard_short/static/src/js/keyboard.js"></script>
+
+            </xpath>
+        </template>
+
+
+    </data>
+</odoo>

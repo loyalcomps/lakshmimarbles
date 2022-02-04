@@ -1,0 +1,39 @@
+<odoo>
+  <data>
+      
+    <!-- Remove create/edit options from Stock Picking/Transfer/Delivery view -->
+    <record model="ir.ui.view" id="gst_view_stock_picking_form">
+      <field name="name">stock.picking.form</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock_account.view_picking_inherit_form2"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+          <field name="partner_id" position="replace">
+              <field name="partner_id" attrs="{'invisible': [('picking_type_code', '=', 'internal')]}"
+                    options="{'no_create': True, 'no_create_edit': True}"/>
+          </field>
+          <field name="location_id" position="replace">
+              <field name="location_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"
+                    options="{'no_create': True, 'no_create_edit': True}"/>
+          </field>
+          <field name="location_dest_id" position="replace">
+              <field name="location_dest_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"
+                    options="{'no_create': True, 'no_create_edit': True}"/>
+          </field>
+      </field>
+    </record>
+
+    <!-- Product in 'Initial Demand' is in the stock.move tree view -->
+    <record model="ir.ui.view" id="gst_view_move_picking_tree">
+        <field name="name">stock.move.tree</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="replace">
+                <field name="product_id" options="{'no_create': True, 'no_create_edit': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

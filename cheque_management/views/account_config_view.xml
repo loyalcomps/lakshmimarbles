@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="cheque_payable_account_config_view" model="ir.ui.view">
+            <field name="name">account.config.settings.inherited</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='bank_cash']/div[@name='bank_options']" position="after">
+                    <label for="id" string="Cheque Management"/>
+                    <div name="cheque_payable_options">
+
+                        <div>
+                            <label for="cheque_payable_account_id"/>
+                            <field name="cheque_payable_account_id" class="oe_inline"
+
+                                   domain="[('company_id', '=', company_id)]"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

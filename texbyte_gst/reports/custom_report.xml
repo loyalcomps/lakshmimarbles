@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cash Sales Report -->
+    <record id="action_texbyte_gst_cash_report" model="ir.actions.act_window">
+            <field name="name">Cash Sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), (u'sale_type', u'in', (u'cash',u'Cash'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cash Sales Report
+                </p>
+            </field>
+        </record>
+        
+    <!-- Credit Sales Report -->
+    <record id="action_texbyte_gst_credit_report" model="ir.actions.act_window">
+            <field name="name">Credit Sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), (u'sale_type', u'in', (u'credit',u'Credit'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Credit Sales Report
+                </p>
+            </field>
+        </record>  
+        
+    <!-- Daily Sales report Report -->
+    <record id="action_texbyte_gst_dailytrans_report" model="ir.actions.act_window">
+            <field name="name">Today</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), (u'date_order', u'&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),(u'date_order', u'&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Daily Report
+                </p>
+            </field>
+        </record>     
+
+    <!-- Daily Purchase Report -->
+    <record id="action_texbyte_gst_purchase_summary" model="ir.actions.act_window">
+            <field name="name">Today</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="context">{'search_default_todo':1, 'show_purchase': True}</field>
+            <field name="domain">[('state','not in',('draft','sent','bid', 'confirmed')), (u'date_order', u'&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),(u'date_order', u'&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Daily Report
+                </p>
+            </field>
+    </record>         
+
+    <!-- Custom Sales Report Menu -->
+    <menuitem name="GST Report" id="sales_team.texbyte_gst_custom_report" parent="sales_team.menu_sale_report" sequence="11"/>
+    <menuitem name="Cash Sales" id="sales_team.texbyte_gst_cash_sales_report" 
+              action="action_texbyte_gst_cash_report" parent="sales_team.texbyte_gst_custom_report" sequence="12"/>
+    <menuitem name="Credit Sales" id="sales_team.texbyte_gst_credit_sales_report" 
+              action="action_texbyte_gst_credit_report" parent="sales_team.texbyte_gst_custom_report" sequence="13"/>     
+    <menuitem name="Daily Sales Summary" id="sales_team.texbyte_gst_dailytrans_sales_report" 
+              action="action_texbyte_gst_dailytrans_report" parent="sales_team.texbyte_gst_custom_report" sequence="15"/>
+    <!-- Custom Purchase Report Menu -->                        
+    <menuitem name="GST Report" id="texbyte_gst.purchase_custom_report" parent="purchase.purchase_report" sequence="101"/>   
+    <menuitem name="Daily Purchase Summary" id="purchase.texbyte_gst_custom_report_daily_summary" 
+              action="action_texbyte_gst_purchase_summary" parent="texbyte_gst.purchase_custom_report" sequence="102"/>    
+    <menuitem name="Purchase Order" action="texbyte_gst.view_purchaseorderbi_report" id="texbyte_gst.purchaseorderbi_report" 
+              parent="purchase.purchase_report" sequence="104"/>                                       
+</odoo>

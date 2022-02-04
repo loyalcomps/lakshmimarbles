@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_product_template_form">
+            <field name="name">product.template.form.hs_code</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="list_price" position="after">
+                    <field name="product_mrp" widget="monetary" option="{'currency_field':'currency_id'}"/>
+
+                </field>
+
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="productsale_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Product wise sale report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                 <t t-set="salepostotal" t-value="0"/>
+                <t t-set="qtytotal" t-value="0"/>
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                    <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Vendor</th>
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Date</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Quantity</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total </th>
+
+
+                                </thead>
+
+
+
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sl_no']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['ppname']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids['purchasedate']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['purchaseqty']"/>
+                                                <t t-set="qtytotal" t-value="qtytotal + line_ids['purchaseqty']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['purchasetotal']"/>
+                                                <t t-set="salepostotal" t-value="salepostotal + line_ids['purchasetotal']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="3" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="qtytotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="salepostotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

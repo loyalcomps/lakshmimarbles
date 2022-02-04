@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- Union Territory -->
+    <record model="ir.ui.view" id="gst_view_country_state_tree">
+      <field name="name">res.country.state.tree</field>
+      <field name="model">res.country.state</field>
+      <field name="inherit_id" ref="base.view_country_state_tree"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <field name="country_id" position="after">
+            <field name="union_territory"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="gst_view_country_state_form">
+      <field name="name">res.country.state.form</field>
+      <field name="model">res.country.state</field>
+      <field name="inherit_id" ref="base.view_country_state_form"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <field name="country_id" position="after">
+            <field name="union_territory"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

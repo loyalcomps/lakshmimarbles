@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="confirmed_product_report">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+                            <t><img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center" style="height: 80px;width: 80px;"/></t>
+                            <br/>
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Confirmed Products</strong><br/>
+                            </p><br/>
+                            <b style="font-size:18px;"> Start Date : <t t-esc="start_date"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="end_date"/> </b>
+                           <br/><br/>
+                        </div>
+                    </div>
+
+
+                    <t t-set="open" t-value="0"/>
+                    <t t-set="cashh" t-value="0"/>
+
+                    <t t-if="not category">
+                        <center>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                    <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Price</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >New Price</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >MRP</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Qty Available</th>
+
+                                    </thead>
+
+                                    <tbody class="invoice_tbody">
+                                        <t t-set="sl" t-value="1"/>
+                                        <tr t-foreach="product_data" t-as="rec" style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="sl"/>
+                                                <t t-set="sl" t-value="sl+1"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="rec['product']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['current_price']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['new_price']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['mrp']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['onhand']"/>
+                                            </td>
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </center>
+                    </t>
+
+                    <t t-if="category">
+                        <div class="row">
+                            <center>
+                            <div class="col-xs-12">
+                                <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                    <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Category</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Price</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >New Price</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >MRP</th>
+                                        <th style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Qty Available</th>
+
+                                    </thead>
+
+                                    <tbody class="invoice_tbody">
+                                        <t t-set="sl" t-value="1"/>
+                                        <tr t-foreach="product_data" t-as="rec" style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="sl"/>
+                                                <t t-set="sl" t-value="sl+1"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="rec['product']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="rec['category']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['current_price']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['new_price']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['mrp']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="rec['onhand']"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </center>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_accounting_barcode_details_accounting_barcode_details,accounting_barcode_details.accounting_barcode_details,model_accounting_barcode_details_accounting_barcode_details,,1,0,0,0

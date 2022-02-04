@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* web_auto_reload
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-25 11:20+0000\n"
+"PO-Revision-Date: 2017-09-25 11:20+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: web_auto_reload
+#. openerp-web
+#: code:addons/web_auto_reload/static/src/js/auto_refresh.js:75
+#, python-format
+msgid " view couldn't be loaded"
+msgstr " view couldn't be loaded"
+
+#. module: web_auto_reload
+#: model:ir.model.fields,field_description:web_auto_reload.field_ir_act_window_auto_refresh
+msgid "Auto Refresh"
+msgstr "Auto Refresh"
+
+#. module: web_auto_reload
+#. openerp-web
+#: code:addons/web_auto_reload/static/src/js/auto_refresh.js:75
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: web_auto_reload
+#: model:ir.model,name:web_auto_reload.model_ir_actions_act_window
+msgid "ir.actions.act_window"
+msgstr "ir.actions.act_window"
+

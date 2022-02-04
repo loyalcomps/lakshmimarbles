@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="res_users_form_view1" model="ir.ui.view">
+            <field name="name">res.users.form.view</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="point_of_sale.res_users_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="ip_address" placeholder='10.42.0.225:8069' />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

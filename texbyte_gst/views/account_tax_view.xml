@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- GST Tax type-->
+    <record model="ir.ui.view" id="gst_view_tax_tree">
+      <field name="name">account.tax.tree</field>
+      <field name="model">account.tax</field>
+      <field name="inherit_id" ref="account.view_tax_tree"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+            <field name="gst_type"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="gst_view_tax_form">
+      <field name="name">account.tax.form</field>
+      <field name="model">account.tax</field>
+      <field name="inherit_id" ref="account.view_tax_form"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+            <field name="gst_type"/>
+        </field>
+        <field name="include_base_amount" position="replace">
+            <field name="include_base_amount"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

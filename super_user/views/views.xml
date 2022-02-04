@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+      <record id="invoice_supplier_super_users" model="ir.ui.view">
+            <field name="name">invoice.supplier.super.users</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_invoice_open']" position="attributes">
+                    <!--<button name="action_invoice_open" type="object" states="draft,proforma2"-->
+                            <!--string="Validate" class="oe_highlight" groups="super_user.group_super_user"/>-->
+
+                    <attribute name="groups">super_user.group_super_user</attribute>
+                </xpath>
+            </field>
+      </record>
+  </data>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ProductScreenWidget">
+        <t t-jquery=".wk_tags" t-operation="append">
+            <!--<header class="rightpane-header">-->
+                <!--<div class="tag-selector">-->
+
+                     <span class="searchboxs">
+                        <input placeholder="MRP*Product" class="searchbox-multi-mrp"/>
+                         <span class="search-clears"></span>
+                    </span>
+
+                <!--</div>-->
+            <!--</header>-->
+
+        </t>
+    </t>
+
+
+
+</templates>

@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="grand_sale_detail_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+                            <b style="font-size:18px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/><br/>
+
+                            <p style="font-size:18px;">
+                                <strong>Sales Details</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+
+                    <t t-set="qtytotal" t-value="0"/>
+                    <t t-set="totalam" t-value="0"/>
+                     <t t-set="qty1" t-value="0"/>
+                    <t t-set="totalam1" t-value="0"/>
+
+
+                      <!--<t t-set="hightotal" t-value="0"/>-->
+                    <!--<t t-set="lowtotal" t-value="0"/>-->
+                     <!--<t t-set="lqty" t-value="0"/>-->
+                    <!--<t t-set="hqty" t-value="0"/>-->
+
+
+
+
+
+
+
+<!--<t t-if="not counter_only and pos_config_ids">-->
+                     <div class="row">
+                        <div class="col-xs-12">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Unit Price</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Qty</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Sale Amount</th>
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total sale Qty</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total Sale Amount</th>-->
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_linesone" t-as="line_ids" >
+
+
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sl_no']"/>
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_ids['pname']"/>
+                                                 <!--<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />-->
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['unit']"/>
+                                                 <!--<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />-->
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="-1*line_ids['qty']"/>
+                                                <t t-set="qty1" t-value="qty1 + line_ids['qty']" />
+
+                                            </td>
+
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="-1*line_ids['totalamount']"/>
+                                                 <t t-set="totalam1" t-value="totalam1 + line_ids['totalamount']" />
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="3" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="-1*qty1" /></b>
+                            </td>
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="-1*totalam1" /></b>
+                            </td>
+
+
+
+
+
+
+
+
+                        </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Unit Price</th>
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Qty</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Sale Amount</th>-->
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total sale Qty</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total Sale Amount</th>
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+
+
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['sl_no']"/>
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_ids['pname']"/>
+                                                 <!--<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />-->
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['unit']"/>
+                                                 <!--<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />-->
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['qty']"/>
+                                                <t t-set="qtytotal" t-value="qtytotal + line_ids['qty']" />
+
+                                            </td>
+
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['totalamount']"/>
+                                                 <t t-set="totalam" t-value="totalam + line_ids['totalamount']" />
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="3" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="qtytotal" /></b>
+                            </td>
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="totalam" /></b>
+                            </td>
+
+                        </tr>
+                                </tbody>
+                    </table>
+
+
+
+
+                        </div>
+                    </div>
+                <!--</t>-->
+
+                    <!--<t t-if="counter_only and pos_config_ids">-->
+
+
+                         <!--<div class="row">-->
+                        <!--<div class="col-xs-12">-->
+
+                            <!--<table style="width: 210mm;border:1px solid black;border-collapse:collapse;">-->
+                                <!--<thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">-->
+
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Unit Price</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Qty</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Sale Amount</th>-->
+                                        <!--&lt;!&ndash;<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total sale Qty</th>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total Sale Amount</th>&ndash;&gt;-->
+
+
+                                <!--</thead>-->
+
+                                <!--<tbody class="invoice_tbody">-->
+                                    <!--<t t-foreach="valueone" t-as="line_ids1" >-->
+
+
+                                        <!--<tr style="page-break-inside: avoid;">-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids1['sl_no']"/>-->
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:left;">-->
+                                                <!--<span t-esc="line_ids1['pname']"/>-->
+                                                 <!--&lt;!&ndash;<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />&ndash;&gt;-->
+
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids1['unit']"/>-->
+                                                 <!--&lt;!&ndash;<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />&ndash;&gt;-->
+
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="-1*line_ids1['qty']"/>-->
+                                                <!--<t t-set="lqty" t-value="lqty + line_ids1['qty']" />-->
+
+                                            <!--</td>-->
+
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                                <!--<span t-esc="-1*line_ids1['totalamount']"/>-->
+                                                 <!--<t t-set="lowtotal" t-value="lowtotal + line_ids1['totalamount']" />-->
+
+                                            <!--</td>-->
+
+                                        <!--</tr>-->
+
+
+                                    <!--</t>-->
+                        <!--<tr >-->
+
+                             <!--<td colspan="3" style="text-align:center;border: 1px solid black;border-collapse:collapse;">-->
+                                <!--<span><b>Total</b></span>-->
+                            <!--</td>-->
+
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                <!--<b> <t t-esc="-1*lqty" /></b>-->
+                            <!--</td>-->
+
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="-1*lowtotal" /></b>-->
+                            <!--</td>-->
+
+
+
+
+
+
+
+
+                        <!--</tr>-->
+
+                                <!--</tbody>-->
+
+
+
+
+                            <!--</table>-->
+
+                            <!--<table style="width: 210mm;border:1px solid black;border-collapse:collapse;">-->
+                                <!--<thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">-->
+
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Unit Price</th>-->
+                                        <!--&lt;!&ndash;<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Qty</th>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Return Sale Amount</th>&ndash;&gt;-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total sale Qty</th>-->
+                                        <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total Sale Amount</th>-->
+
+
+                                <!--</thead>-->
+
+                                <!--<tbody class="invoice_tbody">-->
+                                    <!--<t t-foreach="valuetwo" t-as="line_ids" >-->
+
+
+                                        <!--<tr style="page-break-inside: avoid;">-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids['sl_no']"/>-->
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:left;">-->
+                                                <!--<span t-esc="line_ids['pname']"/>-->
+                                                 <!--&lt;!&ndash;<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />&ndash;&gt;-->
+
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids['unit']"/>-->
+                                                 <!--&lt;!&ndash;<t t-set="saletotal" t-value="saletotal + line_ids['sale']" />&ndash;&gt;-->
+
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids['qty']"/>-->
+                                                <!--<t t-set="hqty" t-value="hqty + line_ids['qty']" />-->
+
+                                            <!--</td>-->
+
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                                <!--<span t-esc="line_ids['totalamount']"/>-->
+                                                 <!--<t t-set="hightotal" t-value="hightotal + line_ids['totalamount']" />-->
+
+                                            <!--</td>-->
+
+                                        <!--</tr>-->
+
+
+                                    <!--</t>-->
+                        <!--<tr >-->
+
+                             <!--<td colspan="3" style="text-align:center;border: 1px solid black;border-collapse:collapse;">-->
+                                <!--<span><b>Total</b></span>-->
+                            <!--</td>-->
+
+
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                <!--<b> <t t-esc="hqty" /></b>-->
+                            <!--</td>-->
+
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="hightotal" /></b>-->
+                            <!--</td>-->
+
+                        <!--</tr>-->
+                                <!--</tbody>-->
+                    <!--</table>-->
+
+
+
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+                    <!--</t>-->
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

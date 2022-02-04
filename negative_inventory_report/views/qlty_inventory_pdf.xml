@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="qlty_inventory_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Negative inventory Report </strong>
+                            </p>
+
+                             <b style="font-size:16px;">Date : <t t-esc="date_start"/>  </b>
+                           <br/>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+                  <t t-set="saletotal" t-value="0"/>
+                <t t-set="purchasetotal" t-value="0"/>
+                <t t-set="invtytotal" t-value="0"/>
+                <t t-set="salecosttotal" t-value="0"/>
+                <t t-set="saleqty" t-value="0"/>
+                <t t-set="purchaseqty" t-value="0"/>
+                <t t-set="sss" t-value="1"/>
+
+                <div class="row">
+                <div class="col-xs-12">
+
+
+                    <table style="border: 1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+
+                            <tr>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product Name</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Category</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >MRP</th>
+
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Offer price</th>-->
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >HRP</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >On hand quantity</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Last purchase date</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Last Sale date</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Cost</th>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Profit</th>-->
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Margin</th>-->
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valuesone" t-as="line_ids" >
+                            <tr >
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >
+                                <span t-esc="sss"/>
+                                <t t-set="sss" t-value="sss+1"/>
+
+                               <!--  <span t-esc="line_ids['sl_no']"/> -->
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;" >
+                                <span t-esc="line_ids['pname']"/>
+                            </td>
+                                <td style="border: 1px solid black;border-collapse:collapse;" >
+                                <span t-esc="line_ids['catname']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <span t-esc="line_ids['mrp'] "/>
+                                 <!--<t t-set="salenopurchasetotal" t-value="salenopurchasetotal + line_ids['totalsalwithoutcost']" />-->
+                            </td>
+
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <span t-esc="line_ids['list_price'] "/>
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <span t-esc="line_ids['onhand'] "/>
+                                 <!--<t t-set="invtytotal" t-value="invtytotal + line_ids['onhand']" />-->
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <span t-esc="line_ids['pur_date'] "/>
+                            </td>
+
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <span t-esc="line_ids['sale_date'] "/>
+
+                            </td>
+
+                                <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <span t-esc="line_ids['cost'] "/>
+
+                            </td>
+
+
+
+                            </tr>
+                        </t>
+
+
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+
+                    <!--</t>-->
+
+
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

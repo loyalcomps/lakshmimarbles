@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <template id="report_inventory_location_doc" >
+            <!--<t t-call="report.external_layout">-->
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <br></br>
+                <br></br>
+
+                <div class="page"  >
+                   <div class="row" style="font-size:14px;"   >
+                        <div class="col-xs-12" >
+                            <table class="table table-bordered" style="border:1px solid black;border-collapse:collapse;border-width:2px;">
+
+                            <tr>
+                                    <td colspan="10" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <center><h3>
+                                                <span >INVENTORY REPORT</span>
+
+
+                                             </h3></center>
+
+                                    </td>
+                                </tr>
+
+                              <tr>
+                                  <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" > Barcode </th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Product</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current System Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Value</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Current Physical Stock</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Variation</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Positive Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Negative Value</th>
+                                   <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Total</th>
+
+
+
+                            </tr>
+
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-set="total1" t-value="0"/>
+                                 <t t-set="total2" t-value="0"/>
+
+                                <!--</tr>-->
+                                <tr t-foreach="o.line_ids" t-as="l">
+                                    <td class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-esc="l_index+1"/></td>
+                                    <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-esc="l.product_id.barcode"/></td>
+                                    <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-esc="l.product_id.name"/></td>
+                                    <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-esc="l.theoretical_qty"/></td>
+                                    <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-esc="l.theoretical_qty*l.cost_price_val"/></td>
+                                     <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                         <t t-esc="l.product_qty"/></td>
+                                     <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                         <t t-esc="l.product_qty-l.theoretical_qty"/></td>
+                                    <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-if="(l.product_qty-l.theoretical_qty) &gt; 0">
+                                        <t t-esc="(l.product_qty-l.theoretical_qty)*l.cost_price_val"/>
+                                        <t t-set="total1" t-value="total1+(l.product_qty-l.theoretical_qty)*l.cost_price_val"/>
+                                    </t></td>
+                                    <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                        <t t-if="(l.product_qty-l.theoretical_qty)&lt;0">
+                                        <t t-esc="(l.product_qty-l.theoretical_qty)*l.cost_price_val"/>
+                                        <t t-set="total2" t-value="total2+(l.product_qty-l.theoretical_qty)*l.cost_price_val"/>
+                                    </t></td>
+                                     <td  class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                         <t t-esc="total1+total2"/></td>
+
+
+
+                                </tr>
+
+
+
+
+
+
+
+
+
+
+
+                        </table>
+                        </div>
+                   </div>
+                </div>
+            <!--</t>-->
+        </template>
+        <template id="report_inventory_location_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="inventory_adjustment_report.report_inventory_location_doc" t-lang="o.partner_id.lang"/></t>
+            </t>
+        </template>
+    </data>
+</odoo>

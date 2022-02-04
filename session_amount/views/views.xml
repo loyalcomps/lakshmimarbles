@@ -1,0 +1,20 @@
+<odoo>
+  <data>
+   <record id="pos_session_amount" model="ir.ui.view">
+            <field name="name">sessionamount.session.amount</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//sheet/field[@name='statement_ids']" position="attributes">
+                    <attribute name="groups">session_amount.view_sessionamount</attribute>
+                </xpath>
+
+                 <!--<xpath expr="//sheet/field[@name='statement_ids']/tree/field[@name='balance_end_real']" position="attributes">-->
+                    <!--<attribute name="groups">session_amounts.view_sessionamount</attribute>-->
+                <!--</xpath>-->
+            </field>
+      </record>
+  </data>
+</odoo>

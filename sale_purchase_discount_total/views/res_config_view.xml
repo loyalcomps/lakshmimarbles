@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="account_config_discount_view" model="ir.ui.view">
+            <field name="name">account.config.settings.discount</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting']" position="after">
+                    <group string="Discount " name="discount">
+                        <label for="id" string="Discount"/>
+                        <div name="discount_conf">
+
+                            <div>
+                                <label for="purchase_discount_account"/>
+                                <field name="purchase_discount_account" class="oe_inline" domain="[('company_id', '=', company_id)]"/>
+                            </div>
+                            <div>
+                                <label for="sale_discount_account"/>
+                                <field name="sale_discount_account" class="oe_inline" domain="[('company_id', '=', company_id)]"/>
+                            </div>
+                        </div>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

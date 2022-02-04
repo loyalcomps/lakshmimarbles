@@ -1,0 +1,91 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- Sales Order Line view-->
+    <record model="ir.ui.view" id="texbyte_gst_sale_order_line_form_view">
+      <field name="name">sale.order.form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <!-- <xpath expr='//page[@name="general_information"]' position="after"> -->
+        <!-- <notebook> -->
+        <!-- <page name="invoicing" position="after"> -->
+        <!-- <tree name="sale_order_lines_tree" position="inside"> -->
+        <!--    <xpath expr='//field[@name="price_unit"]' position="before">
+                <field name="main_currency" class="oe_read_only"/>
+            </xpath>
+            <xpath expr='//field[@name="tax_id"]' invisible="1"/>
+         -->
+        <!-- </tree> -->
+        <xpath expr="//button[@name='action_quotation_send']" position="before">
+            <button type="object" name="action_view_delivery" class="oe_highlight" string="Process Delivery"
+                attrs="{'invisible': ['|', '|', ('is_shipped', '=', True), ('delivery_count', '=', 0), ('state','not in', ('sale'))]}" groups="base.group_user"/>
+        </xpath>
+
+        <xpath expr="//field[@name='partner_id']" position="replace">
+            <field name="partner_id" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True, "no_create_edit":True, "no_create":True}'/>
+            <field name="is_shipped" invisible="1"/>
+        </xpath>
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="sale_type" context="{'default_sale_type':'credit'}" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+        </xpath>
+        <xpath expr="//field[@name='partner_invoice_id']" position="replace">
+            <field name="partner_invoice_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}" domain="['|',('id','=',partner_id),'&amp;', ('parent_id','=',partner_id),('type','=','invoice')]"/>
+        </xpath>
+        <xpath expr="//field[@name='partner_shipping_id']" position="replace">
+            <field name="partner_shipping_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'delivery'}" domain="['|',('id','=',partner_id),'&amp;', ('parent_id','=',partner_id),('type','=','delivery')]"/>
+        </xpath>
+        <xpath expr="//field[@name='payment_term_id']" position="after">
+            <field name="place_of_supply" attrs="{'readonly': [('state', 'in', ('sale', 'done','cancel'))]}" options="{'no_create_edit': True, 'no_create':True}"/>
+            <field name="transport_mode" attrs="{'readonly': [('state', 'in', ('sale', 'done','cancel'))]}"/>
+            <field name="vehicle_no" attrs="{'readonly': [('state', 'in', ('sale', 'done','cancel'))]}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+            <field name="product_id"
+                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('procurement_ids', '!=', [])]}"
+                options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="replace">
+            <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"
+                attrs="{'readonly': [('state', 'in', ('sale','done', 'cancel'))]}" options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="replace">
+            <field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"
+                attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}" options="{'no_create_edit': True, 'no_create':True}"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+            <attribute name="invisible">True</attribute>
+        </xpath>
+      </field>
+    </record>
+    
+    <!-- Sales Order Tree View-->
+    <record model="ir.ui.view" id="book_sale_order_tree_view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="replace">
+                <field name="sale_type" string="Sale Type"/>
+            </xpath>
+        </field>  
+    </record> 
+    
+    <!-- Sales Filter -->
+    <record id="book_sale_order_search_inherit" model="ir.ui.view">
+        <field name="name">sale.order.list.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='customer']" position="after">
+                <filter string="Sales Type - Cash" domain="[[u'sale_type', u'in', (u'cash',u'Cash')]]" />
+                <filter string="Sales Type - Credit" domain="[[u'sale_type', u'in', (u'credit',u'Cridit')]]" />
+                <filter string="Sales Type" domain="[]" context="{'group_by':'sale_type'}"/>
+            </xpath>
+        </field>
+    </record> 
+
+  </data>
+</odoo>

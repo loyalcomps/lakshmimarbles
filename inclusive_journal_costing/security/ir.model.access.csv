@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inclusive_journal_costing_inclusive_journal_costing,inclusive_journal_costing.inclusive_journal_costing,model_inclusive_journal_costing_inclusive_journal_costing,,1,0,0,0

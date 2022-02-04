@@ -1,0 +1,37 @@
+"id","country_id:id","name","code","union_territory"
+"base.state_in_an","base.in","Andaman and Nicobar","AN","TRUE"
+"base.state_in_ap","base.in","Andhra Pradesh","AP",FALSE
+"base.state_in_ar","base.in","Arunachal Pradesh","AR",FALSE
+"base.state_in_as","base.in","Assam","AS",FALSE
+"base.state_in_br","base.in","Bihar","BR",FALSE
+"base.state_in_ch","base.in","Chandigarh","CH","TRUE"
+"base.state_in_cg","base.in","Chattisgarh","CG",FALSE
+"base.state_in_dn","base.in","Dadra and Nagar Haveli","DN","TRUE"
+"base.state_in_dd","base.in","Daman and Diu","DD","TRUE"
+"base.state_in_dl","base.in","Delhi","DL","TRUE"
+"base.state_in_ga","base.in","Goa","GA",FALSE
+"base.state_in_gj","base.in","Gujarat","GJ",FALSE
+"base.state_in_hr","base.in","Haryana","HR",FALSE
+"base.state_in_hp","base.in","Himachal Pradesh","HP",FALSE
+"base.state_in_jk","base.in","Jammu and Kashmir","JK",FALSE
+"base.state_in_jh","base.in","Jharkhand","JH",FALSE
+"base.state_in_ka","base.in","Karnataka","KA",FALSE
+"base.state_in_kl","base.in","Kerala","KL",FALSE
+"base.state_in_ld","base.in","Lakshadweep","LD","TRUE"
+"base.state_in_mp","base.in","Madhya Pradesh","MP",FALSE
+"base.state_in_mh","base.in","Maharashtra","MH",FALSE
+"base.state_in_mn","base.in","Manipur","MN",FALSE
+"base.state_in_ml","base.in","Meghalaya","ML",FALSE
+"base.state_in_mz","base.in","Mizoram","MZ",FALSE
+"base.state_in_nl","base.in","Nagaland","NL",FALSE
+"base.state_in_or","base.in","Orissa","OR",FALSE
+"base.state_in_py","base.in","Puducherry","PY","TRUE"
+"base.state_in_pb","base.in","Punjab","PB",FALSE
+"base.state_in_rj","base.in","Rajasthan","RJ",FALSE
+"base.state_in_sk","base.in","Sikkim","SK",FALSE
+"base.state_in_tn","base.in","Tamil Nadu","TN",FALSE
+"base.state_in_ts","base.in","Telangana","TS",FALSE
+"base.state_in_tr","base.in","Tripura","TR",FALSE
+"base.state_in_up","base.in","Uttar Pradesh","UP",FALSE
+"base.state_in_uk","base.in","Uttarakhand","UK",FALSE
+"base.state_in_wb","base.in","West Bengal","WB",FALSE

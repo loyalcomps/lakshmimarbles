@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <data>
+
+<!-- 
+    <report
+             id="action_inventory_report"
+            model="stock.inventory"
+            string="Inventory Report"
+            report_type="qweb-pdf"
+            name="inventory_adjustment_report.report_inventory_location_report"
+            file="inventory_adjustment_report.report_inventory_location_report"
+            /> -->
+
+     <record id="product_cost_categoryval" model="ir.ui.view">
+        <field name="name">stock.inven</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"></field>
+        <field name="arch" type="xml">
+
+          <xpath expr="//tree/field[@name='state']" position="after" >
+                <field name="cost_price_val"/>
+
+          </xpath>
+
+        </field>
+    </record>
+
+
+  </data>
+</odoo>

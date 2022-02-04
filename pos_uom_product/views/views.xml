@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <record id="view_pos_pos_form_uom" model="ir.ui.view">
+            <field name="name">pos.order.form.view.inherit.uom</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page/field[@name='lines']/tree/field[@name='discount']" position="after">
+                    <field name="uom_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

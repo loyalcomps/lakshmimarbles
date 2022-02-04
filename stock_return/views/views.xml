@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record id="stock_return_debit_form_id" model="ir.ui.view">
+            <field name="name">Stock Return - Debit Note</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form_credit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_invoice_draft']" position="before">
+                    <button name="return_stock_purchase" type="object" string="Return Stock"
+                        attrs="{'invisible':[('stock_return','=',True)]}"
+                            class="oe_highlight"/>
+                </xpath>
+                <field name="refund_invoice_id" position="after">
+                    <!--<field name="stock_picking_id" readonly="1"/>-->
+                    <field name="stock_return" invisible="1"/>
+                </field>
+                <xpath expr="//sheet/div[1]" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="action_view_picking"
+                            class="oe_stat_button"
+                            icon="fa-truck" attrs="{'invisible':[('stock_picking_id','=',False)]}">
+
+                            <field name="stock_picking_id" readonly="1"/>
+                        </button>
+
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_return_credit_form_id" model="ir.ui.view">
+            <field name="name">Stock Return - Credit Note</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form_debit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_invoice_draft']" position="before">
+                    <button name="return_stock" type="object" string="Return Stock"
+                        attrs="{'invisible':[('stock_return','=',True)]}"
+                            class="oe_highlight"/>
+                </xpath>
+                <field name="refund_invoice_id" position="after">
+                    <!--<field name="stock_picking_id" readonly="1"/>-->
+                    <field name="stock_return" invisible="1"/>
+                </field>
+                <xpath expr="//sheet/label[1]" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="action_view_picking"
+                            class="oe_stat_button"
+                            icon="fa-truck" attrs="{'invisible':[('stock_picking_id','=',False)]}">
+                            <!--<field name="picking_count" widget="statinfo" string="Shipment" help="Incoming Shipments"/>-->
+                            <field name="stock_picking_id" readonly="1"/>
+                        </button>
+
+                    </div>
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+</odoo>

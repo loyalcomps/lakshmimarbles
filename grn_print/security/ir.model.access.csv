@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_grn_print_grn_print,grn_print.grn_print,model_grn_print_grn_print,,1,0,0,0

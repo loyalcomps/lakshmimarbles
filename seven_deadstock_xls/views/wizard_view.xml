@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model='ir.ui.view' id='seven_deadstock_wizard_act_form'>
+            <field name="name">seven.deadstock.xls.form</field>
+            <field name="model">seven.deadstock.xls</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+
+                    <group col="4" string="Dates">
+
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+
+                    <group>
+                        <field name="company_id" />
+                        <field name="wh_id" invisible="1"/>
+                        <field name="min_qty" invisible="1"/>
+
+                    </group>
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Deadstock Report" class="oe_highlight"
+                                context="{'xls_export':1}" icon="gtk-print"/>
+                        or
+
+                        <button name="export_pdf" type="object" default_focus="1"
+                                string="Export Report" class="oe_highlight"
+                                context="{'xls_export':1}" icon="gtk-print"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='seven_deadstock_wizard_act'>
+            <field name="name">Dead Stock Report in Excel</field>
+            <field name="res_model">seven.deadstock.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="seven_deadstock_wizard_act_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <report
+                id="deadstock_report"
+                model="product.product"
+                string=" "
+                report_type="xlsx"
+                name="seven_deadstock_xls.seven_deadstock_xls.xlsx"
+                file="seven_deadstock_xls.seven_deadstock_xls.xlsx"
+                attachment_use="False"/>
+
+
+        <report
+            id="deadstock_pdf"
+            model="product.product"
+            string=" "
+            report_type="qweb-pdf"
+            name="seven_deadstock_xls.seven_deadstock_pdf"
+            file="seven_deadstock_xls.seven_deadstock_pdf"  />
+                <menuitem name="Ageing Products Report" parent="stock.menu_warehouse_report" id="export_excel" action="seven_deadstock_wizard_act" sequence="4"/>
+
+    </data>
+</openerp>

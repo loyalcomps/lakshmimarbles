@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_free_of_cost_free_of_cost,free_of_cost.free_of_cost,model_free_of_cost_free_of_cost,,1,0,0,0

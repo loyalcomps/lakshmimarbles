@@ -1,0 +1,65 @@
+<odoo>
+  <data>
+    <record id="vtoc_tax_mapping_form" model="ir.ui.view">
+      <field name="name">VtoC.Tax.Mapping.form</field>
+      <field name="model">vtoc.tax.mapping</field>
+      <field name="arch" type="xml">
+        <form string="Vendor to Customer Tax Mapping">
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+
+                <field name="company_id" options="{'no_create': True}" />
+              </group>
+              <group>
+                <!--<field name="auto_apply"/>-->
+                <field name="active"/>
+              </group>
+            </group>
+            <notebook>
+              <page name="tax_mapping" string="Tax Mapping">
+                <group>
+                  <field name="tax_ids" widget="one2many_list" nolabel="1">
+                    <tree name="tax_map_tree" string="Tax Mapping" editable="bottom">
+                      <field name="company_id" invisible="1"/>
+                      <field name="vendor_tax_id" domain="[('type_tax_use', '!=', None),('type_tax_use','=','purchase'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                      <field name="customer_tax_id" domain="[('type_tax_use', '!=', None),('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                    </tree>
+                    <form name="tax_map_form" string="Tax Mapping">
+                      <group>
+                        <field name="company_id" invisible="1"/>
+                        <field name="vendor_tax_id" domain="[('type_tax_use', '!=', None),('type_tax_use','=','purchase'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                        <field name="customer_tax_id" domain="[('type_tax_use', '!=', None),('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                      </group>
+                    </form>
+                  </field>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="vtoc_tax_mapping_tree" model="ir.ui.view">
+      <field name="name">vtoc.tax.mapping.tree</field>
+      <field name="model">vtoc.tax.mapping</field>
+      <field name="arch" type="xml">
+        <tree string="Tax Mapping">
+          <field name="name"/>
+          <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_tax_mapping_form" model="ir.actions.act_window">
+      <field name="name">Tax Mapping</field>
+      <field name="res_model">vtoc.tax.mapping</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_tax_mapping_form" id="menu_action_tax_mapping_form" parent="account.account_account_menu" sequence="6"/>
+  </data>
+</odoo>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <template id="daybook_report_pdf">
+            <t t-call="report.html_container">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+
+
+                                <t t-if="res_company.name">
+                                    <strong style="font-size:20px;">
+                                        <span t-esc="res_company.name"/>
+                                    </strong>
+                                    <br/>
+                                </t>
+
+                                <t t-if="res_company.street">
+                                    <strong style="font-size:16px;">
+                                        <span t-esc="res_company.street"/>
+                                    </strong>
+                                    <br/>
+                                </t>
+
+                                <p style="font-size:18px;">
+                                    <strong>Day Book</strong>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+
+                                <p style="font-size:18px;">
+                                    <span t-esc="date_start"/>
+                                    TO
+                                    <span t-esc="date_end"/>
+                                </p>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <t t-set="debit" t-value="0"/>
+                        <t t-set="credit" t-value="0"/>
+                        <t t-set="closing" t-value="0"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table >
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;" width="10px" >
+                                                Date
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;" width="5px">
+                                                Voucher No.
+                                            </th>
+
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;" width="20px">
+                                                Account
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;" width="20px">
+                                                Particulars
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;" width="20px">
+                                                Debit
+                                            </th>
+                                            <th class="text-left"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;" width="20px">
+                                                Credit
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr style="">
+                                            <td style="margin-left:5px;text-align:left;font-size:12px;border: 1px solid black;">
+                                                <span t-esc="date_start"/>
+
+                                            </td>
+                                            <td style="margin-left:5px;text-align:right;font-size:12px;border: 1px solid black;">
+
+                                            </td>
+                                            <td style="margin-left:5px;text-align:right;font-size:12px;border: 1px solid black;">
+
+                                            </td>
+                                            <td  style="margin-left:5px;text-align:left;font-size:12px;border: 1px solid black;">
+                                                <span>Opening Balance</span>
+                                            </td>
+                                            <td style="text-align:right;font-size:12px;border: 1px solid black;">
+                                                <t t-if="opening_bal &gt; 0">
+                                                    <span t-esc="opening_bal"/>
+                                                    <t t-set="debit" t-value="debit + opening_bal"/>
+                                                </t>
+                                                <t t-if="opening_bal &lt; 0">
+                                                    0
+                                                </t>
+                                                <t t-if="not opening_bal">
+                                                    0
+                                                </t>
+                                            </td>
+                                            <td style="text-align:right;font-size:12px;border: 1px solid black;">
+                                                <t t-if="opening_bal &lt; 0">
+                                                    <span t-esc="opening_bal*-1"/>
+                                                    <t t-set="credit" t-value="credit + (opening_bal*-1)"/>
+                                                </t>
+                                                <t t-if="opening_bal &gt; 0">
+                                                    0
+                                                </t>
+                                                <t t-if="not opening_bal">
+                                                    0
+                                                </t>
+                                            </td>
+                                        </tr>
+
+                                        <t t-foreach="details" t-as="line">
+
+                                            <tr style="">
+                                                <td style="text-align:left;width:15%;font-size:12px;border: 1px solid black;">
+                                                    <span t-esc="line['date']"/>
+                                                </td>
+                                                <td style="text-align:left;width:25%;font-size:12px;border: 1px solid black; ">
+                                                    <span t-esc="line['voucher']"/>
+                                                </td>
+                                                <td style="text-align:left;width:30%;font-size:12px;border: 1px solid black; ">
+                                                    <span t-esc="line['account']"/>
+                                                </td>
+                                                <td style="width:40%;font-size:12px;border: 1px solid black;">
+                                                    <span t-esc="line['particular']"/>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;border: 1px solid black;">
+                                                    <span t-esc="line['debit']"/>
+                                                    <t t-set="debit" t-value="debit + line['debit']"/>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;border: 1px solid black;">
+                                                    <span t-esc="line['credit']"/>
+                                                    <t t-set="credit" t-value="credit + line['credit']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td colspan="4"
+                                                style="text-align:center;font-size:12px;border: 1px solid black;">
+                                                <span style="font-size:12px;">
+                                                    <b style="font-size:12px;">Total</b>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:right;border: 1px solid black;">
+                                                <b style="font-size:12px;">
+                                                    <t t-esc="debit"/>
+                                                </b>
+                                            </td>
+                                            <td style="text-align:right;border: 1px solid black;">
+                                                <b style="font-size:12px;">
+                                                    <t t-esc="credit"/>
+                                                </b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="4"
+                                                style="text-align:center;border: 1px solid black;">
+                                                <span>
+                                                    <b style="font-size:12px;">Closing Balance</b>
+                                                </span>
+                                            </td>
+                                            <t t-set="closing" t-value="debit-credit"/>
+                                            <td style="text-align:right;border: 1px solid black;">
+
+                                                <t t-if='closing  &lt; 0'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="closing*-1"/>
+                                                    </b>
+                                                </t>
+                                            </td>
+                                            <td style="text-align:right;border: 1px solid black;">
+                                                <t t-if='closing  &gt; 0'>
+                                                    <b style="font-size:12px;">
+                                                        <t t-esc="closing"/>
+                                                    </b>
+                                                </t>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                                <t t-set="total_bc" t-value="0"/>
+                                <h5>Bank and Cash Closing</h5>
+
+                                <table width="50%" align="left">
+                                    <thead >
+                                        <tr style="">
+                                            <th
+                                                style="text-align:left;font-size:12px;border: 1px solid black;">
+                                                Account
+                                            </th>
+                                            <th class="text-left"
+                                                style="font-size:12px;border: 1px solid black;">
+                                                Balance
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody">
+                                        <t t-foreach="bank_cash_act" t-as="line">
+
+                                            <tr >
+                                                <td style="text-align:left;font-size:12px;border: 1px solid black;">
+                                                    <span t-esc="line['code']+line['name']"/>
+                                                </td>
+                                                <td style="text-align:right;font-size:12px;border: 1px solid black; ">
+                                                    <span t-esc="line['balance']"/>
+                                                    <t t-set="total_bc" t-value="total_bc+line['balance']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr >
+                                            <th style="text-align:left;font-size:12px;border: 1px solid black;">
+                                                Total Bank and Cash Accounts
+                                            </th>
+                                            <th style="text-align:right;font-size:12px;border: 1px solid black; ">
+
+                                                <t t-esc="total_bc" />
+                                            </th>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

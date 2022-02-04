@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+    <record id="account_config_inherited_view" model="ir.ui.view">
+      <field name="name">account.config.settings.inherited</field>
+      <field name="model">account.config.settings</field>
+      <field name="inherit_id" ref="account.view_account_config_settings"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='accounting']" position="after">
+          <group string="Purchase Discount " name="discount">
+            <label for="id" string="Purchase Discount"/>
+            <div name="discount_conf">
+
+              <div>
+                <label for="discount_account" />
+                <field name="discount_account" class="oe_inline" />
+              </div>
+            </div>
+          </group>
+          <group string="Purchase Round Off " name="round_off">
+            <label for="id" string="Round Off"/>
+            <div name="round_off_conf">
+
+              <div>
+                <label for="round_off_account_income" />
+                <field name="round_off_account_income" class="oe_inline" />
+              </div>
+              <div>
+                <label for="round_off_account_expense" />
+                <field name="round_off_account_expense" class="oe_inline"/>
+              </div>
+            </div>
+          </group>
+          <group string="Purchase Freight " name="freight_vendor">
+            <label for="id" string="Purchase Freight"/>
+            <div name="freight_conf">
+
+              <div>
+                <label for="freight_account" />
+                <field name="freight_account" class="oe_inline" />
+              </div>
+            </div>
+          </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

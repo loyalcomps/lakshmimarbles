@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+
+
+       <record id="kfc_partner_property_form_view" model="ir.ui.view">
+        <field name="name">kfc.partner.property.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="point_of_sale.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='point_of_sale']" position="before">
+                <group name="kfc" string="Kerala Flood Cess">
+                    <field name="kfc_plot"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+      <record model="ir.ui.view" id="cess_kfc_account_tax_view_inherit">
+      <field name="name">Account Tax</field>
+      <field name="model">account.tax</field>
+      <field name="inherit_id" ref="account.view_tax_form"></field>
+      <field name="arch" type="xml">
+
+        <field name="name" position="after">
+          <field name="kfc" />
+        </field>
+      </field>
+    </record>
+
+
+
+
+    <record id="kfc_view_tax_form_inherited" model="ir.ui.view">
+            <field name="name">account.tax.form.inherited</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form" />
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='price_include']" position="before">
+
+                     <field name="kfc_adjust_amount"/>
+                    <field name="kfc_cess_adjust_amount"/>
+                     <field name="kfc_adjust"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

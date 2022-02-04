@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+        <report id="report_gst_invoice_menu"
+                model="account.invoice"
+                string="GST invoice report"
+                report_type="qweb-pdf"
+                name="accounting_extended.gst_invoice_template_report_id"
+                file="accounting_extended.gst_invoice_template_report_id"
+        />
+
+        <record id="paperformat_payslip_sale" model="report.paperformat">
+            <field name="name">US Letter</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">32</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">32</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <record id="accounting_extended.report_gst_invoice_menu" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="accounting_extended.paperformat_payslip_sale"/>
+        </record>
+
+        <template id="external_layout_invoice">
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="accounting_extended.external_layout_inv_header"/>
+            <t t-raw="0"/>
+        </template>
+
+        <template id="external_layout_inv_header">
+            <div class="header">
+                <div class="row">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <center>
+                                    <t t-if="company.name">
+                                        <b style="font-size:30px">
+                                            <t t-esc="company.name"/>
+                                        </b>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company.street">
+                                        <t t-esc="company.street"/>
+                                    </t>
+                                    <t t-if="company.street2">
+                                        ,
+                                        <t t-esc="company.street2"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company.state_id.name">
+                                        <t t-esc="company.state_id.name"/>
+                                    </t>
+                                    <t t-if="company.country_id">
+                                        ,
+                                        <t t-esc="company.country_id.name"/>
+                                    </t>
+                                    <t t-if="company.zip">
+                                        <t t-esc="company.zip"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="company.company_registry">
+                                        <b>GSTIN
+                                            <t t-esc="company.company_registry"/>
+                                        </b>
+                                    </t>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

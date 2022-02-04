@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_barcode_color">
+            <field name="name">Multi Barcode</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_qty']"
+                       position="after">
+                    <field name="barcode_color" invisible="1"/>
+                </xpath>
+
+                <!--<field name="date_order" position="after">-->
+                <!--<field name="barcode_color"/>-->
+                <!--</field>-->
+
+                <xpath expr="//sheet/notebook/page/field[@name='order_line']/tree" position="attributes">
+
+                    <attribute name="colors">red:barcode_color == True;</attribute>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_barcode_color_account_invoice">
+            <field name="name">Multi Barcode</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                       position="after">
+                    <field name="barcode_color" invisible="1"/>
+                </xpath>
+
+                <!--<field name="date_order" position="after">-->
+                <!--<field name="barcode_color"/>-->
+                <!--</field>-->
+
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree" position="attributes">
+
+                    <attribute name="colors">red:barcode_color == True;</attribute>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

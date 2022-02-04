@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="pos_account_journal_roundoff">
+        <field name="name">Round Off</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"></field>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="allow_rounding" attrs="{'invisible':[('used_for_rounding','=',True)]}"/>
+                <field name="used_for_rounding"/>
+                <field name="visible_in_pos"/>
+
+            </field>
+            <xpath expr="//notebook/page[@name='advanced_settings']" position="after">
+                <page name="round_off" string="Rounding" attrs="{'invisible':[('used_for_rounding','!=',True)]}">
+                    <group>
+                        <group>
+                            <field name="decimal_rounding" />
+                        </group>
+
+                    </group>
+                </page>
+
+            </xpath>
+
+        </field>
+    </record>
+  </data>
+</odoo>

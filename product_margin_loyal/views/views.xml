@@ -1,0 +1,44 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="product_margin_loyal.inherited_template_form_view">
+      <field name="name">Product Margin</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"></field>
+      <field name="arch" type="xml">
+        <field name="list_price" position="after">
+          <field name="margin" widget="monetary" option="{'currency_field':'currency_id'}" />
+          <field name="margin_discount_percentage" />
+
+          <field name="margin_sale_check" invisible="1"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="margin_vendor_bill_inherit_form_view">
+      <field name="name">Vendor Bill</field>
+      <field name="model">account.invoice</field>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_mrp']"
+                       position="after">
+          <field name="margin"/>
+          <field name="margin_discount_percentage" invisible="1"/>
+          <field name="margin_sale_check" invisible="1"/>
+          <!--<field name="margin_percentage" invisible="1"/>-->
+          <!--<field name="product_margin" invisible="1"/>-->
+        </xpath>
+
+        <!--<xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree"-->
+                       <!--position="attributes">-->
+
+         <!---->
+          <!--<attribute name="colors">red:margin &lt; product_margin;</attribute>-->
+
+        <!--</xpath>-->
+
+
+      </field>
+    </record>
+  </data>
+</odoo>

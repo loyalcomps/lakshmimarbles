@@ -1,0 +1,89 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- Book Info form view added inside 'General Inforamtion' notebook/page -->
+    <record model="ir.ui.view" id="gst_product_template_form_view">
+      <field name="name">product.template.product.form</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <!-- <xpath expr='//page[@name="general_information"]' position="after"> -->
+        <!-- <notebook> -->
+        <!-- <page name="invoicing" position="after"> -->
+        <!-- <xpath expr='//field[@name="list_price"]' position="before"> -->
+        <field name="barcode" position="after">
+            <field name="hsncode"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="gst_product_product_form_view">
+      <field name="name">product.product.form</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <!-- <xpath expr='//page[@name="general_information"]' position="after"> -->
+        <!-- <notebook> -->
+        <!-- <page name="invoicing" position="after"> -->
+        <!-- <xpath expr='//field[@name="list_price"]' position="before"> -->
+        <field name="barcode" position="after">
+            <field name="hsncode"/>
+        </field>
+      </field>
+    </record>
+
+    <!-- HSN Code Tree View -->    
+    <record model="ir.ui.view" id="view_hsncode_tree">
+        <field name="name">texbyte_gst.hsncode.tree</field>
+        <field name="model">texbyte_gst.hsncode</field>
+        <field name="arch" type="xml">
+        <tree string="HSNCode" class="o_hsncode">
+            <field name="hsncode" string="HSN Code"/>
+            <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- HSN Code Form View -->
+    <record id="view_hsncode_form" model="ir.ui.view">
+        <field name="name">texbyte_gst.hsncode.form</field>
+        <field name="model">texbyte_gst.hsncode</field>
+        <field name="arch" type="xml">
+            <form string="hsncode" class="o_hsncode">
+                <sheet>
+                <group>
+                    <group name="hsncode_basic">
+                        <field name="hsncode" string="HSN Code"/>
+                    </group>
+                    <group name="Description">
+                        <field name="name"/>
+                    </group>
+                </group>
+                <!-- <group name="gst_taxes"> -->
+                    <label for="gst_tax_ids"/>
+                    <field name="gst_tax_ids"/>
+                <!-- </group> -->
+                </sheet>
+            </form>
+        </field>
+    </record> 
+    <!-- HSN Code Action -->
+    <record id="action_hsncode_view" model="ir.actions.act_window">
+        <field name="name">HSN Code</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">texbyte_gst.hsncode</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                HSN (Harmonized Serial Number) codes for GST
+            </p>
+        </field>
+    </record>
+    <!-- HSN Code Menu -->
+    <menuitem id="menu_hsncode_view" action="action_hsncode_view"
+            parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager"/>
+  </data>
+</odoo>

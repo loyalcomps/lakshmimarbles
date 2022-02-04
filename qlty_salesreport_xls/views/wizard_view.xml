@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='qlty_sale_wizard_form'>
+            <field name="name">qlty.sale.xls.form</field>
+            <field name="model">qlty.sale.xls</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                    <group col="4" string="Dates">
+
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    
+                    <group>
+                        <field name="company_id" />
+                        <field name="counter_only" />
+
+                    </group>
+
+                    <group attrs="{'invisible': [('counter_only','=',False)]}">
+                        <field name="pos_config_ids" colspan="4" nolabel="1" />
+                    </group>
+
+
+
+
+                    <footer>
+                        <button name="export_pdf" string="Export PDF" type="object" default_focus="1"
+                                context="{'xls_export':1}" class="oe_highlight"/>
+                        or
+                        <!--<button name="export_xls" type="object" default_focus="1"-->
+                                <!--string="Export Sale Report" class="oe_highlight"-->
+                                <!--context="{'xls_export':1}" icon="gtk-print"/>-->
+                        <!--or-->
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='qlty_sale_wizard_act'>
+            <field name="name">Export Detailed Sale in Excel</field>
+            <field name="res_model">qlty.sale.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="qlty_sale_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+            id="detailedsale_xlsx"
+            model="sale.order"
+            string=" "
+            report_type="xlsx"
+            name="qlty_salesreport_xls.qlty_sale_xls.xlsx"
+            file="qlty_salesreport_xls.qlty_sale_xls.xlsx"
+            attachment_use="False"
+        />
+        <report
+            id="qlty_salesreport_pdf2"
+            model="pos.order"
+            string="Detailed Sale Report"
+            report_type="qweb-pdf"
+            name="qlty_salesreport_xls.qlty_salesreport_pdf"
+            file="qlty_salesreport_xls.qlty_salesreport_pdf"  />
+
+
+
+
+        <menuitem name="Detailed Sales Report" parent="point_of_sale.menu_point_rep" id="export_detailedsale_excel" action="qlty_sale_wizard_act" sequence="5"/>
+    </data>
+</openerp>

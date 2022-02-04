@@ -1,0 +1,55 @@
+[x] Add cashbill customer (using XML)
+[x] Add GST tax rates - 0%, 5%, 12%, 18%, 28%
+[ ] Cash Sales view - doesn't refresh on 'Confirm Sale' ('action_confirm')
+[x] Tree & Form views for HSN Code
+[x] CSV for GST tax rates (CGST,SGST,IGST) and their composition
+[x] CSV for HSN Code (including tax lines)
+[x] Set product tax (purchase & sales) based on HSN code
+[x] Print Invoice from Cash sales screen
+[x] Add 'Place of Sale' for IGST
+[x] Add Place of Sale to Sales Order
+[x] Add Place of Sale to Purchase Order
+[x] Add Place of Sale to Invoice
+[ ] Add Cess for HSN codes that require it (aerated drinks, tobacco etc)
+[x] Solution to apply either IGST or GST in order/invoice based on HSN code
+[x] Add 'Place of Supply' to Company
+[x] Set default place of supply to Company and also set based on state
+[x] Add IGST (sales & purchase) fields to HSN Code
+[x] Use the IGST at HSN code to replace GST with IGST when Place of Supply differs
+[x] Extend standard Invoice print report instead of a new 'GST Invoice' report
+[ ] Setup: Disable all messages for new user preference
+[ ] GST Return formats, json file for uploading to gst site, return utility...
+[x] Cash Purchase option!
+[x] Fix tax lines propagation to Invoice from Cash PO
+[x] Fix invoice type ('in_invoice') creation from Cash PO
+[x] Add 'Place of Supply' on 'Cash PO' screen/form & hide Vendor Reference
+[ ] Fix calculation of Invoice residual amounts when there's global discount
+[ ] Handle lots/batches in Cash Sale & Purchase. Add the field at item level on SO/PO & carry over to stock.picking
+[x] GST: Handle 'Reverse Charge Applicable' on purchasing from unregistered vendors
+[x] Actually handle the 'Reverse Charge' scenario - tax must be paid by the us, so amount shouldn't go to Creditors a/c
+    Solution: reduce tax amount from Creditors a/c and add to 'GST Payable' a/c (keep the GST Receivable a/c entry)
+[x] Rewrite GST tax switching logic
+[x] Handle GST+CESS scenario when switching to and fro IGST/UGST
+[ ] Handle 'Freight tax' (take highest tax rate of the items in SO and apply that tax to freight charge too)
+[ ] GST Return output consolidating HSN code
+[x] IGST will automatically apply only to products with HSN code. Handle products without HSN code
+[ ] Add 'Place of Supply' mandatory field for vendor
+[x] Add GSTIN near company address in Invoice print
+[ ] Set Place of Supply in Orders based on city of Vendor/Customer
+[ ] Handle paying Tax on 'Advance Payment' received from customer. This tax cannot be levied to customer, but must be
+    paid by us. Once final invoice is generated (for full amount), the tax credit can be claimed. Also check how the
+    value of 'Advance Payment' product should be set (-ve or +ve)
+[ ] Implement product sale price change history (Odoo 'product.price.history' is not suitable)
+[ ] Rename 'Cash purchase & bill' to 'Unreg. Vendor & Customer' in data, view, model & methods
+[ ] Amount in words on 'Put Money In & Take Money Out' in cash register -- extend account/wizard/pos_box.{py,xml}
+[x] Handle CESS with GST!
+    Configuration:
+      1. Create new CESS (non-gst) tax as explained in https://github.com/odoo/odoo/issues/17974
+      2. Make sure to drag down this entry *after* all GST entries using the handle (Accounting > Configuration > Accounting > Taxes)
+      3. Step 2 ensures that CESS will be applied only *after* GST. Also, GST group has the flag 'Affect Base of Subsequent Taxes' checked
+      4. Add GST and CESS tax to the product (not sure if it can be added via HSN)
+    GSTR reports:
+      1. Assumptions made: CESS applies and appears in tax_lines after GST taxes
+[] GSTR1 & GSTR2: The tax rates and amount are found using tax.compute_all() method -- this actually recalculates the tax instead of taking
+    existing tax values on the line. This may affect calculation of tax rate of an item is changed later on and reports are taken afterwards...
+    This is also the reason why B2BUR in GSTR2 works (because, due to Reverse Charge we were remove taxes on Vendor Bills from unregistered vendors)

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="texbyte_gst_gst_reversecharge_wizard" model="ir.ui.view">
+        <field name="name">texbyte_gst.gst.reversecharge.wizard.form</field>
+        <field name="model">texbyte_gst.gst.reversecharge.wizard</field>
+        <field name="arch" type="xml">
+        <form>
+            <!-- <h1>
+                <field name="reason" class="oe_inline" placeholder="Reason..."/>
+            </h1> -->
+            <group>
+                <!-- <group>
+                    <field name="amount"/>
+                </group>
+                <group>
+                    <field name="tax_id" widget="selection"/>
+                </group>
+                <group string="Accounts">
+                    <field name="debit_account_id"/>
+                    <field name="credit_account_id"/>
+                </group> -->
+                <group string="Options">
+                    <field name="journal_id"/>
+                    <field name="date"/>
+                </group>
+            </group>
+            <footer>
+                <!-- <button name="create_move" string="Create and post move" type="object" default_focus="1" class="oe_highlight"/> -->
+                <button name="calculate_total_reverse_charge" string="Post Reverse Charge" type="object" default_focus="1" class="oe_highlight"/>
+                or 
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="texbyte_gst_gst_reversecharge_form" model="ir.actions.act_window">
+        <field name="name">Post Reverse Charge</field>
+        <field name="res_model">texbyte_gst.gst.reversecharge.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem action="texbyte_gst_gst_reversecharge_form" id="menu_action_gst_reversecharge" parent="account.menu_finance_entries" groups="account.group_account_manager" sequence="40"/>
+
+</odoo>

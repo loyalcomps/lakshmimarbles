@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+
+        <!--<record id="view_account_payment_form_pos_session" model="ir.ui.view">-->
+            <!--<field name="name">account.payment.form.inherited</field>-->
+            <!--<field name="model">account.payment</field>-->
+            <!--<field name="inherit_id" ref="account.view_account_payment_form" />-->
+            <!--<field name="arch" type="xml">-->
+                <!--&lt;!&ndash;<xpath expr="//button[@name='post']" position="before">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button name="print_checks" class="oe_highlight" attrs="{'invisible': ['|', ('payment_method_code', '!=', 'check_printing'), ('state', '!=', 'posted')]}" string="Print Check" type="object"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button name="unmark_sent" attrs="{'invisible': ['|', ('payment_method_code', '!=', 'check_printing'), ('state', '!=', 'sent')]}" string="Unmark Sent" type="object"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                <!--&lt;!&ndash;<xpath expr="//div[@name='amount_div']" position="after">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="check_amount_in_words" attrs="{'invisible': [('payment_method_code', '!=', 'check_printing')], 'readonly': [('state', '!=', 'draft')]}" groups="base.group_no_one"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                <!--<xpath expr="//field[@name='communication']" position="after">-->
+                    <!--<field name="pos_session_id" />-->
+                    <!--&lt;!&ndash;<field name="check_number" attrs="{'invisible': ['|', ('payment_method_code', '!=', 'check_printing'), ('check_number', '=', 0)]}"/>&ndash;&gt;-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+        <record id="mf_inherit_view_account_bnk_stmt_cashbox" model="ir.ui.view">
+            <field name="name">account.bnk_stmt_cashbox.form</field>
+            <field name="model">account.bank.statement.cashbox</field>
+            <field name="inherit_id" ref="account.view_account_bnk_stmt_cashbox"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='cashbox_lines_ids']/tree"
+                       position="attributes">
+                    <attribute name="create">false</attribute>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+
+
+</odoo>

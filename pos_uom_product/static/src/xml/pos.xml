@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <t t-name="button_choice_uom">
+        <div class="control-button order-uombutton">
+            <i class='fa fa-sliders' />Change Unit
+        </div>
+    </t>
+
+    <t t-name="alert_result">
+    </t>
+
+    <t t-name="notify_popup">
+        <div class="modal-dialog">
+            <div class="popup">
+                <p class="title"><t t-esc="widget.options.title"/></p>
+                <div>
+                    <t t-raw="widget.message"/>
+                </div>
+                <div class="button cancel">
+                    Close
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+</templates>

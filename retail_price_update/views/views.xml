@@ -1,0 +1,106 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="retail_cost_purchase_order_form_view">
+            <field name="model">purchase.order</field>
+            <field name="name">Purchase Order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="old_cost" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+     main menu
+    <menuitem id="retail_price_main_menu" name="Retail Price" sequence="101" groups="retail_price_update.group_user"/>
+    <!-- parent menu-->
+    <menuitem id="retail_price_product_menu" name="Product Price Info" sequence="1" parent="retail_price_main_menu"/>
+    <menuitem id="retail_price_report_menu" name="Report" sequence="2" parent="retail_price_main_menu"/>
+
+    <record id="product_category_margin_fields" model="ir.ui.view">
+        <field name="name">product.category.new.added.fields</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[@name='first']" position="after">
+
+                <group name="first" col="4" string="Discount">
+                    <field name="margin_discount"/>
+                    <field name="margin_discount_per"/>
+
+                </group>
+
+                 <group name="first" col="4" string="Profit">
+                     <field name="profit"/>
+                     <field name="profit_perc"/>
+                 </group>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_new_retail_price_template_form_view">
+        <field name="name">Product Margin</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"></field>
+        <field name="arch" type="xml">
+            <field name="list_price" position="after">
+                <field name="new_price" widget="monetary" option="{'currency_field':'currency_id'}" readonly="1"/>
+                <field name="profit"/>
+                <field name="profit_perc"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="new_retail_price_multi_barcode_for_view" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.barcodes</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="pos_multi_barcodes.product_template_pos_multi_barcodes"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//page/field[@name='barcode_ids']/tree/field[@name='list_price']" position="after">
+                <field name="new_price" readonly="1"/>
+
+            </xpath>
+            <xpath expr="//page/field[@name='barcode_ids']/tree/field[@name='product_mrp']" position="after">
+
+                <field name="profit"/>
+                <field name="profit_perc"/>
+            </xpath>
+
+
+
+        </field>
+    </record>
+
+    <!--taxed cost in product master-->
+    <!--<record model="ir.ui.view" id="taxed_cost_product_product_form">-->
+        <!--<field name="name">purchase.product.form</field>-->
+        <!--<field name="model">product.product</field>-->
+        <!--<field name="inherit_id" ref="product.product_normal_form_view"></field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="barcode" position="after">-->
+                <!--<field name="taxed_cost" readonly="1"/>-->
+
+
+            <!--</field>-->
+
+        <!--</field>-->
+
+    <!--</record>-->
+
+    <!--<record model="ir.ui.view" id="product_template_taxed_cost_form">-->
+            <!--<field name="name">product.template.form.hs_code</field>-->
+            <!--<field name="model">product.template</field>-->
+            <!--<field name="inherit_id" ref="product.product_template_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="list_price" position="after">-->
+                    <!--<field name="taxed_cost" />-->
+
+                <!--</field>-->
+
+            <!--</field>-->
+        <!--</record>-->
+</odoo>

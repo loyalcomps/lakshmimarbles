@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_cache_database_user,access_pos_cache_database,model_pos_cache_database,base.group_user,1,1,1,1
+access_pos_bus_user,access_pos_bus_user,model_pos_bus,point_of_sale.group_pos_user,1,0,0,0
+access_pos_bus_manager,pos_bus_manager,model_pos_bus,point_of_sale.group_pos_manager,1,1,1,1
+access_pos_bus_log,pos_bus_log,model_pos_bus_log,point_of_sale.group_pos_user,1,1,1,1

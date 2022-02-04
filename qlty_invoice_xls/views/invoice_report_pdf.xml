@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="invoice_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>INVOICE Report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <t t-set="taxableAmounttotal" t-value="0"/>
+                    <t t-set="taxamounttotal" t-value="0"/>
+                    <t t-set="discounttotal" t-value="0"/>
+                    <t t-set="amounttotal" t-value="0"/>
+                    <t t-set="amtotal" t-value="0"/>
+
+
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                        <t t-if="not consol">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Date</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Bill No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Reference No</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Partner</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Taxable Amount</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Tax Amount</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Discount</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Amount</th>
+
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_lines" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids['date_invoice']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;">
+                                                <span t-esc="line_ids['number']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_ids['reference']"/>
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_ids['name']"/>
+
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['amount_untaxed']"/>
+                                                 <t t-set="taxableAmounttotal" t-value="taxableAmounttotal + line_ids['amount_untaxed']" />
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['amount_tax']"/>
+                                                <t t-set="taxamounttotal" t-value="taxamounttotal + line_ids['amount_tax']" />
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['amount_discount']"/>
+                                                <t t-set="discounttotal" t-value="discounttotal + line_ids['amount_discount']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_ids['amount_total']"/>
+                                                <t t-set="amounttotal" t-value="amounttotal + line_ids['amount_total']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                                        <tr >
+                                            <td colspan="4" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                                <span><b>Total</b></span>
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b> <t t-esc="taxableAmounttotal" /></b>
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b> <t t-esc="taxamounttotal" /></b>
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b> <t t-esc="discounttotal" /></b>
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b> <t t-esc="amounttotal" /></b>
+                                            </td>
+                                        </tr>
+
+                                </tbody>
+                            </table>
+                        </t>
+
+
+                            <t t-if="consol">
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Vendor</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Amount</th>
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                    <t t-foreach="get_partnersum" t-as="line_id" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc="line_id['partner']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="line_id['amount_total']"/>
+                                                <t t-set="amtotal" t-value="amtotal + line_id['amount_total']" />
+
+                                            </td>
+
+                                        </tr>
+
+                                    </t>
+                                        <tr >
+                                            <td style="text-align:center;border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span><b>Total</b></span>
+                                            </td>
+
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <b> <t t-esc="amtotal" /></b>
+                                            </td>
+                                        </tr>
+
+                                </tbody>
+                            </table>
+                            </t>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

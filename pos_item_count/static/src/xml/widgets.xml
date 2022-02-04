@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+
+    <!-- count items widget -->
+    <t t-name="CountItemWidget">
+
+
+        <div class="oe_status js_proxy">
+            <div class="js_connected oe_icon oe_green">
+                <i class='fa fa-cart-plus'></i>
+            </div>
+            <div class="js_connected oe_icon">
+                <span class="js_msg count_item"></span>
+            </div>
+        </div>
+
+    </t>
+
+
+</templates>

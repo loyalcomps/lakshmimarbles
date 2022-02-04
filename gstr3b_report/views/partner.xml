@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="composition_person_form">
+        <field name="name">Composition Person</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"></field>
+        <field name="arch" type="xml">
+            <field name="property_account_position_id" position="after">
+                <field name="composition" />
+
+            </field>
+
+        </field>
+
+    </record>
+
+  </data>
+</odoo>

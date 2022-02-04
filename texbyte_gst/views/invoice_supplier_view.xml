@@ -1,0 +1,35 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- Account Invoice Line view-->
+    <record model="ir.ui.view" id="gst_account_invoice_supplier_form_view">
+      <field name="name">account.invoice.supplier.form</field>
+      <field name="model">account.invoice</field>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <!-- <xpath expr='//page[@name="general_information"]' position="after"> -->
+        <!-- <notebook> -->
+        <!-- <page name="invoicing" position="after"> -->
+        <!-- <tree name="sale_order_lines_tree" position="inside"> -->
+        <!--    <xpath expr='//field[@name="price_unit"]' position="before">
+                <field name="main_currency" class="oe_read_only"/>
+            </xpath>
+            <xpath expr='//field[@name="tax_id"]' invisible="1"/>
+         -->
+        <!-- </tree> -->
+        <!-- <xpath expr="//sheet" position="attributes">
+            <attribute name="class">oe_form_sheet_width_large</attribute>
+            <attribute name="width">"90%"</attribute>
+        </xpath> -->
+        <field name="partner_id" position="after">
+            <field name="inv_trade_type"  attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+        </field>
+        <field name="date_due" position="after">
+            <field name="place_of_supply" options="{'no_create_edit': True, 'no_create':True}"/>
+            <field name="reverse_charge"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>

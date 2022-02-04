@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pos_pricelist_view_tree" model="ir.ui.view">
+            <field name="name">PosPricelistViewTree</field>
+            <field name="model">pos.pricelist</field>
+            <field name="inherit_id" ref="pos_pricing.pos_pricelist_view_tree" />
+            <field name="arch" type="xml">
+                <field name="currency_id" position="before">
+                    <field name="show_on_products"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="pos_pricelist_view" model="ir.ui.view">
+            <field name="name">PosPricelistViewForm</field>
+            <field name="model">pos.pricelist</field>
+            <field name="inherit_id" ref="pos_pricing.pos_pricelist_view" />
+            <field name="arch" type="xml">
+                <field name="currency_id" position="before">
+                    <field name="show_on_products"/>
+                </field>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

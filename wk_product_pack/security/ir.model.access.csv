@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wk_product_pack_public_user,product.pack,model_product_pack,,1,0,0,0
+access_product_public_user,product.product.pack,model_product_pack,,1,0,0,0
+access_product_sale_sale_manager,product.product.pack,model_product_pack,,1,1,1,1

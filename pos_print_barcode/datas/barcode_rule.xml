@@ -1,0 +1,15 @@
+<odoo>
+    <data noupdate="0">
+
+
+        <record id="barcode_rule_order_reference" model="barcode.rule">
+            <field name="name">POS Order Barcode</field>
+            <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+            <field name="sequence">88</field>
+            <field name="type">order</field>
+            <field name="encoding">ean13</field>
+            <field name="pattern">998.*</field>
+        </record>
+
+    </data>
+</odoo>

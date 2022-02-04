@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="gst_account_invoice_supplier_form_view">
+            <field name="name">account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+
+            <field name="arch" type="xml">
+
+                <field name="date_due" position="after">
+                    <field name="place_of_supply" options="{'no_create_edit': True, 'no_create':True}"/>
+                    <field name="reverse_charge"/>
+                </field>
+            </field>
+      </record>
+
+      <record model="ir.ui.view" id="gst_account_invoice_line_form_view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="place_of_supply" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create_edit': True, 'no_create':True}"/>
+
+            </field>
+        </field>
+      </record>
+  </data>
+</odoo>

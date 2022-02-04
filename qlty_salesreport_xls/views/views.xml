@@ -1,0 +1,35 @@
+<odoo>
+  <data>
+
+     <record model="ir.ui.view" id="account_payment_counter">
+      <field name="name">account_extra</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_form"></field>
+      <field name="arch" type="xml">
+          
+        <xpath expr="//sheet/group/group/field[@name='payment_date']" position="after">
+            <field name="user_id" invisible="1"/>
+
+            <field name="pos_counter_ids" attrs="{'invisible':[('payment_type','in',('outbound','transfer'))]}" options="{'no_create': True}"/>
+
+        </xpath>
+      </field>
+    </record>
+
+
+     <record model="ir.ui.view" id="account_invoice_counter">
+          <field name="name">account_extra</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_form"/>
+          <field name="arch" type="xml">
+              <!-- &lt;!&ndash;<field name="partner_type" position="after">&ndash;&gt;&lt;!&ndash;<field name="pos_counter_ids" />&ndash;&gt;&lt;!&ndash;</field>&ndash;&gt; -->
+              <xpath expr="//sheet/group/group/field[@name='date_invoice']" position="after">
+          <field name="pos_config_ids"/>
+      </xpath>
+          </field>
+      </record>
+
+
+
+  </data>
+</odoo>

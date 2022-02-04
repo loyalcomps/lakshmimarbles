@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+        <record forcecreate="True" id="stock_pack_unit_price_digit" model="decimal.precision">
+            <field name="name">stock pack Unit Price</field>
+            <field name="digits">6</field>
+         </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!--<t t-name="button_combo">-->
+        <!--<div class="control-button">-->
+            <!--<i class='fa fa-sliders' />Add Pack/Combo-->
+        <!--</div>-->
+    <!--</t>-->
+
+
+    <!--<t t-name="popup_selection_combos">-->
+        <!--<div class="modal-dialog">-->
+            <!--<div class="swal2-content alert-popup" style="max-width: 800px;margin: auto;top: 0;left: 0;right: 0;bottom: 0;">-->
+                <!--<div class="card" style="display: inline-block;position: relative;width: 100%;margin: 25px 0;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);border-radius: 6px;color: rgba(0, 0, 0, 0.87);background: #fff;">-->
+                    <!--&lt;!&ndash;<div class="card-header card-header-icon" data-background-color="rose">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="material-icons">assignment</i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="card-content" style="padding: 15px 20px;position: relative;">-->
+                        <!--<h4 class="card-title">-->
+                            <!--<t t-if="widget.options.title">-->
+                                <!--<t t-esc="widget.options.title"/>-->
+                            <!--</t>-->
+                        <!--</h4>-->
+                        <!--<div class="table-responsive">-->
+                            <!--<div class='body'>-->
+                            <!--</div>-->
+                            <!--<div class="card-footer text-center">-->
+                                <!--<div class="btn btn-danger cancel">-->
+                                    <!--<i class="fa fa-close"></i> Close-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</t>-->
+
+    <!--<t t-name="combo_items">-->
+        <!--<t t-if="combo_items" >-->
+            <!--<t t-foreach="combo_items" t-as="combo_item">-->
+                <!--<t t-if="combo_item.selected">-->
+                    <!--<span class='product combo-item item-selected' t-att-data-id="combo_item.id">-->
+                        <!--<div class="product-img">-->
+                            <!--<img t-att-src='image_url + combo_item.product_id[0]' />-->
+                        <!--</div>-->
+                        <!--<div class="product-name">-->
+                            <!--<t t-esc="combo_item.product_id[1]"/>-->
+                        <!--</div>-->
+                        <!--<span class="price-tag">-->
+                            <!--<i class='fa fa-plus'/><t t-esc="combo_item.quantity"/>-->
+                        <!--</span>-->
+                    <!--</span>-->
+                <!--</t>-->
+                <!--<t t-if="!combo_item.selected">-->
+                    <!--<span class='product combo-item' t-att-data-id="combo_item.id">-->
+                        <!--<div class="product-img">-->
+                            <!--<img t-att-src='image_url + combo_item.product_id[0]' />-->
+                        <!--</div>-->
+                        <!--<div class="product-name">-->
+                            <!--<t t-esc="combo_item.product_id[1]"/>-->
+                        <!--</div>-->
+                        <!--<span class="price-tag">-->
+                            <!--<i class='fa fa-plus'/><t t-esc="combo_item.quantity"/>-->
+                        <!--</span>-->
+                    <!--</span>-->
+                <!--</t>-->
+            <!--</t>-->
+        <!--</t>-->
+    <!--</t>-->
+
+    <t t-name="ComboButton">
+        <button class="control-button btn btn-success btn-fill btn-wd"><i class='fa fa-sitemap' />Combo</button>
+    </t>
+
+    <t t-name="ComboItems">
+        <div class="modal-dialog customize">
+            <div class="popup popup-selection">
+                <p class="title">Choice a Item</p>
+                <div class='selection scrollable-y touch-scrollable'>
+                    <div class='body'>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">
+                        <i class="fa fa-close "/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ComboItem">
+        <t t-if="combo_items" >
+            <t t-foreach="combo_items" t-as="combo_item">
+                <t t-if="combo_item.selected">
+                    <span class='product combo-item item-selected' t-att-data-id="combo_item.id">
+                        <div class="product-img">
+                            <img t-att-src='image_url + combo_item.product_id[0]' />
+                        </div>
+                        <div class="product-name">
+                            <t t-esc="combo_item.product_id[1]"/>
+                        </div>
+                        <span class="price-tag">
+                            <i class='fa fa-plus'/><t t-esc="combo_item.quantity"/>
+                        </span>
+                    </span>
+                </t>
+                <t t-if="!combo_item.selected">
+                    <span class='product combo-item' t-att-data-id="combo_item.id">
+                        <div class="product-img">
+                            <img t-att-src='image_url + combo_item.product_id[0]' />
+                        </div>
+                        <div class="product-name">
+                            <t t-esc="combo_item.product_id[1]"/>
+                        </div>
+                        <span class="price-tag">
+                            <i class='fa fa-plus'/><t t-esc="combo_item.quantity"/>
+                        </span>
+                    </span>
+                </t>
+            </t>
+        </t>
+    </t>
+
+
+
+
+    <t t-extend="Orderline">
+        <t t-jquery=".info-list" t-operation="after">
+
+            <!-- combo -->
+            <t t-if="line.combo_items">
+                <t t-foreach="line.combo_items" t-as="combo_item">
+                    <ul class="combo-item">
+                        <li class="info">
+                            <i class="fa fa-caret-right"/>
+                            <t t-esc="combo_item.product_id[1]" />
+                            with quantity :
+                            <t t-esc="combo_item.quantity" />
+                        </li>
+                    </ul>
+                </t>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="Product">
+        <t t-jquery=".product-img" t-operation="append">
+            <t t-if="product.combo_limit > 0">
+
+                <span class="combo-tag">
+                <!--<t t-esc="product.product_mrp"/>-->
+                    Combo Product
+                </span>
+            </t>
+        </t>
+    </t>
+
+
+
+
+
+
+</templates>

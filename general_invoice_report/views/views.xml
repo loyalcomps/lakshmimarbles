@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="general_invoice_report.list">
+      <field name="name">general_invoice_report list</field>
+      <field name="model">general_invoice_report.general_invoice_report</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="general_invoice_report.action_window">
+      <field name="name">general_invoice_report window</field>
+      <field name="res_model">general_invoice_report.general_invoice_report</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="general_invoice_report.action_server">
+      <field name="name">general_invoice_report server</field>
+      <field name="model_id" ref="model_general_invoice_report_general_invoice_report"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="general_invoice_report" id="general_invoice_report.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="general_invoice_report.menu_1" parent="general_invoice_report.menu_root"/>
+    <menuitem name="Menu 2" id="general_invoice_report.menu_2" parent="general_invoice_report.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="general_invoice_report.menu_1_list" parent="general_invoice_report.menu_1"
+              action="general_invoice_report.action_window"/>
+    <menuitem name="Server to list" id="general_invoice_report" parent="general_invoice_report.menu_2"
+              action="general_invoice_report.action_server"/>
+    -->
+  </data>
+</odoo>

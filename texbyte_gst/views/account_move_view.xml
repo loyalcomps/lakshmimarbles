@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+    <!-- Remove create/edit options from Journal entry view -->
+    <record model="ir.ui.view" id="gst_view_account_move_form">
+      <field name="name">account.move.form</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <!-- <field name="priority" eval="1"> -->
+      <field name="arch" type="xml">
+        <field name="account_id" position="replace">
+            <field name="account_id" domain="[('company_id', '=', parent.company_id), ('deprecated', '=', False)]"
+                options="{'no_create_edit': True, 'no_create':True}"/>
+        </field>
+        <field name="partner_id" position="replace">
+            <field name="partner_id" domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
+                options="{'no_create_edit': True, 'no_create':True}"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>

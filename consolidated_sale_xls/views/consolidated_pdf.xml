@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sale_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;">
+                                    <span t-esc="res_company.name"/>
+                                </strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong>
+                                    <span t-esc="res_company.street"/>
+                                </strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Consolidated Sale Report</strong>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;font-size:12px;">
+
+                            <b>
+                                Report Date -
+                                <![CDATA[&nbsp;]]>
+                                <span t-esc="date_start"/>
+                            </b>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <t t-if="vendor_id">
+
+                                <t t-foreach="vendor_wise" t-as="record">
+                                    <table style="width: 210mm;border:1px solid black;border-collapse:collapse;"
+                                           align="center">
+                                        <t t-set="total_purchase" t-value="0"/>
+                                        <t t-set="total_purchaseqty" t-value="0"/>
+
+                                        <tr>
+                                            <th class="text-center" colspan="8"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;background-color: black;color:white;">
+                                                Vendor :-
+                                                <span t-esc="record['name']"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Sl No
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Product
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Onhand
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Cost
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Landing Cost
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Purchased Qty
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Purchase Amount
+                                            </th>
+
+                                        </tr>
+                                        <t t-foreach="record['data']" t-as="res">
+                                            <tr>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                    <span t-esc="res['sl_no']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                    <span t-esc=" res['product']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['onhand'])"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['cost'])"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['landing_cost'])"/>
+
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['p_qty'])"/>
+                                                    <t t-set="total_purchaseqty"
+                                                       t-value="total_purchaseqty + res['p_qty']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['purchase'])"/>
+                                                    <t t-set="total_purchase"
+                                                       t-value="total_purchase + res['purchase']"/>
+
+                                                </td>
+
+
+                                            </tr>
+
+                                        </t>
+                                        <tr>
+                                            <th colspan="5"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                Total
+                                            </th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="'%.2f'%(total_purchaseqty)"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="'%.2f'%(total_purchase)"/>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    <br/>
+                                </t>
+                            </t>
+
+                            <t t-if="vendor_contact_id">
+
+
+                                <t t-foreach="vendor_contact_wise" t-as="record">
+                                    <table style="width: 210mm;border:1px solid black;border-collapse:collapse;"
+                                           align="center">
+                                        <t t-set="total_purchase" t-value="0"/>
+                                        <t t-set="total_purchaseqty" t-value="0"/>
+
+                                        <tr>
+                                            <th class="text-center" colspan="8"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:center;background-color: black;color:white;">
+                                                Vendor :-
+                                                <span t-esc="record['name']"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Sl No
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Product
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Onhand
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Cost
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Landing Cost
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Purchased Qty
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid black;border-collapse:collapse;">
+                                                Purchase Amount
+                                            </th>
+                                        </tr>
+                                        <t t-foreach="record['data']" t-as="res">
+                                            <tr>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                    <span t-esc="res['sl_no']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                    <span t-esc=" res['product']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['onhand'])"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;;">
+                                                    <span t-esc="'%.2f'%(res['cost'])"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['landing_cost'])"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['p_qty'])"/>
+                                                    <t t-set="total_purchaseqty"
+                                                       t-value="total_purchaseqty + res['p_qty']"/>
+                                                </td>
+                                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                    <span t-esc="'%.2f'%(res['purchase'])"/>
+                                                    <t t-set="total_purchase"
+                                                       t-value="total_purchase + res['purchase']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <th colspan="5"
+                                                style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                Total
+                                            </th>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="'%.2f'%(total_purchaseqty)"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="'%.2f'%(total_purchase)"/>
+                                            </td>
+
+
+                                        </tr>
+                                    </table>
+                                    <br/>
+                                </t>
+                            </t>
+                            <t t-if="sale_info">
+
+                                <table style="width: 210mm;border:1px solid black;border-collapse:collapse;"
+                                       align="center">
+                                    <t t-set="total_sale" t-value="0"/>
+                                    <t t-set="total_saleqty" t-value="0"/>
+                                    <tr>
+                                        <th class="text-center" colspan="5"
+                                            style="border: 1px solid black;border-collapse:collapse;background-color: black;color:white;">
+                                            SALE INFO
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center"
+                                            style="border: 1px solid black;border-collapse:collapse;">
+                                            Sl No
+                                        </th>
+                                        <th class="text-center"
+                                            style="border: 1px solid black;border-collapse:collapse;">
+                                            Product
+                                        </th>
+                                        <th class="text-center"
+                                            style="border: 1px solid black;border-collapse:collapse;">
+                                            Avg. Sale Price
+                                        </th>
+                                        <th class="text-center"
+                                            style="border: 1px solid black;border-collapse:collapse;">
+                                            Sold Qty
+                                        </th>
+                                        <th class="text-center"
+                                            style="border: 1px solid black;border-collapse:collapse;">
+                                            Sale Amount
+                                        </th>
+
+                                    </tr>
+
+                                    <t t-foreach="sale_info" t-as="res">
+
+
+                                        <tr>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="res['sl_no']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                                <span t-esc=" res['product']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="'%.2f'%(res['average_sale_price'])"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;;">
+                                                <span t-esc="'%.2f'%(res['s_qty'])"/>
+                                                <t t-set="total_saleqty" t-value="total_saleqty + res['s_qty']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                                <span t-esc="'%.2f'%(res['sale'])"/>
+                                                <t t-set="total_sale" t-value="total_sale + res['sale']"/>
+                                            </td>
+
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <th colspan="3"
+                                            style="border: 1px solid black;border-collapse:collapse;text-align:left;">
+                                            Total
+                                        </th>
+                                        <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                            <span t-esc="'%.2f'%(total_saleqty)"/>
+                                        </td>
+                                        <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                            <span t-esc="'%.2f'%(total_sale)"/>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </table>
+                                <br/>
+                            </t>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

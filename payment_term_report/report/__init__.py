@@ -1,0 +1,3 @@
+import payment_term_pdf
+import payment_term_xls
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--addons-path=addons,customaddons -u texbyte_gst -d afsc -->
+        <record id="invoice_gstr1_wizard_form" model="ir.ui.view">
+            <field name="name">GSTR1 CDNR Report</field>
+            <field name="model">invoice.report.gstr1.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="state"/>
+                    <div states="choose">
+                        <group >
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <!-- <field name="inv_type" required="1"/> -->
+                        </group>
+                    </div>
+                    <div states="get">
+                        <group>
+                            <field name="name" colspan="4" invisible="1"/>
+                            <field name="report" filename="name" colspan="4"/>
+                        </group>
+                    </div>
+                    <footer states="choose">
+                        <button name="generate_gstr1_report" string="Generate GSTR1" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                    </footer>
+                    <footer states="get">
+                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_gstr1_report" model="ir.actions.act_window">
+            <field name="name">GSTR1 CDNR</field>
+            <field name="res_model">invoice.report.gstr1.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_gstr1_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="account_report_gstr1" name="GSTR1 CDNR" parent="account.account_reports_business_intelligence_menu" action="action_gstr1_report" sequence="22" groups="account.group_account_manager"/>
+
+    </data>
+</odoo>

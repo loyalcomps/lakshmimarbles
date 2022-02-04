@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+
+    <record id="wk_account_report_tax_payable" model="ir.actions.act_window">
+        <field name="name">Tax Payable</field>
+        <field name="res_model">accounting.report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.accounting_report_view"/>
+        <field name="target">new</field>
+        <field name="context" eval="{'default_account_report_id':ref('gst_invoice.wk_total_tax_payable_report')}"/>
+    </record>
+
+    <menuitem id="menu_wk_account_report_tax_payable" name="Tax Payable" action="wk_account_report_tax_payable" parent="l10n_in.account_reports_in_statements_menu"/>
+
+</odoo>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="daily_report_pdf">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+
+          <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>Tax Report </strong>
+                            </p>
+
+                             <b style="font-size:16px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/>
+                            <br></br>
+
+                             <t t-set="name" t-value="stock_location"/>
+                     <t t-set="parent" t-value="stock_name"/>
+                    <t t-set="stock" t-value="parent+'/'+name"/>
+                            <br/>
+
+
+                    <p style="text-align:left;font-size:16px;">
+                                <strong style="text-align:left;">Location:-<span t-esc="stock"/></strong>
+                                </p><br/>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+                 <t t-set="nontotal" t-value="0"/>
+                <t t-set="sss" t-value="1"/>
+                <t t-set="sale1t" t-value="0"/>
+                <t t-set="sale5t" t-value="0"/>
+                 <t t-set="sale12t" t-value="0"/>
+                <t t-set="sale18t" t-value="0"/>
+                <t t-set="sale28t" t-value="0"/>
+
+                <t t-set="tax1t" t-value="0"/>
+                <t t-set="tax5t" t-value="0"/>
+                 <t t-set="tax12t" t-value="0"/>
+                <t t-set="tax18t" t-value="0"/>
+                <t t-set="tax28t" t-value="0"/>
+
+                <t t-set="saletotal" t-value="0"/>
+                <t t-set="tax_total" t-value="0"/>
+                 <t t-set="cesssaletotal" t-value="0"/>
+                <t t-set="cesstax_total" t-value="0"/>
+
+
+
+                <div class="row">
+                <div class="col-xs-12">
+
+
+
+                    <table cellpadding="10" style="padding: 10px;border: 1px solid black;border-collapse:collapse;width:100%;height:80px;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sl No</th>-->
+                                <th class="text-left" style="padding: 10px;height:1.5cm;width:3cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >
+                                     Date </th>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchased Qty</th>-->
+
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Purchase Amount</th>-->
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Non-Tax Sales</th>
+
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Sales 1%</th>
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Tax 1%</th>
+
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Sales 5%</th>
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Tax 5%</th>
+
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Sales 12%</th>
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Tax 12%</th>
+
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Sales 18%</th>
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Tax 18%</th>
+
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Sales 28%</th>
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Tax 28%</th>
+
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Cess Sale</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Cess Tax</th>
+
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Total Sales</th>
+                                <th class="text-left" style="width:1.5cm;border: 1px solid black;border-collapse:collapse;text-align:center;" >Total Tax</th>
+                                <!--&lt;!&ndash;<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Amount with No purchase</th>&ndash;&gt;-->
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+                        <t t-foreach="valueone" t-as="line_ids" >
+                            <tr >
+                            <!--<td style="font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:center;fo " >-->
+                                <!--<span t-esc="sss"/>-->
+                                <!--<t t-set="sss" t-value="sss+1"/>-->
+                                <!--&lt;!&ndash;<span t-esc="line_ids['sl_no']"/>&ndash;&gt;-->
+                            <!--</td>-->
+                             <td style="font-size:11px;padding: 15px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:center;" >
+                                <span t-esc="line_ids['date_invoice']"/>
+                            </td>
+
+                                <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['taxable0'] "/>
+                                 <t t-set="nontotal" t-value="nontotal + line_ids['taxable0']" />
+                            </td>
+
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['taxable1']"/>
+                                <t t-set="sale1t" t-value="sale1t + line_ids['taxable1']" />
+                            </td>
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['tax1'] "/>
+                                 <t t-set="tax1t" t-value="tax1t + line_ids['tax1']" />
+                            </td>
+
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                 <span t-esc="'%.2f'%line_ids['taxable5'] "/>
+                                <t t-set="sale5t" t-value="sale5t + line_ids['taxable5']" />
+                            </td>
+
+
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                 <span t-esc="'%.2f'%line_ids['tax5'] "/>
+                                 <t t-set="tax5t" t-value="tax5t + line_ids['tax5']" />
+                            </td>
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                               <span t-esc="'%.2f'%line_ids['taxable12'] "/>
+                                 <t t-set="sale12t" t-value="sale12t + line_ids['taxable12']" />
+                            </td>
+
+
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                 <span t-esc="'%.2f'%line_ids['tax12'] "/>
+                                 <t t-set="tax12t" t-value="tax12t + line_ids['tax12']" />
+                            </td>
+
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['taxable18'] "/>
+                                 <t t-set="sale18t" t-value="sale18t + line_ids['taxable18']" />
+                            </td>
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right">
+                                <span t-esc="line_ids['tax18'] "/>
+                                 <t t-set="tax18t" t-value="tax18t + line_ids['tax18']" />
+                            </td>
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['taxable28'] "/>
+                                 <t t-set="sale28t" t-value="sale28t+ line_ids['taxable28']" />
+                            </td>
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['tax28'] "/>
+                                 <t t-set="tax28t" t-value="tax28t + line_ids['tax28']" />
+                            </td>
+
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['cesstaxable'] "/>
+                                 <t t-set="cesssaletotal" t-value="cesssaletotal + line_ids['cesstaxable']" />
+                            </td>
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['cesstax'] "/>
+                                 <t t-set="cesstax_total" t-value="cesstax_total + line_ids['cesstax']" />
+                            </td>
+
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['total_taxable'] "/>
+                                 <t t-set="saletotal" t-value="saletotal + line_ids['total_taxable']" />
+                            </td>
+
+                                 <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="line_ids['total_tax'] "/>
+                                 <t t-set="tax_total" t-value="tax_total + line_ids['total_tax']" />
+                            </td>
+
+
+
+
+                            </tr>
+                        </t>
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="1" cellpadding="5" style="padding: 10px;text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td cellpadding="5" style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%nontotal" /></b>
+                            </td>
+                            <td  cellpadding="5" style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                  <b> <t t-esc="'%.2f'%sale1t" /></b>
+                            </td>
+
+                            <td cellpadding="5" style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%tax1t" /></b>
+                            </td>
+
+                             <td cellpadding="5" style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="'%.2f'%sale5t" /></b>
+                            </td>
+
+
+
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%tax5t" /></b>
+                            </td>
+
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%sale12t" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%tax12t" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%sale18t" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%tax18t" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%sale28t" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%tax28t" /></b>
+                            </td>
+
+                            <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%cesssaletotal" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%cesstax_total" /></b>
+                            </td>
+
+
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%saletotal" /></b>
+                            </td>
+                             <td style="padding-right:4px;font-size:11px;border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%tax_total" /></b>
+                            </td>
+
+
+
+
+
+
+                        </tr>
+                        <!--</t>-->
+
+
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+
+                </div>
+                </div>
+
+
+
+
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

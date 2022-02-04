@@ -1,0 +1,414 @@
+<odoo>
+    <data>
+
+
+        <!-- Barcode one Settings -->
+        <record model="ir.ui.view" id="barcode_details_view_inherits_tree">
+            <field name="name">Barcode Details Settings</field>
+            <field name="model">item.barcode</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="barcode_x1"/>
+                    <field name="barcode_x2"/>
+                    <field name="barcode_y"/>
+                    <field name="itemname_x1"/>
+                    <field name="itemname_x2"/>
+                    <field name="itemname_y"/>
+                </tree>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="barcode_details_view_inherits">
+            <field name="name">Barcode Details Settings</field>
+            <field name="model">item.barcode</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+
+                            <group>
+                                <field name="customer_name"/>
+                                <field name="customer_address"/>
+
+                            </group>
+
+                            <group>
+                                <field name="mrp_type"/>
+                                <field name="fssai"/>
+
+                            </group>
+
+                        </group>
+
+
+                        <group>
+
+                            <group>
+                                <field name="barcode_x1"/>
+                                <field name="barcode_x2"/>
+                                <field name="barcode_y"/>
+                            </group>
+
+                            <group>
+                                <field name="itemname_x1"/>
+                                <field name="itemname_x2"/>
+                                <field name="itemname_y"/>
+                            </group>
+
+                        </group>
+
+                        <group>
+
+                            <group>
+                                <field name="itemcode_x1"/>
+                                <field name="itemcode_x2"/>
+                                <field name="itemcode_y"/>
+                            </group>
+
+                            <group>
+                                <field name="mrp_x1"/>
+                                <field name="mrp_x2"/>
+                                <field name="mrp_y"/>
+                            </group>
+
+                        </group>
+
+                        <group>
+
+                            <group>
+                                <field name="sellprice_x1"/>
+                                <field name="sellprice_x2"/>
+                                <field name="sellprice_y"/>
+                            </group>
+
+                            <group>
+
+                                <field name="customer_x1"/>
+                                <field name="customer_x2"/>
+                                <field name="customer_y"/>
+                            </group>
+
+                        </group>
+
+                         <group>
+
+                            <group>
+                                <field name="expiryx1"/>
+                                <field name="expiryx2"/>
+                                <field name="expiryy"/>
+                            </group>
+
+                            <group>
+
+
+                            </group>
+
+                        </group>
+
+
+                        <group>
+
+                            <group>
+                                <field name="dateexpx1"/>
+                                <field name="dateexpx2"/>
+                                <field name="dateexpy"/>
+                            </group>
+
+
+                            <group>
+                                <field name="datex1"/>
+                                <field name="datex2"/>
+                                <field name="datey"/>
+
+
+                            </group>
+
+                        </group>
+
+
+                        <group>
+
+                            <group>
+                                <field name="fssai_x1"/>
+                                <field name="fssai_y"/>
+                                <field name="fssai_x2"/>
+                            </group>
+
+                            <group>
+                                <field name="customer_address_x1"/>
+                                <field name="customer_address_y"/>
+                                <field name="customer_address_x2"/>
+
+                            </group>
+
+
+
+                        </group>
+
+
+                        <group>
+                            <group>
+                                <field name="barcount"/>
+                                <field name="mrpstatus"/>
+                                <field name="datestatus"/>
+                            </group>
+
+                            <group>
+
+                                <field name="fnt8"/>
+                                <field name="fnt9"/>
+                                <field name="fnt10"/>
+                                <field name="fnt12"/>
+                                <field name="mrp_fnt"/>
+                                <field name="item_fnt"/>
+                                <field name="bcode_height"/>
+                                <field name="bcode_width"/>
+
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="settings_barcode_details_view_inherit">
+            <field name="name">Barcode Details settings</field>
+            <field name="res_model">item.barcode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Barcode Size Settings
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="ams_barcode_details_view" name="Barcode Details" action="settings_barcode_details_view_inherit"
+                  parent="base.menu_custom"/>
+
+
+        <!-- Barcode Two Settings -->
+
+
+        <record model="ir.ui.view" id="barcode_detailstwo_view_inherits_tree">
+            <field name="name">Barcode Details Settings Two</field>
+            <field name="model">item.barcodetwo</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="barcode_x1"/>
+                    <field name="barcode_x2"/>
+                    <field name="barcode_y"/>
+
+                    <field name="itemname_x1"/>
+                    <field name="itemname_x2"/>
+                    <field name="itemname_y"/>
+
+                </tree>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="barcode_detailstwo_view_inherits">
+            <field name="name">Barcode Details Settings Two</field>
+            <field name="model">item.barcodetwo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group>
+
+                            <group>
+                                <field name="customer_name"/>
+                                <field name="customer_address"/>
+
+                            </group>
+
+                            <group>
+                                <field name="mrp_type"/>
+                                <field name="fssai"/>
+
+                            </group>
+
+                        </group>
+                        <group>
+
+                            <group>
+                                <field name="barcode_x1"/>
+                                <field name="barcode_x2"/>
+                                <field name="barcode_x3"/>
+                                <field name="barcode_y"/>
+                            </group>
+
+                            <group>
+                                <field name="itemname_x1"/>
+                                <field name="itemname_x2"/>
+                                <field name="itemname_x3"/>
+                                <field name="itemname_y"/>
+                            </group>
+
+                        </group>
+
+                        <group>
+
+                            <group>
+                                <field name="itemcode_x1"/>
+                                <field name="itemcode_x2"/>
+                                <field name="itemcode_x3"/>
+                                <field name="itemcode_y"/>
+                            </group>
+
+                            <group>
+                                <field name="mrp_x1"/>
+                                <field name="mrp_x2"/>
+                                <field name="mrp_x3"/>
+                                <field name="mrp_y"/>
+                            </group>
+
+                        </group>
+
+                        <group>
+
+                            <group>
+                                <field name="sellprice_x1"/>
+                                <field name="sellprice_x2"/>
+                                <field name="sellprice_x3"/>
+                                <field name="sellprice_y"/>
+                            </group>
+
+                            <group>
+
+                                <field name="customer_x1"/>
+                                <field name="customer_x2"/>
+                                <field name="customer_x3"/>
+                                <field name="customer_y"/>
+                            </group>
+
+                        </group>
+
+
+
+                        <group>
+
+                            <group>
+
+                                <field name="expiryx1" />
+                                <field name="expiryx2" />
+                                <field name="expiryx3" />
+                                <field name="expiryy" />
+
+                            </group>
+
+                            <group>
+
+
+                            </group>
+
+                        </group>
+
+
+
+
+
+                        <group>
+
+                            <group>
+                                <field name="dateexpx1"/>
+                                <field name="dateexpx2"/>
+                                <field name="dateexpx3"/>
+                                <field name="dateexpy"/>
+                            </group>
+
+
+                            <group>
+                                <field name="datex1"/>
+                                <field name="datex2"/>
+                                <field name="datex3"/>
+                                <field name="datey"/>
+
+
+                            </group>
+
+                        </group>
+
+
+                        <group>
+
+                            <group>
+                                <field name="fssai_x1"/>
+                                <field name="fssai_y"/>
+                                <field name="fssai_x2"/>
+                                <field name="fssai_x3"/>
+                            </group>
+
+                            <group>
+                                <field name="customer_address_x1"/>
+                                <field name="customer_address_y"/>
+                                <field name="customer_address_x2"/>
+                                <field name="customer_address_x3"/>
+
+                            </group>
+
+
+
+                        </group>
+
+                        <group>
+
+                            <group>
+                                <field name="barcount"/>
+                                <field name="mrpstatus"/>
+                                <field name="datestatus"/>
+                            </group>
+
+
+                            <group>
+
+
+                                <field name="fnt8"/>
+                                <field name="fnt9"/>
+                                <field name="fnt10"/>
+                                <field name="fnt12"/>
+                                <field name="mrp_fnt"/>
+                                <field name="item_fnt"/>
+                                <field name="bcode_height"/>
+                                <field name="bcode_width"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="settings_barcode_detailstwo_view_inherit">
+            <field name="name">Barcode Details Settings Two</field>
+            <field name="res_model">item.barcodetwo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Barcode Size Settings
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="ams_barcode_detailstwo_view" name="Barcode Details Two"
+                  action="settings_barcode_detailstwo_view_inherit"
+                  parent="base.menu_custom"/>
+
+
+    </data>
+</odoo>

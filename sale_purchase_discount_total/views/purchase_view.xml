@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="discount_total_purchase_view_form" model="ir.ui.view">
+            <field name="name">discount.total.purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//sheet/notebook/page/field[@name='order_line']" position="after">
+                    <group colspan="4">
+                        <group colspan="2" name="Discount">
+                            <field name="discount_type"/>
+                            <field name="discount_rate"/>
+                            <field name="discount_amt" invisible="1"/>
+                        </group>
+                        <group colspan="2">
+
+                        </group>
+                    </group>
+                </xpath>
+
+
+
+            </field>
+        </record>
+
+        <record id="amount_discount_purchase_view_form" model="ir.ui.view">
+            <field name="name">amount_discount.purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_expense_journal.purchase_expense_inherit_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                    <field name="amount_discount" widget='monetary'
+                           options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

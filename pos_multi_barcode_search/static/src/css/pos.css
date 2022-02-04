@@ -1,0 +1,61 @@
+
+.tag-selector {
+    width: 98%;
+    overflow-y: hidden;
+}
+
+.wk_tags {
+    margin-left: 5px;
+    /*margin-left: 52px;*/
+    height: 40px;
+    text-align: center;
+    display: flex;
+    -webkit-flex: 1;
+   /*overflow-x: scroll;*/
+    overflow-y: hidden;
+
+}
+.wk_tags .wk_tag {
+    border-right: 1px solid #c6c5c5;
+    position: relative;
+
+    /*left: 360px;*/
+    cursor: pointer;
+    font-size: 13px;
+    font-family: "Lato","Lucida Grande", Helvetica, Verdana, Arial;
+    display: inline-block;
+    padding: 10px 20px;
+
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.wk_tags .wk_tag:hover {
+    background: #efefef;
+}
+
+/*.wk_tags .wk_tag {
+    border-right: 1px solid #c6c5c5;
+    margin-left: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+    padding: 12px 10px 5px 12px;
+    white-space: nowrap;
+}*/
+.wk_tags .searchbox-multi-barcode {
+    width: 100px;
+    border: 1px solid #cecbcb;
+    padding: 10px 20px;
+    padding-left: 38px;
+    /*left: 350px;*/
+
+    position: relative;
+
+   background: url("../img/search.png") no-repeat 15px;
+        background-color: rgba(0, 0, 0, 0);
+    background-color: white;
+    border-radius: 20px;
+    font-family: "Lato","Lucida Grande", Helvetica, Verdana, Arial;
+    font-size: 13px;
+}

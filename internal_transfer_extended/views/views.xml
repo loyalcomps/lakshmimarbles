@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="multibarcode_view_move_picking_tree" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='product_id']"
+                       position="before">
+                    <field name="sl_no"/>
+                    <field name="barcode_scan"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="after">
+                    <field name="multi_barcode" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+
+                </xpath>
+                <xpath expr="//tree/field[@name='product_uom_qty']" position="after">
+                    <field name="free_qty" />
+                    <field name="discount_percentage" string="Disc %"/>
+                    <field name="discount_amount" string="Disc Amt"/>
+                    <field name="taxes_id"/>
+                    <field name="landing_cost" />
+                    <field name="product_mrp" />
+                    <field name="sale_price" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="internal_transfer_extended_view_picking_form">
+            <field name="name">Stock Picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref ="stock.view_picking_form"></field>
+            <field name="arch" type="xml">
+                <field name="location_id" position="after">
+                    <field name="inclusive_value"/>
+                </field>
+
+                <xpath expr="//sheet/notebook/page/field[@name='pack_operation_product_ids']/tree/field[@name='qty_done']" position="after">
+                    <field name="price_unit"/>
+                    <field name="multi_barcode"/>
+
+                    <field name="discount_percentage" string="Disc %"/>
+                    <field name="discount_amount" string="Disc Amt"/>
+
+
+                    <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" />
+
+                    <field name="currency_id"/>
+                    <field name="price_subtotal" widget="monetary"/>
+                    <field name="price_total" widget="monetary"/>
+                    <field name="price_tax"/>
+                    <field name="free_qty"/>
+                    <field name="foc_amount"/>
+                    <field name="landing_cost" readonly="1"/>
+                    <field name="product_mrp" readonly="1"/>
+                    <field name="sale_price" readonly="1"/>
+
+
+                </xpath>
+                <xpath expr="//sheet/notebook/page/field[@name='pack_operation_product_ids']" position="after">
+
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="currency_id" invisible="1"/>
+                        <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_discount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="net_amount" invisible="1"/>
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="amount_total"/>
+                        </div>
+                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page/field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="barcode" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model='ir.ui.view' id='confirm_window_tree_view' >
+            <field name="name">Confirm Window Tree</field>
+            <field name="model">confirm.window</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Reference"/>
+                    <field name="date" />
+                    <field name="user_id" />
+                    <field name="state" />
+
+                </tree>
+            </field>
+        </record>
+    
+        <record model='ir.ui.view' id='confirm_window_form_view'>
+            <field name="name">Confirm Window FormProducts</field>
+            <field name="model">confirm.window</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    <header>
+                        <button name="button_confirm" type="object" string="Confirm" states="draft"/>
+
+                        <button name="button_cancel" type="object" string="Cancel" states="draft"/>
+                        <button name="button_update" type="object" string="Update to POS" states="confirm"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,update,cancel" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type"  attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))]}"/>
+                                <field name="purchase_id" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))],'invisible': [('type', '!=', 'po')]}" class="oe_edit_only"
+                                    options="{'no_create': True}"/>
+                                <field name="filter_date" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))],'invisible': [('type', 'not in', ('landed_cost','sale_price'))]}"/>
+                                <field name="category_id" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))],'invisible': [('type', '!=', 'category')]}" options="{'no_create': True}"/>
+                                <field name="margin_discount" readonly="1" attrs="{'invisible': ['|',('type', '!=', 'category'),('mrp_check', '=', False)]}"/>
+                                <field name="margin_discount_per" readonly="1" attrs="{'invisible': ['|',('type', '!=', 'category'),('mrp_check', '=', False)]}"/>
+                                <field name="profit" attrs="{'invisible': ['|',('type', '!=', 'category'),('mrp_check', '=', True)]}"/>
+                                <field name="profit_percentage" attrs="{'invisible': ['|',('type', '!=', 'category'),('mrp_check', '=', True)]}"/>
+                                <field name="article" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))],'invisible': [('type', '!=', 'product')]}"/>
+                                <field name="barcode" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))],'invisible': [('type', '!=', 'product')]}"/>
+                            </group>
+                            <group>
+                                <field name="mrp_check" />
+                                <field name="date" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))]}"/>
+                                <field name="user_id" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))]}" options="{'no_create': True}"/>
+                                <field name="company_id" attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))]}" options="{'no_create': True}"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="confirm_line_ids"  attrs="{'readonly': [('state', 'in', ('cancel','confirm','update'))]}">
+                                    <tree string="Product List" editable="bottom" colors="red:barcode== True and margin_per &gt; 0;
+                                            green:margin_per &lt; 0 and barcode!= True;blue:margin_per &lt; 0 and barcode== True;">
+                                        <field name="date" invisible="1"/>
+                                        <field name="sl_no"/>
+                                        <field name="barcode" invisible="1"/>
+
+                                        <field name="article" widget="char"/>
+                                        <field name="mrp_check"  invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="purchase_line_id" invisible="1"/>
+                                        <field name="purchase_id" invisible="1"/>
+                                        <!--<field name="confirm" invisible="1"/>-->
+                                        <field name="product_id" options="{'no_create': True}" required="1"/>
+                                        <field name="product_tmpl_id" invisible="1" />
+                                        <field name="multi_barcode" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create': True}"/>
+                                        <field name="landing_cost"/>
+                                        <field name="mrp" />
+                                        <field name="current_price" />
+                                        <field name="choose_opt"/>
+
+
+                                        <field name="margin" />
+                                        <field name="margin_per" />
+                                        <field name="margin_discount" bg_color="yellow:choose_opt=='margin_amt';" attrs="{'invisible': [('mrp_check', '=', False)]}"/>
+                                        <field name="margin_discount_per" bg_color="yellow:choose_opt=='margin_per';" attrs="{'invisible': [('mrp_check', '=', False)]}"/>
+                                        <field name="profit" attrs="{'invisible': [('mrp_check', '=', True)]}" bg_color="yellow:choose_opt=='profit_amt';"/>
+                                        <field name="profit_percentage" attrs="{'invisible': [('mrp_check', '=', True)]}" bg_color="yellow:choose_opt=='profit_per';"/>
+                                        <field name="new_price" bg_color="yellow:choose_opt=='sale_price';"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        
+        <record model='ir.actions.act_window' id='confirm_action_window'>
+            <field name="name">Confirm Products</field>
+            <field name="res_model">confirm.window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="view_id" ref="confirm_window_form_view"/>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to to raise price to maintain profitability.
+                </p>
+            </field>
+
+        </record>
+
+
+
+        <menuitem name="Confirm Products" parent="retail_price_product_menu" id="confirm_window_menu" action="confirm_action_window" sequence="1" groups="retail_price_update.group_user"/>
+    </data>
+</openerp>

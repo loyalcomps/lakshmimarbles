@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>
+        <record model="ir.rule" id="pos_user_rules">
+        <field name="name">POS assigned to user</field>
+        <field name="model_id" ref="point_of_sale.model_pos_config"></field>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('id','=',user.pos_configuser.id)]</field>
+        <field eval="1" name="perm_read"></field>
+        <field eval="1" name="perm_write"></field>
+        <field eval="1" name="perm_unlink"></field>
+        <field eval="1" name="perm_create"></field>
+     </record>
+
+
+
+    </data>
+</openerp>

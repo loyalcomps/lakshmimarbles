@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SyncProduct">
+        <span class="control-button sync_product">
+            Sync Products
+        </span>
+    </t>
+
+    <t t-extend="ProductListWidget">
+        <t t-jquery="div.product-list" t-operation="after">
+            <t t-if="widget.pos.product_list.length == 0 ">
+                <div id="loading" align="center" style="font-size:20px;vertical-align:middle;">
+                    <img src="/pos_prod_load_background/static/src/img/loader.gif/" />
+                <br/>Loading...</div>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="ProductCategoriesWidget">
+        <t t-jquery="div.searchbox" t-operation="before">
+            <div class="product_progress_bar" style="display:none;">
+                <div id="progress" class="graph">
+                    <div id="bar" style="width:0%">
+                        <p id="progress_status">
+                            0% complete
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" >
+    <t t-extend="ClientListScreenWidget">
+        <t t-jquery=".searchbox input" t-operation="replace">
+
+                <input placeholder='Search Customers' id='searchbox'/>
+
+
+        </t>
+    </t>
+
+
+
+
+
+
+
+</templates>

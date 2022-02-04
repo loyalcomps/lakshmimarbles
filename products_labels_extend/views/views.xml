@@ -1,0 +1,73 @@
+<odoo>
+  <data>
+
+
+
+    <template id="products_label_inherit_demo" inherit_id="product.report_simple_label">
+      <xpath expr="//table[@class='table']" position="replace">
+        <table style="border-spacing:0;margin-bottom:0;height:122px;" class="table ">
+          <thead>
+            <tr style="width: 3in;">
+              <td style="width: 2.63in;border-top: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;border-bottom: 0!important;" class="col-xs-8 danger">
+                <t t-if="product.default_code">
+                  [<strong t-field="product.default_code"/>]
+                </t>
+                <strong t-field="product.name"/>
+              </td>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr style="width: 1in;">
+              <!--<td style="width: 2.63in;border-left: 2px solid black;border-right: 2px solid black;border-bottom:0!important;"  class="col-xs-8 ">-->
+              <td style="width: 2.63in;border-left: 2px solid black;border-right: 2px solid black;border-top: 0px solid #e3dbdb;"  class="col-xs-8 ">
+                <strong>MRP </strong>
+                <strong t-field="product.company_id.currency_id.symbol"/>
+                <strong t-field="product.product_mrp"/>
+              </td>
+            </tr>
+            <tr style="width: 1in;">
+              <td style="width: 2.63in;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;border-top: 0px solid #e3dbdb" class="col-xs-8 ">
+                <strong>Sell Price </strong>
+                <strong t-field="product.company_id.currency_id.symbol"/>
+                <strong t-field="product.list_price"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </xpath>
+
+      <!--<xpath expr="//table[@class='table']//thead//tr" position="replace">-->
+        <!--<tr style="width: 3in;">-->
+          <!--<td style="width: 2.63in;border-top: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;" colspan="2" class="col-xs-8 danger">-->
+            <!--<t t-if="product.default_code">-->
+              <!--[<strong t-field="product.default_code"/>]-->
+            <!--</t>-->
+            <!--<strong t-field="product.name"/>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--</xpath>-->
+
+      <!--<xpath expr="//table[@class='table']//tbody//tr" position="replace">-->
+        <!--<tr style="width: 1in;">-->
+          <!--<td style="width: 2.63in;border-left: 2px solid black;border-right: 2px solid black;"  class="col-xs-8 ">-->
+            <!--<strong>MRP </strong>-->
+            <!--<strong t-field="product.company_id.currency_id.symbol"/>-->
+            <!--<strong t-field="product.product_mrp"/>-->
+          <!--</td>-->
+
+
+        <!--</tr>-->
+        <!--<tr style="width: 1in;">-->
+          <!--<td style="width: 2.63in;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;" class="col-xs-8 ">-->
+            <!--<strong>Sell Price </strong>-->
+            <!--<strong t-field="product.company_id.currency_id.symbol"/>-->
+            <!--<strong t-field="product.list_price"/>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--</xpath>-->
+    </template>
+
+
+  </data>
+</odoo>

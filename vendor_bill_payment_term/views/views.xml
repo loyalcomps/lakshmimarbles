@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="vendor_bill_payment_term_form_view">
+            <field name="name">invoice_sale_price_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name='payment_term_id' position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </field>
+                <field name='payment_term_id' position="after">
+                    <field name="purchase_payment_term_id" invisible="1"/>
+                </field>
+
+            </field>
+        </record>
+    </data>
+</odoo>

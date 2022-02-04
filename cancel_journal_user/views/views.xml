@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+
+
+     <record id="cancel_account_journal_form_amount" model="ir.ui.view">
+            <field name="name">account.journal.amount</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account_cancel.view_account_journal_form_inherit"/>
+            <field name="arch" type="xml">
+
+
+                <field name='update_posted' position="attributes">
+                    <attribute name="groups">cancel_journal_user.group_journal_cancelling_user</attribute>
+                </field>
+
+
+            </field>
+      </record>
+
+
+
+
+  </data>
+</odoo>

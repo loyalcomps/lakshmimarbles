@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>        
+        <report 
+            id="action_stock_inventory_location"
+            model="wizard.valuation.stock.inventory"
+            string="Stock Inventory by Location"
+            menu="False"
+            report_type="qweb-pdf"
+            name="inventoryrep_stock_report_10.report_stock_inventory_location"
+            file="inventoryrep_stock_report_10.report_stock_inventory_location" 
+        />        
+    </data>
+</odoo>

@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='cog_report_wizard_form'>
+            <field name="name">cog.report.form</field>
+            <field name="model">cog.report</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+
+                    <group col="4" string="Dates">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+
+                    <group>
+                        <field name="gp_filter"/>
+                        <field name="company_id"/>
+
+                    </group>
+
+                    <footer>
+                        <button name="export_report" type="object" default_focus="1"
+                                string="COG Report" class="oe_highlight"
+                                 icon="gtk-print"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='cog_report_wizard_action_window'>
+            <field name="name">COG Report</field>
+            <field name="res_model">cog.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cog_report_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+                id="cog_report"
+                model="account.invoice"
+                string="Cost of Goods"
+                report_type="qweb-html"
+                name="cog_report.cog_report_pdf"
+                file="cog_report.cog_report_pdf"
+                attachment_use="False"
+        />
+        <menuitem name="COG Report" parent="account.menu_finance_reports" id="cog_report_menuitem"
+                  action="cog_report_wizard_action_window" sequence="5"/>
+
+    </data>
+</odoo>

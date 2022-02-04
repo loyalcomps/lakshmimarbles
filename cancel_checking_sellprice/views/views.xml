@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+     <record model="ir.ui.view" id="account_alphonsa_saleprice_mrp_form_view">
+            <field name="name">invoice_price_tree_value</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="alphonsa_sellprice_po.alphonsa_vendor_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+                  <field name="is_color" position="after">
+                     <field name="is_check" invisible="1"/>
+                </field>
+
+
+            </field>
+
+        </record>
+
+     <record model="ir.ui.view" id="purchase_sellprice_mrp_invoice_sale_view">
+            <field name="name">purchase_price_tree_value</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_order_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+                  <field name="sl_no" position="after">
+                     <field name="is_check" invisible="1"/>
+                </field>
+
+
+
+
+                   <!--<xpath expr="//sheet/notebook/page/field[@name='order_line']/tree/field[@name='currency_id']"-->
+                       <!--position="after">-->
+                       <!--<field name="is_check" invisible="1"/>-->
+
+                <!--</xpath>-->
+
+
+            </field>
+
+        </record>
+  </data>
+</odoo>

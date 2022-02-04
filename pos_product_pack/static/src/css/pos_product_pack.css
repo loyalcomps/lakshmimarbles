@@ -1,0 +1,23 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : <https://store.webkul.com/license.html/> */
+.product_pack {
+    background: green;
+    position: absolute;
+    top: 69px;
+    right: 33px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    opacity: 0.5;
+}
+
+.wk_product_name {
+    font-size: 13px !important;
+}
+
+.wk_product_list {
+    font-size: 13px !important;
+}

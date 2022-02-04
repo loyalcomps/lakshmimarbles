@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="account_ifsc_code.list">
+      <field name="name">account_ifsc_code list</field>
+      <field name="model">res.partner.bank</field>
+       <field name="inherit_id" ref="base.view_partner_bank_form"/>
+      <field name="arch" type="xml">
+        <field name="bank_id" position="after">
+          <field name="ifsc_code"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

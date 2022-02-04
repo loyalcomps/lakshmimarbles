@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Daily Invoice/Vendor filter  -->
+    <record id="texbyte_gst_invoice_custom_filter" model="ir.ui.view">
+        <field name="name">texbyte_gst.invoice.filter</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='late']" position="after">
+                <separator/>
+                <filter string="Today" name="filter_for_today" domain="[(u'date_invoice', u'=', datetime.datetime.now().strftime('%Y-%m-%d'))]"/>
+            </xpath>    
+        </field>
+    </record>
+</odoo>

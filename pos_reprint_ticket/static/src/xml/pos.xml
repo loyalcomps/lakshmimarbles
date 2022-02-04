@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="TicketReprintButton">
+        <div class='control-button ticket_reprint'>
+            <i class="fa fa-retweet"></i> Order Reprint
+        
+        </div>
+    </t>
+    <t t-name="ReprintTicketScreenWidget">
+        <div class='receipt-screen screen'>
+            <div class='screen-content'>
+                <div class='top-content'>
+                    <span class='button back wk_reprint_back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Back
+                    
+                    </span>
+                    <h1>REPRINT</h1>
+                    <span class='button next wk_reprint_home'>
+                        Home
+
+                        <i class='fa fa-angle-double-right'></i>
+                    </span>
+                </div>
+                <div class="centered-content">
+                    <div class="button print">
+                        <i class='fa fa-print'></i> Print 
+                    
+                    </div>
+                    <div class="pos-receipt-container"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="WkOrderLine">
+        <tr class='order-line' t-att-data-id='order.id'>
+            <td>
+                <t t-esc='order.name' />
+            </td>
+            <td>
+                <t t-esc='order.pos_reference' />
+            </td>
+            <td>
+                <t t-if="order.partner_id">
+                    <t t-esc="order.partner_id[1]" /></t>
+            </td>
+            <td>
+                <t t-esc='order.date_order'/>
+            </td>
+            <td class="print-button" t-att-data-id='order.id'>
+                <span >Print</span>
+            </td>
+        </tr>
+    </t>
+    <t t-name="OrdersScreenWidget">
+        <div class="clientlist-screen screen">
+            <div class="screen-content">
+
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Cancel
+                    
+                    </span>
+                    <span class='searchbox' style="margin-left:217px !important;">
+                        <input placeholder='Search Orders by ref' />
+                        <span class='search-clear'></span>
+                    </span>
+                    <div class="centered-content-new" style="position:absolute;margin-left:12%;margin-top:-62px;width:20%;">
+                        <div class="button print" style="display:none;">
+                            <i class='fa fa-print'></i> Print Receipt
+                        
+                        </div>
+                    </div>
+                </section>
+
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow collapsed'>
+                            <div class='subwindow-container collapsed'>
+                                <div class='subwindow-container-fix order-details-contents'></div>
+                            </div>
+                        </section>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
+                                    <table class='client-list'>
+                                        <thead>
+                                            <tr>
+                                                <th>Order Ref.</th>
+                                                <th>Reciept Ref.</th>
+                                                <th>Partner</th>
+                                                <th>Date</th>
+                                                <th>Reciept</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class='wk-order-list-contents'></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="PosTicketOld">
+
+        <div class="pos-sale-ticket" style="margin-left:30% !important;">
+            <div class="pos-center-align">
+                <t t-esc="moment().format('L LT')"/>
+                <t t-esc="order.pos_reference"/>
+            </div>
+            <br />
+            <t t-esc="widget.pos.company.name"/>
+            <br />
+            Phone: 
+            <t t-esc="widget.pos.company.phone || ''"/>
+            <br />
+            User: 
+            <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/>
+            <br />
+            <br />
+            <table class='receipt-orderlines'>
+                                 <t t-set="qtys" t-value="0"/>
+
+                <colgroup>
+                    <col width='50%' />
+                    <col width='25%' />
+                    <col width='25%' />
+                </colgroup>
+                <t t-set="linediscount" t-value="0"/>
+                <tr t-foreach="orderlines" t-as="orderline">
+                    <td>
+                        <t t-esc="orderline.product_id"/>
+                        <t t-if="orderline.discount > 0">
+                            <div class="pos-disc-font">
+                                With
+                                <t t-esc="orderline.discount"/>discount
+                                <t t-set="linediscount" t-value="linediscount+orderline.discount"/>
+                            
+                            </div>
+                        </t>
+                    </td>
+                    <td class="pos-right-align">
+                        <t t-esc="orderline.qty"/>
+                    </td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(orderline.price_unit)"/>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class='receipt-total'>
+                <tr>
+                    <td>Subtotal:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.amount_total-order.amount_tax)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tax:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.amount_tax)" />
+                    </td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td>Discount:</td>-->
+                    <!--<td class="pos-right-align">-->
+                        <!--<t t-esc="widget.format_currency(discount_total)"/>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.amount_total)"/>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class='receipt-paymentlines'>
+                <t t-foreach="paymentlines" t-as="line">
+                    <tr>
+                        <td>
+                            <t t-esc="line.name"/>
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(line.amount)"/>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+            <br />
+            <table class='receipt-change'>
+                <tr>
+                    <td>Change:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(change)"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </t>
+
+
+    <t t-name="PosTicket3">
+
+        <!-- <div class="centered-content2"> -->
+             <div class="pos-sale-ticket">
+            <div class="pos-center-align"><t t-esc="moment().format('LLLL ')"/><br/>
+                <!--<t t-esc="order.name"/>-->
+            </div>
+             <div class="logo-style" align="center" style="height:134px;">
+               <t t-if='receipt.company.logo'>
+                <img t-att-src='receipt.company.logo' style="height:200px;width:182px;"  />
+
+            </t>
+            <br/>
+
+            <t t-if='!receipt.company.logo'>
+                <h1><t t-esc='receipt.company.name' /></h1>
+                <br/>
+            </t>
+            </div>
+
+            <br />
+<br/>
+            <t t-if="receipt.header">
+                <div style='text-align:center;font-family:Calibri !important;font-size:12px;' >
+                <b>
+                    <t t-esc="receipt.header" /></b>
+                </div>
+
+            </t>
+             <t t-if="receipt.footer">
+                <div style='font-size:12px;text-align:center;font-family:Calibri !important;'>
+                    <t t-esc="receipt.footer" />
+                </div>
+
+            </t>
+                 <div style='text-align:center;font-family:Calibri !important;' >
+                <b>
+
+                    POS ORDER
+
+
+                    </b>
+
+
+
+
+                </div>
+                 <t t-if="order.partner_name">
+                    Customer : <t t-esc="order.partner_name"/><br />
+
+                </t>
+
+                 <!--<t t-if="order.street" t-esc="order.street"/>-->
+
+                    <!--<t t-if="order.city" t-esc="order.city"/>-->
+
+                 <!--<t t-if="order.state_id" t-esc="order.state_id"/><br/>-->
+
+                 <!--<t t-if="order.is_gstin">-->
+
+                     <!--GSTIN: <t t-esc="order.x_gstin" /><br />-->
+                 <!--</t>-->
+                 <t t-if="order.phone">
+
+                     Phone : <t t-esc="order.phone"/><br />
+                 </t>
+
+
+              Cashier: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
+                 Bill No:<t t-esc="order.name"/><br/>
+
+               <div>----------------------------------------</div><br/>
+
+            <t t-set="a" value="0"/>
+
+            <table class='receipt-orderlines' >
+                <colgroup>
+                    <col width='5%' />
+
+                    <col width='25%' />
+                    <col width='15%' />
+                    <col width='15%' />
+                    <!--<col width='15%' />-->
+                    <col width='15%' />
+                    <col width='15%' />
+                </colgroup>
+
+
+               <tr style="margin-bottom:10px;font-weight: 700;font-size:12px;font-family:Calibri !important;border: 1px solid black;" >
+                   <th align="left" style="border: 1px solid black;"><b>Sl.</b></th>
+
+                   <td align="left"  style="border: 1px solid black;"><b>Particular</b></td>
+                   <td align="center"  style="border: 1px solid black;" ><b>MRP</b></td>
+                   <td align="center"  style="border: 1px solid black;"><b>FRP</b></td>
+                   <!--<td align="center" style="border: 1px solid black;"><b>TAX</b></td>-->
+                   <td align="center" style="border: 1px solid black;"><b>Qty</b></td>
+                   <td align="center"  style="border: 1px solid black;" ><b>Total</b></td></tr>
+
+                <t t-set="i" t-value="0"/>
+                <t t-set="j" t-value="0"/>
+                 <t t-set="qtys" t-value="0"/>
+                <t t-set="sl" t-value="0"/>
+
+                 <t t-set="discountvalue" t-value="0"/>
+                <t t-set="dis" t-value="0"/>
+                <t t-set="linediscount" t-value="0"/>
+                <t t-set="k" t-value="0"/>
+
+
+
+                <tr t-foreach="orderlines" t-as="orderline" style="font-size:12px">
+
+
+                     <t t-if="orderline.product_id == 'Discount'" >
+                         <!--<t t-esc="orderline.get_price_with_tax_round()"/>-->
+                         <t t-set="discountvalue" t-value="orderline.price_unit" />
+                       </t>
+
+                    <t t-if="orderline.product_id!='Discount'">
+
+
+
+                     <td class="pos-center-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                            <t t-set="sl" t-value="sl+1"/>
+                            <t t-esc="sl"/>
+                    </td>
+
+                    <td class="pos-left-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <t t-esc="orderline.product_id"/>
+
+                    </td>
+
+                    <td class="pos-center-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <!--<t t-esc="orderline.product_mrp"/>-->
+                        <t t-esc="widget.format_currency_no_symbol(orderline.product_mrp)"/>
+                        <t t-set="i" t-value="i + (orderline.product_mrp)" />
+                    </td>
+
+                    <td class="pos-center-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <!--<t t-esc="orderline.price_unit"/>-->
+                        <t t-esc="widget.format_currency_no_symbol(orderline.price_unit)"/>
+                    </td>
+                    <!--<td class="pos-center-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;" >-->
+                          <!--<t t-esc="orderline.tax_name"/>-->
+                      <!--</td>-->
+
+                    <td class="pos-center-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;">
+                        <!--<t t-esc="orderline.qty"/>-->
+                        <t t-esc="widget.format_currency_no_symbol(orderline.qty)"/>
+                        <!--<t t-set="qty" t-value="qty+orderline.qty"/>-->
+
+                        <t t-if="orderline.qty &gt; 0">
+                            <t t-set="qtys" t-value="qtys+orderline.qty"/>
+                            <t t-set="linediscount" t-value="linediscount + ((orderline.qty*orderline.price_unit*orderline.discount)/100)" />
+
+                            <!--<t t-set="linediscount" t-value="linediscount + orderline.discount"/>-->
+                        </t>
+
+
+                    </td>
+                    <td class="pos-center-align" style="font-size:10px;border: 1px solid black;font-weight: 700;font-family:Calibri !important;" >
+                        <!--<t t-esc="orderline.price_subtotal_incl"/>-->
+                        <t t-esc="widget.format_currency_no_symbol(orderline.price_subtotal_incl)"/>
+                        <t t-set="j" t-value="j + orderline.price_subtotal_incl" />
+                    </td>
+                    </t>
+                </tr>
+
+
+            </table>
+
+
+            <br />
+
+
+             <table class='receipt-total' style="font-family:Calibri !important;font-size: 10px;">
+                    <tr>
+                        <th class="pos-center-align">
+                            GST%
+                        </th>
+                        <th class="pos-center-align">
+                            Net Amt
+                        </th>
+                        <th class="pos-center-align">
+                            GST Amt
+                        </th>
+                        <!--<th class="pos-center-align">-->
+                            <!--CGST<br/>-->
+                            <!--Amt-->
+                        <!--</th>-->
+                        <!--<th class="pos-center-align">-->
+                            <!--SGST<br/>-->
+                            <!--Amt-->
+                        <!--</th>-->
+                    </tr>
+                <t t-foreach="taxlines" t-as="details">
+
+                    <tr>
+
+                       <!--<td class="pos-center-align"><b> <t t-esc="details" /></b></td>-->
+                       <td class="pos-center-align"><b><t t-esc="details.name" /></b></td>
+                       <td class="pos-center-align"><b><t t-esc="details.taxable" /></b></td>
+
+
+                        <td class="pos-center-align">
+                             <b><t t-esc="details.amount" /></b>
+                        </td>
+
+                        <!--<td class="pos-center-align">-->
+                            <!--<b><t t-esc="(details.amount)/2" /></b>-->
+                        <!--</td>-->
+
+                        <!--<td class="pos-center-align">-->
+                            <!--<b><t t-esc="(details.amount)/2" /> </b>-->
+                        <!--</td>-->
+
+                    </tr>
+                </t>
+            </table>
+
+
+
+            <table class='receipt-total' style="font-weight: 700;font-family:Calibri !important;">
+
+
+                  <tr>
+                        <td>Total Amount::</td>
+                        <td class="pos-center-align">
+                            <t t-set="subb" t-value="widget.format_currency((subtotal)-discountvalue)"/>
+                             <t t-esc="subb"/>
+                            <!--<t t-esc="widget.format_currency_no_symbol(subtotal)"/>-->
+                            <!--<t t-esc="widget.format_currency_no_symbol(discount_total)"/>-->
+
+                        </td>
+                </tr>
+
+
+                <!--<tr>-->
+                    <!--<td>Discount:</td>-->
+                    <!--<td class="pos-center-align">-->
+
+                        <!--<t t-set="dis" t-value="widget.format_currency_no_symbol(order.get_total_discount())" />-->
+                        <!--<t t-esc="1*(dis-discount)"/>-->
+
+                        <!--&lt;!&ndash;<t t-esc="widget.format_currency_no_symbol(order.get_total_discount())"/>&ndash;&gt;-->
+                    <!--</td>-->
+                <!--</tr>-->
+
+
+                 <tr>
+                        <td>Discount:</td>
+                        <td class="pos-center-align">
+                            <t t-set="dis" t-value="widget.format_currency(order.discount)"/>
+                             <t t-esc="widget.format_currency((-1*(discountvalue))+linediscount)"/>
+                            <!--<t t-esc="widget.format_currency(-1*(discountvalue))"/>-->
+                            <!--<t t-esc="-1*(discount)"/>-->
+                            <!--<t t-esc="(((discount))+linediscount)"/>-->
+                        </td>
+                </tr>
+
+            <t t-set="round" t-value="0"/>
+
+                <t t-foreach="paymentlines" t-as="line">
+                    <t t-if="line.name == 'Round Off'">
+                    <tr style="font-size:10px;font-family:Calibri !important;">
+                        <td style="font-size:10px;font-family:Calibri !important;">
+                            <t t-esc="line.name"/>
+                        </td>
+                        <td class="pos-center-align" style="font-size:10px;font-family:Calibri !important;">
+                            <t t-esc="widget.format_currency((line.amount))"/>
+                             <t t-set="round" t-value="round+line.amount"/>
+                        </td>
+                    </tr>
+                </t>
+                       <t t-if="line.name != 'Round Off'">
+                    <tr style="font-size:10px;font-family:Calibri !important;">
+                        <td style="font-size:10px;font-family:Calibri !important;">
+                            <t t-esc="line.name"/>
+                        </td>
+                        <td class="pos-center-align" style="font-size:10px;font-family:Calibri !important;">
+                            <t t-esc="widget.format_currency((line.amount))"/>
+                        </td>
+                    </tr>
+                </t>
+                </t>
+
+
+
+                <!--<tr>-->
+                    <!--<td>Discount:</td>-->
+                    <!--<td class="pos-center-align">-->
+
+                        <!--&lt;!&ndash;orderline.get_discount()&ndash;&gt;-->
+
+                        <!--<t t-set="dis" t-value="orderline.product_id.discount" />-->
+                        <!--<t t-esc="1*(dis-discount)"/>-->
+
+                        <!--&lt;!&ndash;<t t-esc="dis"/>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<t t-esc="(dis)"/>&ndash;&gt;-->
+
+
+
+                        <!--&lt;!&ndash;<t t-esc="order.discount"/>&ndash;&gt;-->
+
+                    <!--</td>-->
+                <!--</tr>-->
+
+                <div>---------------------------------------</div>
+
+
+
+
+
+
+
+
+
+
+
+
+            </table>
+
+                 <table style="font-weight: 700;font-family:Calibri !important;" >
+
+                   <tr class="emph">
+                    <td >Grand Total:</td>
+                    <td class="pos-center-align">
+                        <t t-set="totalamount1" t-value="widget.format_currency((order.tot_amount)-((round)))"/>
+                        <t t-esc="totalamount1" />
+                        <!--<t t-esc="widget.format_currency(widget.format_currency_no_symbol(subtotal)-round-discountvalue)"/>-->
+
+                        <!--<t t-esc="order.tot_amount"/>-->
+                    </td>
+                </tr>
+                 </table>
+
+                  <table class='receipt-change' style="font-weight: 700;font-family:Calibri !important;">
+                <tr>
+                    <td>Change:</td>
+                    <td class="pos-center-align">
+                        <t t-esc="widget.format_currency((-1)*(change))"/>
+                    </td>
+                </tr>
+            </table>
+
+
+
+                  <table style="font-weight: 700;font-family:Calibri !important;">
+
+                <td style="font-size:12px;font-family:Calibri !important;">Total Quantity:<t t-esc="widget.format_currency_no_symbol(qtys)"/></td>
+                <br/>
+                        </table>
+
+            <!--<table class='receipt-paymentlines' style="font-weight: 700;font-family:Calibri !important;">-->
+                <!--<t t-foreach="paymentlines" t-as="line">-->
+                  <!--<tr>-->
+                      <!--<td>-->
+
+                          <!--Tender Cash:-->
+                      <!--</td>-->
+                      <!--<td class="pos-center-align">-->
+                          <!--<t t-esc="widget.format_currency_no_symbol(line.get_amount())"/>-->
+                      <!--</td>-->
+                  <!--</tr>-->
+                <!--</t>-->
+            <!--</table>-->
+
+            <!--<table class='receipt-change' style="font-weight: 700;font-family:Calibri !important;">-->
+                <!--<tr><td>Balance:</td><td class="pos-center-align">-->
+                    <!--<t t-esc="widget.format_currency_no_symbol(order.get_change())"/>-->
+                    <!--</td></tr>-->
+            <!--</table>-->
+
+
+            <div>----------------------------------------</div>
+
+
+            <table>
+                <tr>
+                <td align="center" style="font-size:14px;font-family:Calibri !important;">
+                <t t-set="customer_profit" t-value="0"/>
+                    <t t-set="total_mrp" t-value="0"/>
+                                    <t t-foreach="orderlines" t-as="orderline" >
+                                        <t t-set="customer_profit" t-value="(customer_profit+( (orderline.product_mrp)*(orderline.qty ))) "/>
+
+                                    </t>
+                        <t t-set="sum" t-value="customer_profit*customer_Qty"/>
+                        <t t-set="tot" t-value="(order.tot_amount)-((round))"/>
+                        <t t-set="profit" t-value="customer_profit-tot"/>
+                        <t t-if="profit &gt; 0"  >
+
+                             <b> MRP Total:<t t-set="customer_profit" t-value="0"/>
+                                    <t t-foreach="orderlines" t-as="orderline" >
+                                        <t t-set="customer_profit" t-value="customer_profit+((orderline.product_mrp)*(orderline.qty )) "/>
+                                    </t>
+                                    <t t-esc="widget.format_currency_no_symbol(customer_profit)"/></b>
+                           <br/>
+                                       <b> You have saved :</b>
+                                      <b> <t t-esc="widget.format_currency_no_symbol(profit)" /></b>
+                        </t><br/>
+
+                    <t t-if="order.loyalty_points">
+                                <t t-if="order.loyalty_points > 0">
+                                    <b> Loyalty Points Gained :
+                                    <t t-esc="order.loyalty_points" />
+                                    </b>
+                                    <br />
+                                </t>
+                            </t>
+                </td>
+                </tr>
+            </table>
+
+
+
+
+
+
+
+                        <div>----------------------------------------</div>
+                <div align="center"><p style='font-size:15px;font-family:Calibri !important;'><b>Thank You for shopping with us</b>
+                <br/><span style='font-size:12px;font-family:Calibri !important;'>Please Check Your Bill Before Leaving The Shop</span>
+                   <br/><span align="center" style='font-size:12px;font-family:Calibri !important;'>For More Offers</span>
+
+
+                <br/>
+
+
+                    <img align="center" style="max-height: 35px;" src="/pos_reprint_ticket/static/src/img/sav34.png"/>
+
+
+                    <span style='font-size:13px;font-family:Calibri !important;'> Send "Hi" to 7356672799</span>
+                </p></div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- </div> -->
+    </t>
+</templates>

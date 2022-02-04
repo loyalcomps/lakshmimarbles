@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_products_labels_extend_products_labels_extend,products_labels_extend.products_labels_extend,model_products_labels_extend_products_labels_extend,,1,0,0,0

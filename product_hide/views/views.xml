@@ -1,0 +1,136 @@
+<odoo>
+  <data>
+
+ <!--<xpath expr="//field[@name='product_qty' ] -->
+
+      <record model="ir.ui.view" id="sale_product_hide">
+        <field name="name">sale product view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"></field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+   <record model="ir.ui.view" id="purchase_product_hide">
+        <field name="name">product view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"></field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id="account_product_hide">
+            <field name="name">hide</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                       position="attributes">
+
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+
+                </xpath>
+            </field>
+      </record>
+
+
+
+    <record model="ir.ui.view" id="invoice_account_product_hide">
+            <field name="name">invoice hide</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                       position="attributes">
+
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+
+                </xpath>
+            </field>
+      </record>
+
+     <record model="ir.ui.view" id="stock_product_hidetree">
+            <field name="name">hiding</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+
+
+                 <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                     <attribute name="options">{'no_create': true,'no_create_edit' : true,'no_quick_create': true}</attribute>
+                 </xpath>
+                        <!--<xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='package_id']" position="after">-->
+
+
+                <!--<field name='product_id' position="attributes">-->
+
+                <!--<xpath expr="//sheet/notebook/page/field[@name='move_lines']/kanban[@class='o_kanban_mobile']/field[@name='product_id']"-->
+                       <!--position="attributes">-->
+                     <!--<attribute name="options">{'no_create':True}</attribute>-->
+                     <!--<attribute name="attrs">{'invisible': [('picking_type_code', '=', 'internal')]}</attribute>-->
+
+                <!--</xpath>-->
+
+            </field>
+      </record>
+
+      <record model="ir.ui.view" id="stock_product_hideform">
+            <field name="name">hiding form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form"/>
+            <field name="arch" type="xml">
+
+
+                 <xpath expr="//form/group/group/field[@name='product_id']" position="attributes">
+                     <attribute name="options">{'no_create': true,'no_create_edit' : true,'no_quick_create': true}</attribute>
+                 </xpath>
+                        <!--<xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='package_id']" position="after">-->
+
+
+
+            </field>
+      </record>
+
+
+       <record model="ir.ui.view" id="stock_product_viewpicking">
+            <field name="name">hiding</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+        <xpath expr="//sheet/notebook/page/field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="attributes">
+          <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            <!--<attribute name="attrs">{'invisible': [('picking_type_code', '=', 'internal')]}</attribute>-->
+
+
+      </xpath>
+                <xpath expr="//field[@name='move_lines']/kanban[@class='o_kanban_mobile']/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+                    <!--<attribute name="attrs">{'invisible': [('picking_type_code', '=', 'internal')]}</attribute>-->
+
+
+                </xpath>
+
+
+                  <!--<xpath expr="//sheet/notebook/page/field[@name='move_lines']/kanban[@class='o_kanban_mobile']/field[@name='product_id']" position="attributes">-->
+          <!--<attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>-->
+          <!--<attribute name="attrs">{'invisible': [('picking_type_code', '=', 'internal')]}</attribute>-->
+
+      <!--</xpath>-->
+            </field>
+       </record>
+
+
+  </data>
+</odoo>

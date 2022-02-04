@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+
+        <record forcecreate="True" id="purchase_unit_price_digit" model="decimal.precision">
+            <field name="name">Purchase Unit Price</field>
+            <field name="digits">3</field>
+         </record>
+
+        <record forcecreate="True" id="purchase_discount_amount_digits" model="decimal.precision">
+            <field name="name">Purchase Discount amount</field>
+            <field name="digits">3</field>
+         </record>
+
+         <record forcecreate="True" id="purchase_discount_percentage_digits" model="decimal.precision">
+            <field name="name">Purchase Discount Percentage</field>
+            <field name="digits">6</field>
+         </record>
+
+          <record forcecreate="True" id="account_discount_percentage_digits" model="decimal.precision">
+            <field name="name">Account Discount Per</field>
+            <field name="digits">6</field>
+         </record>
+
+
+        <record forcecreate="True" id="purchase_price_subtotal_digit" model="decimal.precision">
+            <field name="name">price subtotal</field>
+            <field name="digits">3</field>
+         </record>
+
+        <record forcecreate="True" id="purchase_price_total_digits" model="decimal.precision">
+            <field name="name">price total</field>
+            <field name="digits">3</field>
+         </record>
+
+         <record forcecreate="True" id="purchase_price_tax_digits" model="decimal.precision">
+            <field name="name">price tax</field>
+            <field name="digits">3</field>
+         </record>
+
+
+
+        <record forcecreate="True" id="purchase_amount_untaxed_digit" model="decimal.precision">
+            <field name="name">amount untaxed</field>
+            <field name="digits">3</field>
+         </record>
+
+        <record forcecreate="True" id="purchase_amount_tax_digits" model="decimal.precision">
+            <field name="name">amount tax</field>
+            <field name="digits">3</field>
+         </record>
+
+         <record forcecreate="True" id="purchase_amount_total_digits" model="decimal.precision">
+            <field name="name">amount total</field>
+            <field name="digits">3</field>
+         </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="bankbook_report_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                            <p style="font-size:18px;">
+                                <strong>BANKBOOK</strong><br/>
+                            </p><br/>
+
+
+                            <b style="font-size:18px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/><br/>
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+                 <t t-set="debittotal" t-value="0"/>
+                <t t-set="credittotal" t-value="0"/>
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                        <!--<t t-if="not consol">-->
+
+                            <table style="width: 210mm;border:1px solid black;border-collapse:collapse;">
+                                <thead  style="border: 1px solid black;border-collapse:collapse;display: table-header-group;">
+
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Date</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Particulars</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Debit</th>
+                                        <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Credit</th>
+
+
+
+                                </thead>
+
+                                <tbody class="invoice_tbody">
+                                        <tr  style="page-break-inside: avoid;">
+                                            <td colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:center;">OPENING BALANCE</td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="get_opening"/>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+
+
+                                        <!--<tr t-foreach="get_lines_finalpos_data" t-as="line_ids1" style="page-break-inside: avoid;">-->
+                                            <!--<t t-if="line_ids1['type'] == 'cash'">-->
+
+                                            <!--<td colspan="2" style="border: 1px solid black;border-collapse:collapse;text-align:center;">POS CASH Sale</td>-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids1['amount']"/>-->
+                                                <!--<t t-set="debittotal" t-value="debittotal + line_ids1['amount']" />-->
+
+                                            <!--</td>-->
+                                                <!--<td></td>-->
+                                            <!--</t>-->
+                                        <!--</tr>-->
+
+                                     <tr t-foreach="get_lines_finalpos" t-as="line_ids15" style="page-break-inside: avoid;">
+
+                                         <td style="border: 1px solid black;border-collapse:collapse;text-align:center;"><span t-esc="line_ids15['date']"/></td>
+
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;"><span t-esc="line_ids15['sname']"/></td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids15['amount']- line_ids15['expense']"/>
+
+                                            </td>
+                                                <td></td>
+                                        </tr>
+
+
+
+
+
+
+                                         <!--<t t-if="get_lines">-->
+                                     <t t-foreach="get_lines" t-as="line_ids11" >
+                                        <tr colspan="2" style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids11['date']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids11['sname']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids11['amount']"/>
+                                                <t t-set="debittotal" t-value="debittotal + line_ids11['amount']" />
+
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids11['expense']"/>
+                                                <t t-set="credittotal" t-value="credittotal + line_ids11['expense']" />
+
+                                            </td>
+                                        </tr>
+                                     </t>
+                                    <!--</t>-->
+                            <!--<t t-if="get_lines_two">-->
+
+                                     <!--<t t-foreach="get_lines_two" t-as="line_ids21" >-->
+                                        <!--<tr colspan="2" style="page-break-inside: avoid;">-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids21['date']"/>-->
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids21['sname']"/>-->
+                                            <!--</td>-->
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids21['amount']"/>-->
+                                                <!--<t t-set="debittotal" t-value="debittotal + line_ids21['amount']" />-->
+
+                                            <!--</td>-->
+
+                                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center;">-->
+                                                <!--<span t-esc="line_ids21['expense']"/>-->
+                                                <!--<t t-set="credittotal" t-value="credittotal + line_ids21['expense']" />-->
+
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                     <!--</t>-->
+                                    <!--</t>-->
+                                    <!--<t t-if="get_lines_final">-->
+                                    <t t-foreach="get_lines_final" t-as="line_ids12" >
+                                        <tr colspan="2" style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids12['date']"/>
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids12['sname']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids12['amount']"/>
+
+                                                <t t-set="debittotal" t-value="debittotal + line_ids12['amount']" />
+
+                                            </td>
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                                <span t-esc="line_ids12['expense']"/>
+                                                 <t t-set="credittotal" t-value="credittotal +lline_ids12['expense']" />
+
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <!--</t>-->
+
+                                      <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>TOTAL</b></span>
+                            </td>
+                             <td  style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                  <b> <t t-esc="debittotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="credittotal" /></b>
+                            </td>
+
+
+                        </tr>
+
+                                         <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b> GRAND TOTAL</b></span>
+                            </td>
+                             <td  style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                  <b> <t t-esc="debittotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;">
+                                <b> <t t-esc="credittotal" /></b>
+                            </td>
+
+
+                        </tr>
+
+
+
+                                      <!--<tr >-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                             <!--<td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">-->
+                                <!--<span><b>GRAND TOTAL</b></span>-->
+                            <!--</td>-->
+                             <!--<td  style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                  <!--<b> <t t-esc="debittotal" /></b>-->
+                            <!--</td>-->
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="credittotal" /></b>-->
+                            <!--</td>-->
+
+
+                        <!--</tr>-->
+
+                                       <!--<tr >-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                             <!--<td colspan="2" style="text-align:center;border: 1px solid black;border-collapse:collapse;">-->
+                                <!--<span><b>CLOSING BALANCE</b></span>-->
+                            <!--</td>-->
+                             <!--<td  style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                  <!--<b> <t t-esc="purchasetotal" /></b>-->
+                            <!--</td>-->
+                             <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<b> <t t-esc="saletotal" /></b>-->
+                            <!--</td>-->
+
+
+                        <!--</tr>-->
+
+
+
+
+
+                                        <!--</tr>-->
+
+                                    <!--</t>-->
+
+                                </tbody>
+                            </table>
+                        <!--</t>-->
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>

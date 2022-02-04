@@ -1,0 +1,79 @@
+<odoo>
+  <data>
+   <record model="ir.ui.view" id="alphonsa_hide_category_and_brand">
+            <field name="name">purchase hide category</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_order_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='brand_id']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+                </xpath>
+              <xpath expr="//field[@name='order_line']/tree/field[@name='category_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+              </xpath>
+                                    <!--<field name="category_id" options="{'no_create': True}" required="1"/>-->
+
+            </field>
+   </record>
+
+
+       <record model="ir.ui.view" id="alphonsa_hide_brand_form">
+            <field name="name">brand hide</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="accounting_extended.brand_product_product_form"></field>
+            <field name="arch" type="xml">
+                <field name="brand_id" position="attributes">
+                    <attribute name="required">0</attribute>
+                </field>
+            </field>
+       </record>
+
+
+        <record id="alphon_hide_brand_form" model="ir.ui.view">
+            <field name="name">product template brand</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="accounting_extended.product_template_brand_form"/>
+            <field name="arch" type="xml">
+
+                <field name="brand_id" position="attributes">
+                    <attribute name="required">0</attribute>
+                </field>
+            </field>
+        </record>
+
+
+
+
+        <record model="ir.ui.view" id="invoice_hide_category">
+            <field name="name">invoice hide category</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="accounting_extended.purchase_invoice_inherit_form_view"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='brand_id']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='category_id']" position="attributes">
+
+                  <attribute name="invisible">1</attribute>
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+  </data>
+</odoo>

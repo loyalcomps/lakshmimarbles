@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="cess_account_tax_view_inherit">
+      <field name="name">Account Tax</field>
+      <field name="model">account.tax</field>
+      <field name="inherit_id" ref="account.view_tax_form"></field>
+      <field name="arch" type="xml">
+
+        <field name="name" position="after">
+          <field name="cess"/>
+          <field name="igst"/>
+        </field>
+      </field>
+    </record>
+   
+  </data>
+</odoo>

@@ -1,0 +1,108 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="user_extraright">
+            <field name="name">user_extraright</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"></field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page/group/field[@name='barcode']" position = "after" >
+                    <field name="pos_configuser" />
+                </xpath>
+
+                   <!--<xpath expr="//sheet/notebook/page/group/group/field[@name='action_id']" position="after">-->
+                    <!--<field name="is_corp"/>-->
+
+                <!--</xpath>-->
+
+
+                <!--<field name="tz" position="after">-->
+                    <!---->
+                <!--</field>-->
+
+
+            </field>
+
+    </record>
+
+      <!--<record id="point_of_sale.action_pos_config_kanban" model="ir.actions.act_window">-->
+        <!--<field name="domain">[('id','=',user.pos_configuser.id)]</field>-->
+<!--</record>-->
+
+     <!--<record model="ir.ui.view" id="user_extraright_kanban">-->
+            <!--<field name="name">user_extraright_kanban</field>-->
+            <!--<field name="model">pos.config</field>-->
+            <!--<field name="inherit_id" ref="point_of_sale.action_pos_config_kanban"></field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="tz" position="after">-->
+                    <!--<field name="pos_configuser" />-->
+                <!--</field>-->
+            <!--</field>-->
+
+    <!--</record>-->
+
+
+
+
+
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="loyal_pos_userrights.list">
+      <field name="name">loyal_pos_userrights list</field>
+      <field name="model">loyal_pos_userrights.loyal_pos_userrights</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="loyal_pos_userrights.action_window">
+      <field name="name">loyal_pos_userrights window</field>
+      <field name="res_model">loyal_pos_userrights.loyal_pos_userrights</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="loyal_pos_userrights.action_server">
+      <field name="name">loyal_pos_userrights server</field>
+      <field name="model_id" ref="model_loyal_pos_userrights_loyal_pos_userrights"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="loyal_pos_userrights" id="loyal_pos_userrights.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="loyal_pos_userrights.menu_1" parent="loyal_pos_userrights.menu_root"/>
+    <menuitem name="Menu 2" id="loyal_pos_userrights.menu_2" parent="loyal_pos_userrights.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="loyal_pos_userrights.menu_1_list" parent="loyal_pos_userrights.menu_1"
+              action="loyal_pos_userrights.action_window"/>
+    <menuitem name="Server to list" id="loyal_pos_userrights" parent="loyal_pos_userrights.menu_2"
+              action="loyal_pos_userrights.action_server"/>
+    -->
+      
+  </data>
+</odoo>

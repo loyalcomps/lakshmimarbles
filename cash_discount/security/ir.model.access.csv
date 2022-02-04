@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cash_discount_cash_discount,cash_discount.cash_discount,model_cash_discount_cash_discount,,1,0,0,0

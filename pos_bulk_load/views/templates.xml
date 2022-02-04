@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="bulk_assets_backend" name="pos_bulk_load bulk assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/pos_bulk_load/static/src/js/rpc.js"></script>
+            <script type="text/javascript" src="/pos_bulk_load/static/src/js/bulk.js"></script>
+
+            <script type="text/javascript" src="/pos_bulk_load/static/src/js/channel.js"></script>
+            <script type="text/javascript" src="/pos_bulk_load/static/src/js/model.js"></script>
+            <script type="text/javascript" src="/pos_bulk_load/static/src/js/screen.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

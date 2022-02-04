@@ -1,0 +1,10 @@
+
+   <odoo>
+    <data>
+        <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_orderline_payment_restriction/static/src/js/line_payment.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

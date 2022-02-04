@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='purchase_productsale_wizard_form'>
+            <field name="name">purchase.amount.xls.form</field>
+            <field name="model">purchase.amount.xls</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                    
+                    <group col="4" string="Dates">
+
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    
+                    <group>
+                        <field name="company_id" />
+                        <field name="partner_id" />
+
+
+
+
+                    </group>
+
+
+
+
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export sale Report" class="oe_highlight"
+                                context="{'xls_export':1}" icon="gtk-print"/>
+                        or
+                        <button name="export_pdf" type="object" default_focus="1"
+                                string="Export Report" class="oe_highlight"
+                                context="{'xls_export':1}" icon="gtk-print"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='purchase_productsale_wizard_act'>
+            <field name="name">Purchase Excel</field>
+            <field name="res_model">purchase.amount.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_productsale_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+            id="purchase_amount_xlsx"
+            model="pos.order"
+            string=" "
+            report_type="xlsx"
+            name="purchase_amount_xls.qlty_productsale_xls.xlsx"
+            file="purchase_amount_xls.qlty_productsale_xls.xlsx"
+            attachment_use="False"
+        />
+        <report
+            id="purchase_amount_pdf"
+            model="pos.order"
+            string=" "
+            report_type="qweb-html"
+            name="purchase_amount_xls.productsale_report_pdf"
+            file="purchase_amount_xls.productsale_report_pdf"
+        />
+        <menuitem name="Purchase Amount Report" parent="account.menu_finance_reports" id="export_excel" action="purchase_productsale_wizard_act" sequence="5"/>
+    </data>
+</openerp>

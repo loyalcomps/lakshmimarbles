@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="pos assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+
+                <link rel="stylesheet" href="/buy3_get1/static/src/css/promotion.css"/>
+                <script type="text/javascript" src="/buy3_get1/static/src/js/promotion.js"/>
+
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

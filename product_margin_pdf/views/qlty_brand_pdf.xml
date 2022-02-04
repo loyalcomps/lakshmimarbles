@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="qlty_brand_pdf">
+            <t t-call="report.html_container">
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align:center;">
+
+                            <t t-if="res_company.name">
+                                <strong style="font-size:20px;"><span t-esc="res_company.name"/></strong>
+                                <br/>
+                            </t>
+
+                            <t t-if="res_company.street">
+                                <strong><span t-esc="res_company.street"/></strong>
+                                <br/>
+                            </t>
+
+                             <b style="font-size:16px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/>
+                            <br></br>
+
+
+
+
+                        </div>
+                    </div>
+
+
+                  <t t-set="price_subtotaltotal" t-value="0"/>
+                <t t-set="pricesubtotaltaxinc" t-value="0"/>
+                <t t-set="margintotal" t-value="0"/>
+                <t t-set="gross_margintotal" t-value="0"/>
+                                    <t t-set="costtotal" t-value="0"/>
+                    <t t-set="expensetotal" t-value="0"/>
+                    <t t-set="gross_percentagetotal" t-value="0"/>
+                    <t t-set="net_percentagetotal" t-value="0"/>
+
+
+                <div class="row">
+                <div class="col-xs-12">
+
+
+                    <table class="table table-bordered" align="center" style="border:1px solid black;border-collapse:collapse;">
+                        <thead  style="border: 1px solid black;border-collapse:collapse;">
+                            <tr>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Month</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Sale Amount without Tax</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Cost</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Gross Margin</th>
+
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Offer price</th>-->
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Expense</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Net Margin</th>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Expense Amount</th>-->
+
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Gross(%)</th>
+                                <th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Net(%)</th>
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Landing cost</th>-->
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Profit</th>-->
+                                <!--<th class="text-left" style="border: 1px solid black;border-collapse:collapse;text-align:center;" >Margin</th>-->
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="invoice_tbody">
+
+
+
+
+                        <t t-foreach="valuesone" t-as="line_ids" >
+                            <tr >
+                            <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:center; " >-->
+                               <!--<span t-esc="ss"/>-->
+                                <!--<t t-set="ss" t-value="ss+1"/>-->
+                            <!--</td>-->
+                             <td style="border: 1px solid black;border-collapse:collapse;" >
+                                <span t-esc="line_ids['month']"/>
+                            </td>
+                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;" >
+                                <span t-esc="'%.2f'%line_ids['price_subtotal']"/>
+                                    <t t-set="price_subtotaltotal" t-value="price_subtotaltotal + line_ids['price_subtotal']"/>
+                            </td>
+
+                                 <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['cost'] "/>
+                                 <t t-set="costtotal" t-value="costtotal + line_ids['cost']" />
+                            </td>
+
+
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['gross_margin'] "/>
+                                 <t t-set="gross_margintotal" t-value="gross_margintotal + line_ids['gross_margin']" />
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['expense'] "/>
+                                <t t-set="expensetotal" t-value="expensetotal + line_ids['expense']" />
+                                 <!--<t t-set="invtytotal" t-value="invtytotal + line_ids['onhand']" />-->
+                            </td>
+
+                                <!--<td style="border: 1px solid black;border-collapse:collapse;text-align:right;">-->
+                                <!--<span t-esc="'%.2f'%line_ids['expence'] "/>-->
+                                <!--<t t-set="expencetotal" t-value="expencetotal + line_ids['expence']" />-->
+                                 <!--&lt;!&ndash;<t t-set="invtytotal" t-value="invtytotal + line_ids['onhand']" />&ndash;&gt;-->
+                            <!--</td>-->
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['margin'] "/>
+                                 <t t-set="margintotal" t-value="margintotal + line_ids['margin']" />
+                            </td>
+
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['gross_percentage'] "/>
+                                <t t-set="gross_percentagetotal" t-value="gross_percentagetotal + line_ids['gross_percentage']" />
+
+                            </td>
+
+                                <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <span t-esc="'%.2f'%line_ids['net_percentage'] "/>
+                                <t t-set="net_percentagetotal" t-value="net_percentagetotal + line_ids['net_percentage']" />
+
+                            </td>
+
+
+
+
+
+                            </tr>
+                        </t>
+
+
+                        <tr >
+                            <!--<td>-->
+
+                            <!--</td>-->
+                             <td style="text-align:center;border: 1px solid black;border-collapse:collapse;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%price_subtotaltotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%costtotal" /></b>
+                            </td>
+                             <td  style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                  <b> <t t-esc="'%.2f'%gross_margintotal" /></b>
+                            </td>
+                            <td  style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                  <b> <t t-esc="'%.2f'%expensetotal" /></b>
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                    <b> <t t-esc="'%.2f'%margintotal" /></b>
+                            </td>
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="'%.2f'%gross_percentagetotal" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:right;">
+                                <b> <t t-esc="'%.2f'%net_percentagetotal" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+
+                    <!--</t>-->
+
+
+
+
+                </div>
+
+            </t>
+        </template>
+    </data>
+</odoo>
